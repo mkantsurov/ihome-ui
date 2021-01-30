@@ -1,0 +1,138 @@
+<div class="page-container">
+  <mat-card class="mat-data-card">
+    <mat-card-title>Outdoor</mat-card-title>
+    <mat-card-content>
+      <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell">Name</div>
+          <div class="mat-header-cell">Value</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Temperature</div>
+          <div class="mat-cell">{{ systemSummary.outDoorTemperature * .01 | number:'1.1' }}</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Humidity</div>
+          <div class="mat-cell">{{ systemSummary.outDoorHumidity * .0001 | percent: '1.1'}}</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Pressure</div>
+          <div class="mat-cell">{{ systemSummary.pressure }}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-data-card">
+    <mat-card-title>Second Floor</mat-card-title>
+    <mat-card-content>
+      <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell">Name</div>
+          <div class="mat-header-cell">Value</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Temperature</div>
+          <div class="mat-cell">{{ systemSummary.sfTemperature * .01 | number:'1.1' }}</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Humidity</div>
+          <div class="mat-cell">{{ systemSummary.sfHumidity * .0001 | percent: '1.1'}}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-data-card">
+    <mat-card-title>Ground Floor</mat-card-title>
+    <mat-card-content>
+      <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell">Name</div>
+          <div class="mat-header-cell">Value</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Temperature</div>
+          <div class="mat-cell">{{ systemSummary.gfTemperature * .01 | number:'1.1' }}</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Humidity</div>
+          <div class="mat-cell">{{ systemSummary.sfHumidity * .0001 | percent: '1.1'}}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-data-card">
+    <mat-card-title>Garage</mat-card-title>
+    <mat-card-content>
+      <div class="mat-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell">Name</div>
+          <div class="mat-header-cell">Value</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Temperature</div>
+          <div class="mat-cell">{{ systemSummary.garageTemperature * .01 | number:'1.1' }}</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Humidity</div>
+          <div class="mat-cell">{{ systemSummary.garageHumidity * .0001 | percent: '1.1'}}</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell">Boiler Temperature</div>
+          <div class="mat-cell">{{ systemSummary.boilerTemperature * .01 | number:'1.1' }}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-data-chart-card">
+    <mat-card-title>Temperature Stats</mat-card-title>
+    <mat-card-content>
+      <div style="width: 600px; height: 400px">
+        <app-temp-chart [data]="tempStat"></app-temp-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-data-chart-card">
+    <mat-card-title>Boiler Temp Stat</mat-card-title>
+    <mat-card-content>
+      <div style="width: 600px;">
+        <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-data-chart-card">
+    <mat-card-title>Pressure Stat</mat-card-title>
+    <mat-card-content>
+      <div style="width: 600px;">
+        <app-pressure-chart [data]="pressureStat"></app-pressure-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-data-chart-card">
+    <mat-card-title>Luminosity Stat</mat-card-title>
+    <mat-card-content>
+      <div style="width: 600px;">
+        <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-data-chart-card">
+    <mat-card-title>Memory Stat</mat-card-title>
+    <mat-card-content>
+      <div style="width: 600px;height: 400px">
+        <app-system-chart [data]="systemStat"></app-system-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mat-data-chart-card">
+    <mat-card-title>System LA Stat</mat-card-title>
+    <mat-card-content>
+      <div style="width: 600px;">
+        <app-system-chart-la [data]="laStat"></app-system-chart-la>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,9 @@
+.nav-bar {
+  width: 100%;
+}
+
+.nav-bar a.mat-tab-link {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #405061;
+}

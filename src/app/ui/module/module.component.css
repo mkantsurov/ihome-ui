@@ -1,0 +1,100 @@
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+
+.modules {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 35em;
+}
+
+.modules li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #888;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+
+.modules li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+
+.modules li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+
+.modules .text {
+  position: relative;
+  top: -3px;
+}
+
+.modules .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #405061;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.modules .moduleinfo {
+  display: inline-block;
+}
+
+.modules .modulename {
+  display: inline-block;
+  padding: 2px;
+}
+
+.modules .props {
+  display: inline-block;
+  float: right;
+  color: #602399;
+  width: 2em;
+}
+
+.module-headers-align .mat-expansion-panel-header-title,
+.module-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.module-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+
+#valueListitemWrapper{
+  width: 100%;
+  display: block;
+  justify-content:space-between;
+  background:red;
+}
+
+
+#c1{
+  background:blue;
+}
+
+
+#c2{
+  background:green;
+}

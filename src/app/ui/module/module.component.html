@@ -1,0 +1,143 @@
+<mat-accordion class="module-headers-align">
+  <mat-expansion-panel *ngFor="let module of moduleSummary">
+    <mat-expansion-panel-header (click)="onSelect(module)">
+      <mat-panel-title>
+        Module#{{module.moduleId}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{module.name}}
+        <mat-icon *ngIf="module.outputPortState > 0">power</mat-icon>
+        <mat-icon *ngIf="module.outputPortState <= 0">power_off</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container *ngIf="moduleData">
+      <ng-container *ngIf="moduleData.binarySensorData">
+        <mat-list>
+          <mat-list-item *ngFor="let binarySensorData of moduleData.binarySensorData">
+            <mat-icon matListIcon *ngIf="binarySensorData.enabled">flash_on</mat-icon>
+            <mat-icon matListIcon *ngIf="!binarySensorData.enabled">flash_off</mat-icon>
+            <h4 matLine>{{binarySensorData.name}}</h4>
+            <p matLine><span>{{binarySensorData.enabled ? "ON" : "OFF"}}</span></p>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+      <ng-container *ngIf="moduleData.temperatureSensorData">
+        <mat-list>
+          <mat-list-item *ngFor="let temperatureSensorData of moduleData.temperatureSensorData">
+            <mat-icon matListIcon>network_check</mat-icon>
+            <h4 matLine>{{temperatureSensorData.name}}</h4>
+            <p matLine><span>{{temperatureSensorData.data}}°C</span></p>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+      <ng-container *ngIf="moduleData.temperatureSensorData">
+        <mat-list>
+          <mat-list-item *ngFor="let tempHumiditySensorData of moduleData.tempHumiditySensorData">
+            <mat-icon matListIcon>network_check</mat-icon>
+            <h4 matLine>{{tempHumiditySensorData.name}}</h4>
+            <p matLine><span>{{tempHumiditySensorData.temperature}}°C</span></p>
+            <p matLine><span>{{tempHumiditySensorData.humidity}}%</span></p>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+      <ng-container *ngIf="moduleData.bme280TempHumidityPressureSensorData">
+        <mat-list>
+          <mat-list-item
+            *ngFor="let bme280TempHumidityPressureSensorData of moduleData.bme280TempHumidityPressureSensorData">
+            <mat-icon matListIcon>network_check</mat-icon>
+            <h4 matLine>{{bme280TempHumidityPressureSensorData.name}}</h4>
+            <p matLine><span>{{bme280TempHumidityPressureSensorData.temperature}}°C</span></p>
+            <p matLine><span>{{bme280TempHumidityPressureSensorData.humidity}}%</span></p>
+            <p matLine><span>{{bme280TempHumidityPressureSensorData.pressure}}</span></p>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+      <ng-container *ngIf="moduleData.tsl2591LuminositySensorData">
+        <mat-list>
+          <mat-list-item *ngFor="let luminositySensorData of moduleData.tsl2591LuminositySensorData">
+            <mat-icon matListIcon>network_check</mat-icon>
+            <h4 matLine>{{luminositySensorData.name}}</h4>
+            <p matLine><span>{{luminositySensorData.data}}lum</span></p>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+    </ng-container>
+    <mat-action-row *ngIf="selectedModule">
+      <mat-checkbox color="primary"
+                    [checked]="selectedModule.mode == 2"
+                    [disabled]="false"
+                    (change)="onLogicStatusChange(selectedModule)" value="logic">Logic enabled
+      </mat-checkbox>
+      &nbsp;
+      <mat-checkbox color="primary"
+                    [checked]="selectedModule.outputPortState > 0"
+                    [disabled]="false"
+                    (change)="onEnabledStatusChange(selectedModule)" value="output">Output Enabled
+      </mat-checkbox>
+      <!--              <button mat-button>Click me</button>-->
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<!--<ul class="modules">-->
+<!--  <li *ngFor="let module of moduleSummary" (click)="onSelect(module)">-->
+<!--    <span class="badge">{{module.moduleId}}</span>-->
+<!--    <div class="modulename">{{module.name}}</div>-->
+<!--    <div *ngIf="module.outputPortState > 0" class="props">-->
+<!--      <mat-icon>offline_bolt</mat-icon>-->
+<!--    </div>-->
+<!--    <div *ngIf="module.mode == 2" class="props">-->
+<!--      <mat-icon>done_all</mat-icon>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
+
+<!--<div *ngIf="selectedModule">-->
+
+<!--  <h3>{{selectedModule.name | uppercase}}</h3>-->
+
+<!--  <div>-->
+<!--    <mat-checkbox color="primary"-->
+<!--                  [checked]="selectedModule.mode == 2"-->
+<!--                  [disabled]="false"-->
+<!--                  (change)="onLogicStatusChange(selectedModule)" value="logic">Logic enabled-->
+<!--    </mat-checkbox>-->
+
+<!--    <mat-checkbox color="primary"-->
+<!--                  [checked]="selectedModule.outputPortState > 0"-->
+<!--                  [disabled]="false"-->
+<!--                  (change)="onEnabledStatusChange(selectedModule)" value="output">Output Enabled-->
+<!--    </mat-checkbox>-->
+<!--  </div>-->
+<!--  <div *ngIf="moduleData">-->
+<!--    <div *ngIf="moduleData.binarySensorData">-->
+<!--      <div *ngFor="let binarySensorData of moduleData.binarySensorData">-->
+<!--        <span>{{binarySensorData.name}}</span>-->
+<!--        <span>: {{binarySensorData.enabled ? "ON" : "OFF"}}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div *ngIf="moduleData.temperatureSensorData">-->
+<!--      <div *ngFor="let temperatureSensorData of moduleData.temperatureSensorData">-->
+<!--        <div>Sensor: {{temperatureSensorData.name}}</div>-->
+<!--        <div>Temperature: {{temperatureSensorData.data}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div *ngIf="moduleData.tempHumiditySensorData">-->
+<!--      <div *ngFor="let tempHumiditySensorData of moduleData.tempHumiditySensorData">-->
+<!--        <div>Sensor: {{tempHumiditySensorData.name}}</div>-->
+<!--        <div>Temperature: {{tempHumiditySensorData.temperature}}</div>-->
+<!--        <div>Humidity: {{tempHumiditySensorData.humidity}}%</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div *ngIf="moduleData.bme280TempHumidityPressureSensorData">-->
+<!--      <div *ngFor="let bme280TempHumidityPressureSensorData of moduleData.bme280TempHumidityPressureSensorData">-->
+<!--        <div>Sensor: {{bme280TempHumidityPressureSensorData.name}}</div>-->
+<!--        <div>Tempertature: {{bme280TempHumidityPressureSensorData.temperature}}</div>-->
+<!--        <div>Humidity: {{bme280TempHumidityPressureSensorData.humidity}}%</div>-->
+<!--        <div>Pressure: {{bme280TempHumidityPressureSensorData.pressure}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->
