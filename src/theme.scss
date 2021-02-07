@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@import "./theme_variables.scss";
+
+@include mat-core();
+
+$app-theme: mat-light-theme($mat-purple, $mat-purple, $mat-red);
+$app-theme-dark: mat-dark-theme($md-ihome-mcgpalette-green, $md-ihome-mcgpalette-green, $mat-pink);
+
+// Insert custom background color
+//$background: map-get($app-theme, background);
+//$dlg-background: map-get($app-theme, background);
+//$background: map_merge($background, (background: $background-color));
+//$background: map_merge($background, (dialog: $dlg-background-color));
+//$background: map_merge($background, (card: $dlg-background-color));
+//$background: map_merge($background, (raised-button: $dlg-background-color));
+//$background: map_merge($background, (selected-disabled-button: $dlg-background-color));
+
+//$app-theme: map_merge($app-theme, (background: $iot-mat-light-theme-background));
+//$app-theme: map_merge($app-theme, (foreground: $iot-mat-light-theme-foreground));
+//$app-theme-dark: map_merge($app-theme-dark, (background: $iot-mat-dark-theme-background));
+$app-theme-dark: map_merge($app-theme-dark, (background: $ihome-mat-dark-theme-background));
+@include angular-material-theme($app-theme-dark);

@@ -1,0 +1,19 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700";
+@import "~@angular/material/theming";
+@import "./theme";
+
+html, body {
+  font-family: Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+.ihome-mat-drawer-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.ihome-mat-drawer {
+  width: 360px;
+}

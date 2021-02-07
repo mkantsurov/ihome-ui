@@ -1,0 +1,30 @@
+@import "node_modules/@angular/material/theming";
+@import "src/theme_variables";
+
+//.nav-bar {
+//  width: 100%;
+//}
+//
+//.nav-bar a.mat-tab-link {
+//  text-transform: uppercase;
+//  font-weight: 700;
+//  color: #405061;
+//}
+.icon-display {
+  transform: scale(2);
+}
+
+.login-wizard-logo {
+  width: 600px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+//text-transform: uppercase;
+//padding-top: 40px;
+  padding-top: 40px;
+  padding-left: 15px;
+  transform: skew(-5deg);
+  color: $accent;
+  line-height: 1em;
+  text-shadow: 3px 3px mat-color($md-ihome-mcgpalette-dblue, 500);
+}

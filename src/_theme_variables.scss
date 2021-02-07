@@ -1,0 +1,89 @@
+@import "~@angular/material/theming";
+
+$md-ihome-mcgpalette-dblue: (
+  50 : #e0ecfb,
+  100 : #bbcfe0,
+  200 : #98aec3,
+  300 : #738da6,
+  400 : #597691,
+  500 : #3e607d,
+  600 : #32536d,
+  700 : #234158,
+  800 : #162f43,
+  900 : #041c2c,
+  A100 : #abdeff,
+  A200 : #45b5ff,
+  A400 : #0385db,
+  A700 : #0c74b8,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$md-ihome-mcgpalette-green: (
+  50 : #def7f5,
+  100 : #a0e9e2,
+  200 : #72dfd4,
+  300 : #38d1c3,
+  400 : #2cbfb1,
+  500 : #26a69a,
+  600 : #208d83,
+  700 : #1b746c,
+  800 : #155b55,
+  900 : #0f423e,
+  A100 : #cefdf9,
+  A200 : #6cf9ec,
+  A400 : #1ce3d0,
+  A700 : #25c0b2,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$ihome-mat-dark-theme-background: (
+  status-bar: black,
+  app-bar:    map-get($md-ihome-mcgpalette-dblue, 900), //app-bar:    map-get($mat-grey, 900),
+  background: map-get($md-ihome-mcgpalette-dblue, 800), //background: #303030,
+  hover:      map-get($md-ihome-mcgpalette-dblue, 600), //rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+  card:       map-get($md-ihome-mcgpalette-dblue, 600), //card:       map-get($mat-grey, 800),
+  dialog:     map-get($md-ihome-mcgpalette-dblue, 700), //dialog:  n   map-get($mat-grey, 800),
+  disabled-button: map-get($md-ihome-mcgpalette-dblue, 500), //rgba(white, 0.12),
+  raised-button: map-get($md-ihome-mcgpalette-dblue, 800), //raised-button: map-get($mat-grey, 800),
+  focused-button: $light-focused,
+  selected-button: map-get($md-ihome-mcgpalette-dblue, 500), //selected-button: map-get($mat-grey, 900),
+  selected-disabled-button: map-get($md-ihome-mcgpalette-dblue, 900), //selected-disabled-button: map-get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map-get($md-ihome-mcgpalette-dblue, 700), //unselected-chip: map-get($mat-grey, 700),
+  disabled-list-option: black,
+  tooltip: map-get($md-ihome-mcgpalette-dblue, 700)    //tooltip: map-get($mat-grey, 700)
+);
+
+$primary: mat-color($md-ihome-mcgpalette-dblue);
+$accent: mat-color($md-ihome-mcgpalette-green);
+$warn: mat-color($mat-pink);

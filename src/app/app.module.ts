@@ -21,10 +21,9 @@ import {IsAdminGuard} from "./guards/is-admin.guard";
 import {AuthenticationService} from "./services/authentication.service";
 import {SystemService} from "./services/system.service";
 import {AdminService} from "./services/admin.service";
-import {MainComponent} from './ui/main/main.component';
-import {IndexComponent} from './ui/common/index/index.component';
+import {MainComponent} from './ui/main/main/main.component';
 import {AccessDeniedComponent} from './ui/common/access-denied/access-denied.component';
-import {HeaderComponent} from './ui/header/header.component';
+import {HeaderComponent} from './ui/common/header/header.component';
 import {ExtlightComponent} from './ui/extlight/extlight.component';
 import {TempChartComponent} from './ui/chart/tempchart/temp-chart.component';
 import {PressureChartComponent} from './ui/chart/pressurechart/pressure-chart.component';
@@ -49,6 +48,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
+import { GeneralOutdoorComponent } from './ui/general/general-outdoor/general-outdoor.component';
+import { GeneralPowerComponent } from './ui/general/general-power/general-power.component';
+import { GeneralSignInComponent } from './ui/general/general-sign-in/general-sign-in.component';
+import { IndexComponent } from './ui/general/index/index.component';
 
 
 @NgModule({
@@ -60,7 +63,6 @@ import {MatListModule} from "@angular/material/list";
     GarageComponent,
     ModuleComponent,
     MainComponent,
-    IndexComponent,
     AccessDeniedComponent,
     HeaderComponent,
     ExtlightComponent,
@@ -70,7 +72,11 @@ import {MatListModule} from "@angular/material/list";
     LeftMenuComponent,
     SystemChartComponent,
     LuminosityChartComponent,
-    SystemChartLaComponent
+    SystemChartLaComponent,
+    GeneralOutdoorComponent,
+    GeneralPowerComponent,
+    GeneralSignInComponent,
+    IndexComponent
   ],
   imports: [
     HttpClientModule,
