@@ -1,28 +1,29 @@
 <div fxLayout="row"
      fxLayout.xs="column"
      fxFlexFill
-     fxLayoutAlign="center center">
-<!--  <div fxFlex="5%">-->
-<!--    <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">device_thermostat</mat-icon>-->
-<!--  </div>-->
+     fxLayoutAlign="left center">
   <div fxFlex="5%">
-    <button autofocus mat-raised-button style="float: right"  color="accent" type="submit">
-      Next
-    </button>
+    <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">device_thermostat</mat-icon>
   </div>
-  <div fxFlex="10%">
-    <h3>Temperature</h3>
-  </div>
-  <div fxFlex="5%">25</div>
+  <div fxFlex="10%">Temperature</div>
+  <div fxFlex="85%">25</div>
 </div>
 <div fxLayout="row"
      fxLayout.xs="column"
      fxFlexFill
      fxLayoutAlign="center center">
   <div fxFlex="5%">
-    <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">device_thermostat</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">water_damage</mat-icon>
   </div>
   <div fxFlex="10%">Humidity</div>
-  <div fxFlex="5%">60%</div>
+  <div fxFlex="85%">60%</div>
+</div>
+<div fxLayout="row"
+     fxLayout.xs="column"
+     fxFlexFill
+     fxLayoutAlign="center center">
+  <div fxFlex="70%">
+    <app-general-temp-chart></app-general-temp-chart>
+  </div>
 </div>
 
