@@ -84,6 +84,10 @@ $ihome-mat-dark-theme-background: (
   tooltip: map-get($md-ihome-mcgpalette-dblue, 700)    //tooltip: map-get($mat-grey, 700)
 );
 
-$primary: mat-color($md-ihome-mcgpalette-dblue);
-$accent: mat-color($md-ihome-mcgpalette-green);
-$warn: mat-color($mat-pink);
+$app-primary: mat-palette($md-ihome-mcgpalette-dblue);
+$app-accent: mat-palette($md-ihome-mcgpalette-green);
+$app-warn: mat-palette($mat-pink);
+
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);

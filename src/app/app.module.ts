@@ -52,6 +52,7 @@ import { GeneralOutdoorComponent } from './ui/general/general-outdoor/general-ou
 import { GeneralPowerComponent } from './ui/general/general-power/general-power.component';
 import { GeneralSignInComponent } from './ui/general/general-sign-in/general-sign-in.component';
 import { IndexComponent } from './ui/general/index/index.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { IndexComponent } from './ui/general/index/index.component';
     MatExpansionModule,
     MatTreeModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule
   ],
   providers: [
     AuthenticationService,
