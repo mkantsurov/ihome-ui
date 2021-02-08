@@ -85,8 +85,8 @@ $ihome-mat-dark-theme-background: (
 );
 
 $app-primary: mat-palette($md-ihome-mcgpalette-dblue);
-$app-accent: mat-palette($md-ihome-mcgpalette-green);
-$app-warn: mat-palette($mat-pink);
+$app-accent: mat-palette($md-ihome-mcgpalette-green,  500);
+$app-warn: mat-palette($mat-pink, 600);
 
 $primary: mat-color($app-primary);
 $accent: mat-color($app-accent);

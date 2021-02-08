@@ -1,5 +1,8 @@
-@import "../../../../theme_variables";
-
+@import "~@angular/material/theming";
+@import "../../../../theme_variables.scss";
+h3 {
+  color: $accent;
+}
 .test-color {
   color: $accent;
 }
