@@ -6,6 +6,7 @@ import {SecondfloorComponent} from "./ui/secondfloor/secondfloor.component";
 import {GarageComponent} from "./ui/garage/garage.component";
 import {IsAdminGuard} from "./guards/is-admin.guard";
 import {AuthGuard} from "./guards/auth-guard.service";
+import {GuestGuard} from "./guards/guest-guard.service";
 import {MainComponent} from "./ui/main/main/main.component";
 import {AccessDeniedComponent} from "./ui/common/access-denied/access-denied.component";
 import {ExtlightComponent} from "./ui/extlight/extlight.component";
@@ -19,6 +20,8 @@ const commonRoutes: Routes = [
   {
     path: '',
     component: IndexComponent,
+    canActivate: [GuestGuard],
+    canActivateChild: [GuestGuard],
     children: [
       {path: '', redirectTo: '/public-outdoor', pathMatch: 'full'},
       {path: 'public-outdoor', component: GeneralOutdoorComponent},

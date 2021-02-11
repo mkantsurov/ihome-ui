@@ -11,23 +11,23 @@ import {PowerStat} from "../domain/power-stat";
 })
 export class GuestService {
 
-  private baseUrl = '/api/v1/guest';
+  private baseUrl = '/guest-api/v1/stats';
 
   constructor(private http: HttpClient) { }
 
   getTempStat(): Observable<OutdoorTempStat> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<OutdoorTempStat>(`${this.baseUrl}/outdoor-temp-stat/`)
+    return this.http.get<OutdoorTempStat>(`${this.baseUrl}/outdoor-temp-stat`)
   }
 
   getPressureStat(): Observable<PressureStat> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<PressureStat>(`${this.baseUrl}/pressure-stat/`)
+    return this.http.get<PressureStat>(`${this.baseUrl}/pressure-stat`)
   }
 
   getPowerStat(): Observable<PowerStat> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<PowerStat>(`${this.baseUrl}/power-stat/`)
+    return this.http.get<PowerStat>(`${this.baseUrl}/power-stat`)
   }
 
 }

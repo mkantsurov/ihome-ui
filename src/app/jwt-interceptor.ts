@@ -6,7 +6,7 @@ import {AuthenticationService} from "./services/authentication.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {empty} from "rxjs/internal/Observer";
 import {mergeMap} from "rxjs/operators";
-import {ACCESS_TOKEN, API_PATTERN} from "./domain/constant";
+import {ACCESS_TOKEN, API_PATTERN, GUEST_API_PATTERN} from "./domain/constant";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -18,6 +18,11 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler,): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
     console.info('Intercepting jwt request...');
+
+    if (request.url.match(GUEST_API_PATTERN)) {
+      return next.handle(this.simpleHeaders(request));
+    }
+
     if (!request.url.match(API_PATTERN)) {
       return next.handle(this.simpleHeaders(request));
     }

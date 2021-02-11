@@ -16,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ModuleComponent} from './ui/module/module.component';
 import {AuthGuard} from "./guards/auth-guard.service";
 import {IsUserGuard} from "./guards/is-user.guard";
+import {GuestGuard} from "./guards/guest-guard.service";
 import {UserService} from "./services/user.service";
 import {IsAdminGuard} from "./guards/is-admin.guard";
 import {AuthenticationService} from "./services/authentication.service";
@@ -119,7 +120,8 @@ import { GeneralPowerChartComponent } from './ui/general/general-power/general-p
     SystemService,
     AuthGuard,
     IsAdminGuard,
-    IsUserGuard
+    IsUserGuard,
+    GuestGuard
   ],
   bootstrap: [AppComponent]
 })

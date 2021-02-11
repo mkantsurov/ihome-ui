@@ -36,15 +36,18 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
 
   initChart(data: OutdoorTempStat) {
     var timeArray = data.temperature.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
-    var measValueArray = data.temperature.map(el => el.value)
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'Pressure',
-          data: measValueArray,
-          backgroundColor: "rgba(255,153,0,0.4)"
+          label: 'Temperature',
+          data: data.temperature.map(el => ({
+            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            y: (el.value * 0.01).toFixed(2)
+          })),
+          backgroundColor: "transparent",
+          borderColor: "#26A69A"
         }]
       },
 
