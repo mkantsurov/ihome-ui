@@ -1,19 +1,18 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {OutdoorTempStat} from "../../../../domain/outdoor-temp-stat";
-import * as Chart from "chart.js";
 import {PressureStat} from "../../../../domain/pressurestat";
+import * as Chart from "chart.js";
 
 @Component({
-  selector: 'app-general-temp-chart',
-  templateUrl: './general-temp-chart.component.html',
-  styleUrls: ['./general-temp-chart.component.css']
+  selector: 'app-general-pressure-chart',
+  templateUrl: './general-pressure-chart.component.html',
+  styleUrls: ['./general-pressure-chart.component.css']
 })
-export class GeneralTempChartComponent implements OnInit, OnChanges {
+export class GeneralPressureChartComponent implements OnInit, OnChanges {
   _seed: number = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: OutdoorTempStat;
+  @Input() data: PressureStat;
 
   isLoaded: boolean = false;
 
@@ -26,7 +25,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["data"] && this.data) {
-      console.info('Initializing temp-chart...');
+      console.info('Initializing pressure-chart...');
       this.initChart(this.data);
     }
   }
@@ -34,17 +33,17 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  initChart(data: OutdoorTempStat) {
-    var timeArray = data.temperature.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+  initChart(data: PressureStat) {
+    var timeArray = data.pressure.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'Temperature',
-          data: data.temperature.map(el => ({
+          label: 'Pressure',
+          data: data.pressure.map(el => ({
             x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
-            y: (el.value * 0.01).toFixed(2)
+            y: el.value
           })),
           backgroundColor: "transparent",
           borderColor: "#2E4895"
@@ -70,7 +69,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Temperature'
+              labelString: 'Pressure'
             }
           }]
         },

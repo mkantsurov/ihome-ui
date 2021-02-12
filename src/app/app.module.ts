@@ -56,6 +56,7 @@ import { IndexComponent } from './ui/general/index/index.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { GeneralTempChartComponent } from './ui/general/general-outdoor/general-temp-chart/general-temp-chart.component';
 import { GeneralPowerChartComponent } from './ui/general/general-power/general-power-chart/general-power-chart.component';
+import { GeneralPressureChartComponent } from './ui/general/general-outdoor/general-pressure-chart/general-pressure-chart.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { GeneralPowerChartComponent } from './ui/general/general-power/general-p
     GeneralSignInComponent,
     IndexComponent,
     GeneralTempChartComponent,
-    GeneralPowerChartComponent
+    GeneralPowerChartComponent,
+    GeneralPressureChartComponent
   ],
   imports: [
     HttpClientModule,
