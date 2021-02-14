@@ -1,19 +1,18 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {LuminosityStat} from "../../../domain/luminositystat";
+import {SystemStat} from "../../../../domain/systemstat";
 import * as Chart from 'chart.js';
 
 @Component({
-  selector: 'app-luminosity-chart',
-  templateUrl: './luminosity-chart.component.html',
-  styleUrls: ['./luminosity-chart.component.css']
+  selector: 'app-system-chart',
+  templateUrl: './system-chart.component.html',
+  styleUrls: ['./system-chart.component.css']
 })
-export class LuminosityChartComponent implements OnInit, OnChanges {
-
+export class SystemChartComponent implements OnInit, OnChanges {
   _seed: number = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: LuminosityStat;
+  @Input() data: SystemStat;
 
   isLoaded: boolean = false;
 
@@ -26,7 +25,7 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["data"] && this.data) {
-      console.info('Initializing luminosity-chart...');
+      console.info('Initializing system-chart...');
       this.initChart(this.data);
     }
   }
@@ -35,27 +34,46 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
   }
 
 
-  initChart(data: LuminosityStat) {
+  initChart(data: SystemStat) {
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
-
         datasets: [{
-          label: 'Luminosity',
-          data: data.luminosity.map(el => ({
+          label: 'Heap Max',
+          fill: false,
+          backgroundColor: '#790b8e',
+          borderColor: '#790b8e',
+          pointRadius: 1,
+          data: data.heapMax.map(el => ({
             x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
             y: el.value.toFixed(2)
           })),
-          backgroundColor: '#e8bc00',
-          borderColor: '#e8bc00',
+        }, {
+          label: 'Heap Usage',
+          fill: false,
+          backgroundColor: '#854492',
+          borderColor: '#854492',
           pointRadius: 1,
+          data: data.heapUsage.map(el => ({
+            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            y: el.value.toFixed(2)
+          })),
         }]
       },
-
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+          text: 'Chart.js Time Scale'
+        },
+        tooltips: {
+          mode: 'point',
+          intersect: true,
+          footerFontStyle: 'normal'
+        },
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'hour',
               unitStepSize: 2,
@@ -65,13 +83,13 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
             },
             scaleLabel: {
               display: true,
-              labelString: 'Time'
+              labelString: 'Date'
             }
-          },],
+          }],
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Luminosity'
+              labelString: 'MB'
             }
           }]
         },

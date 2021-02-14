@@ -1,19 +1,19 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {PressureStat} from "../../../domain/pressurestat";
 import * as Chart from 'chart.js';
+import {LaStat} from "../../../../domain/lastat";
 
 @Component({
-  selector: 'app-pressure-chart',
-  templateUrl: './pressurechart.component.html',
-  styleUrls: ['./pressurechart.component.css']
+  selector: 'app-system-chart-la',
+  templateUrl: './system-chart-la.component.html',
+  styleUrls: ['./system-chart-la.component.css']
 })
-export class PressureChartComponent implements OnInit, OnChanges {
+export class SystemChartLaComponent implements OnInit, OnChanges {
 
   _seed: number = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PressureStat;
+  @Input() data: LaStat;
 
   isLoaded: boolean = false;
 
@@ -26,7 +26,7 @@ export class PressureChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["data"] && this.data) {
-      console.info('Initializing pressure-chart...');
+      console.info('Initializing la-chart...');
       this.initChart(this.data);
     }
   }
@@ -35,24 +35,27 @@ export class PressureChartComponent implements OnInit, OnChanges {
   }
 
 
-  initChart(data: PressureStat) {
-    var timeArray = data.pressure.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
-    var measValueArray = data.pressure.map(el => el.value)
+  initChart(data: LaStat) {
+    var timeArray = data.la.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'Pressure',
-          data: measValueArray,
-          backgroundColor: "rgba(255,153,0,0.4)"
+          label: 'LA',
+          data: data.la.map(el => ({
+            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            y: (el.value * 0.01).toFixed(2)
+          })),
+          backgroundColor: '#bb3b01',
+          pointRadius: 1
         }]
       },
 
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'hour',
               unitStepSize: 2,
@@ -68,7 +71,7 @@ export class PressureChartComponent implements OnInit, OnChanges {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Pressure'
+              labelString: 'LA'
             }
           }]
         },

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {GuestService} from "../../../services/guest.service";
+import {PowerStat} from "../../../domain/power-stat";
 
 @Component({
   selector: 'app-general-power',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralPowerComponent implements OnInit {
 
-  constructor() { }
+  powerStat: PowerStat;
+
+  constructor(public guestService: GuestService) { }
 
   ngOnInit(): void {
+    this.guestService.getPowerStat().subscribe(response => {
+      this.powerStat = response;
+    })
   }
 
 }

@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as Chart from 'chart.js';
-import {TempStat} from '../../../domain/tempstat';
+import {TempStat} from '../../../../domain/tempstat';
 
 @Component({
   selector: 'app-temp-chart',

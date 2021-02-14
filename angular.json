@@ -23,7 +23,7 @@
             "polyfills": "src/polyfills.ts",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
+              "src/assets/images/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -96,7 +96,7 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
+              "src/assets/images/favicon.ico",
               "src/assets"
             ]
           }

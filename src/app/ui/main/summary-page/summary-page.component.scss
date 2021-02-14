@@ -1,0 +1,37 @@
+.mat-data-card, .mat-data-chart-card {
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  margin: 10px;
+}
+//
+//h3 {
+//  margin: 0 !important;
+//}
+.mat-data-chart-card {
+  width: 500px
+}
+
+.chart-container {
+  padding-top: 10px;
+  height: 250px;
+  width: 550px;
+}
+
+.data-header {
+  position:relative;
+  padding-top:4px;
+}
+.data-header-icon {
+  position:relative;
+}
+.data-header-text{
+  position:absolute;
+  //padding-top:2px;
+}
+
+.data-panel {
+  display: block;
+  padding: 10px;
+  width: 250px;
+}

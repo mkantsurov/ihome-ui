@@ -1,1 +1,9 @@
-<p>general-power-chart works!</p>
+<div [hidden]="!isLoaded" style="position: relative;">
+  <canvas #canvas>
+    {{ chart }}
+  </canvas>
+</div>
+
+<div class="example-loading-shade" *ngIf="! isLoaded">
+  <mat-spinner></mat-spinner>
+</div>

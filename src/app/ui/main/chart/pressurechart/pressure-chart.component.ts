@@ -1,29 +1,32 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {PressureStat} from "../../../../domain/pressurestat";
 import * as Chart from 'chart.js';
-import {BoilerTempStat} from "../../../domain/boilertempstat";
 
 @Component({
-  selector: 'app-boiler-temp-stat-chart',
-  templateUrl: './boiler-temp-chart.component.html',
-  styleUrls: ['./boiler-temp-chart.component.css']
+  selector: 'app-pressure-chart',
+  templateUrl: './pressurechart.component.html',
+  styleUrls: ['./pressurechart.component.css']
 })
-export class BoilerTempChartComponent implements OnInit, OnChanges {
+export class PressureChartComponent implements OnInit, OnChanges {
 
   _seed: number = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: BoilerTempStat;
+  @Input() data: PressureStat;
 
   isLoaded: boolean = false;
 
   showSpinner: boolean = true;
+
+  chart: Chart;
+
   constructor() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["data"] && this.data) {
-      console.info('Initializing boiler temp chart...');
+      console.info('Initializing pressure-chart...');
       this.initChart(this.data);
     }
   }
@@ -31,23 +34,19 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  chart: Chart;
 
-  initChart(data: BoilerTempStat) {
-    var timeArray = data.temperature.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+  initChart(data: PressureStat) {
+    var timeArray = data.pressure.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+    var measValueArray = data.pressure.map(el => el.value)
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'Temperature',
-          data: data.temperature.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
-            y: (el.value * 0.01).toFixed(2)
-          })),
-          backgroundColor: '#bb3b01',
-          borderColor: '#bb3b01',
-          pointRadius: 1,
+          label: 'Pressure',
+          data: measValueArray,
+          borderColor: "rgba(255,153,0,0.4)",
+          backgroundColor: 'transparent'
         }]
       },
 
@@ -70,7 +69,7 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Temperature'
+              labelString: 'Pressure'
             }
           }]
         },

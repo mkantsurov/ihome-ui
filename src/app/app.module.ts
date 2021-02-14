@@ -26,18 +26,18 @@ import {MainComponent} from './ui/main/main/main.component';
 import {AccessDeniedComponent} from './ui/common/access-denied/access-denied.component';
 import {HeaderComponent} from './ui/common/header/header.component';
 import {ExtlightComponent} from './ui/extlight/extlight.component';
-import {TempChartComponent} from './ui/chart/tempchart/temp-chart.component';
-import {PressureChartComponent} from './ui/chart/pressurechart/pressure-chart.component';
-import {BoilerTempChartComponent} from './ui/chart/boiler-temp-chart/boiler-temp-chart.component';
+import {TempChartComponent} from './ui/main/chart/tempchart/temp-chart.component';
+import {PressureChartComponent} from './ui/main/chart/pressurechart/pressure-chart.component';
+import {BoilerTempChartComponent} from './ui/main/chart/boiler-temp-chart/boiler-temp-chart.component';
 import {LeftMenuComponent} from './ui/left-menu/left-menu.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatTreeModule} from "@angular/material/tree";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
-import {SystemChartComponent} from './ui/chart/system-chart/system-chart.component';
-import {LuminosityChartComponent} from './ui/chart/luminosity-chart/luminosity-chart.component';
-import {SystemChartLaComponent} from './ui/chart/system-chart-la/system-chart-la.component';
+import {SystemChartComponent} from './ui/main/chart/system-chart/system-chart.component';
+import {LuminosityChartComponent} from './ui/main/chart/luminosity-chart/luminosity-chart.component';
+import {SystemChartLaComponent} from './ui/main/chart/system-chart-la/system-chart-la.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -57,6 +57,12 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import { GeneralTempChartComponent } from './ui/general/general-outdoor/general-temp-chart/general-temp-chart.component';
 import { GeneralPowerChartComponent } from './ui/general/general-power/general-power-chart/general-power-chart.component';
 import { GeneralPressureChartComponent } from './ui/general/general-outdoor/general-pressure-chart/general-pressure-chart.component';
+import { SummaryPageComponent } from './ui/main/summary-page/summary-page.component';
+import { PowerControlComponent } from './ui/main/power-control/power-control.component';
+import { HeatingControlComponent } from './ui/main/heating-control/heating-control.component';
+import { LightningControlComponent } from './ui/main/lightning-control/lightning-control.component';
+import { AuditLogControlComponent } from './ui/main/audit-log-control/audit-log-control.component';
+import { MessagesComponent } from './ui/main/messages/messages.component';
 
 
 @NgModule({
@@ -84,7 +90,13 @@ import { GeneralPressureChartComponent } from './ui/general/general-outdoor/gene
     IndexComponent,
     GeneralTempChartComponent,
     GeneralPowerChartComponent,
-    GeneralPressureChartComponent
+    GeneralPressureChartComponent,
+    SummaryPageComponent,
+    PowerControlComponent,
+    HeatingControlComponent,
+    LightningControlComponent,
+    AuditLogControlComponent,
+    MessagesComponent
   ],
   imports: [
     HttpClientModule,

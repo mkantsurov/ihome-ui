@@ -1,32 +1,29 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as Chart from 'chart.js';
-import {LaStat} from "../../../domain/lastat";
+import {BoilerTempStat} from "../../../../domain/boilertempstat";
 
 @Component({
-  selector: 'app-system-chart-la',
-  templateUrl: './system-chart-la.component.html',
-  styleUrls: ['./system-chart-la.component.css']
+  selector: 'app-boiler-temp-stat-chart',
+  templateUrl: './boiler-temp-chart.component.html',
+  styleUrls: ['./boiler-temp-chart.component.css']
 })
-export class SystemChartLaComponent implements OnInit, OnChanges {
+export class BoilerTempChartComponent implements OnInit, OnChanges {
 
   _seed: number = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: LaStat;
+  @Input() data: BoilerTempStat;
 
   isLoaded: boolean = false;
 
   showSpinner: boolean = true;
-
-  chart: Chart;
-
   constructor() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["data"] && this.data) {
-      console.info('Initializing la-chart...');
+      console.info('Initializing boiler temp chart...');
       this.initChart(this.data);
     }
   }
@@ -34,28 +31,31 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  chart: Chart;
 
-  initChart(data: LaStat) {
-    var timeArray = data.la.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+  initChart(data: BoilerTempStat) {
+    var timeArray = data.temperature.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'LA',
-          data: data.la.map(el => ({
+          label: 'Boiler Temperature',
+          data: data.temperature.map(el => ({
             x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
             y: (el.value * 0.01).toFixed(2)
           })),
-          backgroundColor: '#bb3b01',
-          pointRadius: 1
+          // backgroundColor: '#bb3b01',
+          borderColor: '#bb3b01',
+          backgroundColor: 'transparent',
+          pointRadius: 1,
         }]
       },
 
       options: {
         scales: {
           xAxes: [{
-            type: 'time',
+            type: "time",
             time: {
               unit: 'hour',
               unitStepSize: 2,
@@ -71,7 +71,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'LA'
+              labelString: 'Temperature'
             }
           }]
         },

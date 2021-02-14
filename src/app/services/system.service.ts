@@ -38,7 +38,7 @@ export class SystemService {
 
   getPressureStat(): Observable<PressureStat> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<PressureStat>(`${this.baseUrl}/pressurestat/`)
+    return this.http.get<PressureStat>(`${this.baseUrl}/pressure-stat/`)
   }
 
   getLuminosityStat(): Observable<LuminosityStat> {

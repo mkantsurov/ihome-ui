@@ -1,3 +1,23 @@
-<div class="drawer-content">
-  <router-outlet></router-outlet>
-</div>
+<mat-drawer-container class="ihome-mat-drawer-container ">
+  <mat-drawer mode="side" opened>
+    <mat-nav-list role="navigation">
+      <a mat-list-item routerLink="/public-outdoor">
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">device_thermostat</mat-icon>
+        Outdoor Conditions
+      </a>
+      <a mat-list-item routerLink="/public-power">
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">power_inut</mat-icon>
+        Power Input
+      </a>
+      <a mat-list-item routerLink="/public-sign-in">
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">login</mat-icon>
+        Sign-In
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content class="i-home-index-bg">
+    <div class="drawer-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
