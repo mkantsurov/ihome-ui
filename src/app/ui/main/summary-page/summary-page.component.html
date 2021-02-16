@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayout.sm="column" xmlns="http://www.w3.org/1999/html">
-  <div fxFlex="30%">
+  <div fxFlex="15%">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -41,15 +41,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex>
-    <div class="chart-container">
-      <app-temp-chart [data]="tempStat"></app-temp-chart>
-    </div>
-  </div>
-</div>
-
-<div fxLayout="row" fxLayout.sm="column" xmlns="http://www.w3.org/1999/html">
-  <div fxFlex="30%">
+  <div fxFlex="15%">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -101,12 +93,13 @@
   </div>
   <div fxFlex>
     <div class="chart-container">
-      <app-pressure-chart [data]="pressureStat"></app-pressure-chart>
+      <app-temp-chart [data]="tempStat"></app-temp-chart>
     </div>
   </div>
 </div>
-<div fxLayout="row" fxLayout.sm="column">
-  <div fxFlex="30%">
+
+<div fxLayout="row" fxLayout.sm="column" xmlns="http://www.w3.org/1999/html">
+<div fxFlex="15%">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -150,14 +143,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex>
-    <div class="chart-container">
-      <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
-    </div>
-  </div>
-</div>
-<div fxLayout="row" fxLayout.sm="column">
-  <div fxFlex="30%">
+  <div fxFlex="15%">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -188,6 +174,24 @@
       </div>
     </div>
   </div>
+  <div fxFlex>
+    <div class="chart-container">
+      <app-pressure-chart [data]="pressureStat"></app-pressure-chart>
+    </div>
+  </div>
+</div>
+<div fxLayout="row" fxLayout.sm="column">
+
+  <div fxFlex>
+    <div class="chart-container">
+      <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
+    </div>
+  </div>
+</div>
+
+
+<div fxLayout="row" fxLayout.sm="column">
+
   <div fxFlex>
 
   </div>
