@@ -5,6 +5,7 @@ import {PressureStat} from "../../../domain/pressurestat";
 import {LuminosityStat} from "../../../domain/luminositystat";
 import {SystemSummary} from "../../../domain/systemsummary";
 import {BoilerTempStat} from "../../../domain/boilertempstat";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-summary-page',
@@ -36,4 +37,7 @@ export class SummaryPageComponent implements OnInit {
     })
   }
 
+  getUpTime(): string {
+    return moment.duration(this.systemSummary.upTime).humanize();
+  }
 }

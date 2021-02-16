@@ -1,4 +1,5 @@
 export interface SystemSummary {
+  upTime: number;
   loadAvg: number;
   heapMax: number;
   heapUsage: number;
