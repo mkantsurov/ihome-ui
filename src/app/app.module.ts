@@ -49,6 +49,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from '@angular/material/table';
 import { GeneralOutdoorComponent } from './ui/general/general-outdoor/general-outdoor.component';
 import { GeneralPowerComponent } from './ui/general/general-power/general-power.component';
 import { GeneralSignInComponent } from './ui/general/general-sign-in/general-sign-in.component';
@@ -63,7 +64,12 @@ import { HeatingControlComponent } from './ui/main/heating-control/heating-contr
 import { LightningControlComponent } from './ui/main/lightning-control/lightning-control.component';
 import { AuditLogControlComponent } from './ui/main/audit-log-control/audit-log-control.component';
 import { MessagesComponent } from './ui/main/messages/messages.component';
-
+import { ModuleListComponent } from './ui/main/common/module-list/module-list.component';
+import { PowerChartComponent } from './ui/main/chart/power-chart/power-chart.component';
+import { ExceptionModalComponent } from './ui/common/exception-modal-component/exception-modal.component';
+import {TruncatePipe} from './pipes/truncate.pipe';
+import {ErrorHandlerService} from "./services/error-handler.service";
+import { ModuleConfigComponent } from './ui/main/common/module-list/module-config/module-config.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +102,12 @@ import { MessagesComponent } from './ui/main/messages/messages.component';
     HeatingControlComponent,
     LightningControlComponent,
     AuditLogControlComponent,
-    MessagesComponent
+    MessagesComponent,
+    ModuleListComponent,
+    PowerChartComponent,
+    ExceptionModalComponent,
+    TruncatePipe,
+    ModuleConfigComponent
   ],
   imports: [
     HttpClientModule,
@@ -120,12 +131,13 @@ import { MessagesComponent } from './ui/main/messages/messages.component';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatTableModule,
     MatExpansionModule,
     MatTreeModule,
     MatGridListModule,
     MatCardModule,
-    FlexLayoutModule
-  ],
+    FlexLayoutModule,
+  ],exports: [ExceptionModalComponent],
   providers: [
     AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -135,7 +147,8 @@ import { MessagesComponent } from './ui/main/messages/messages.component';
     AuthGuard,
     IsAdminGuard,
     IsUserGuard,
-    GuestGuard
+    GuestGuard,
+    ErrorHandlerService
   ],
   bootstrap: [AppComponent]
 })

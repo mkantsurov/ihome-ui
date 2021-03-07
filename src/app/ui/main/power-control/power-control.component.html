@@ -1,1 +1,54 @@
-<p>power-control works!</p>
+<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%"><h3>Power Control</h3></div>
+  <div fxFlex></div>
+</div>
+
+<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%">
+    <div class="data-header">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">power_settings_new
+        </mat-icon>
+        <span class="data-header-text">Summary</span>
+      </h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        External Power Line
+      </div>
+      <div fxFlex>
+        <mat-icon *ngIf="isExternalPowerSourceOk()" aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined">power
+        </mat-icon>
+        <mat-icon *ngIf="!isExternalPowerSourceOk()" aria-hidden="false" aria-label="i-home" color="primary"
+                  class="material-icons-outlined">power_off
+        </mat-icon>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Luminosity
+      </div>
+      <div fxFlex>{{ powerSummary.luminosity}}</div>
+    </div>
+  </div>
+  <div fxFlex="30%">
+    <div class="chart-container">
+<!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
+      <app-power-chart [data]="powerStat"></app-power-chart>
+    </div>
+  </div>
+  <div fxFlex></div>
+</div>
+
+<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%">
+<app-module-list [assignment]="1"></app-module-list>
+  </div>
+  <div fxFlex="5%"></div>
+</div>

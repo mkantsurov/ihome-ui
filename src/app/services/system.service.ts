@@ -10,6 +10,7 @@ import {BoilerTempStat} from "../domain/boilertempstat";
 import {LuminosityStat} from "../domain/luminositystat";
 import {SystemStat} from "../domain/systemstat";
 import {LaStat} from "../domain/lastat";
+import {PowerSummary} from "../domain/powersummary";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,11 @@ export class SystemService {
   getSystemSummary(): Observable<SystemSummary> {
     console.info('Getting System Summary...');
     return this.http.get<SystemSummary>(`${this.baseUrl}/summary/`)
+  }
+
+  getPowerSummary() : Observable<PowerSummary> {
+    console.info('Getting Power Summary...');
+    return this.http.get<PowerSummary>(`${this.baseUrl}/power-summary`)
   }
 
   getTempStat(): Observable<TempStat> {
@@ -72,5 +78,4 @@ export class SystemService {
   getModuleData(moduleId: number) {
     return this.http.get<ModuleData>(`${this.baseUrl}/moduledata/${moduleId}`)
   }
-
 }

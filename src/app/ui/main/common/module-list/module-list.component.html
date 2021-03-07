@@ -1,0 +1,72 @@
+<div fxLayout="row"
+     fxLayout.xs="column"
+     fxFlexFill
+     fxLayoutAlign="center center">
+
+  <div fxFlex="40%">
+    <h3 class="table-title">Power Management Related Modules</h3>
+  </div>
+<!--  <div fxFlex="50%" class="actions-section">-->
+<!--    <app-search (filterEvent)="receiveFilter($event)"></app-search>-->
+<!--  </div>-->
+<!--  <div fxFlex="10%" class="actions-section">-->
+<!--    <button-->
+<!--      mat-icon-button-->
+<!--      matTooltip="Add User"-->
+<!--      (click)="openAddAdminFormDialog()">-->
+<!--      <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>-->
+<!--    </button>-->
+<!--  </div>-->
+</div>
+<div class="divider"></div>
+<div class="table-container">
+  <mat-table #table [dataSource]="moduleDataSource">
+    <ng-container matColumnDef="moduleName">
+<!--      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let row" matTooltip="{{row.name}}">-->
+<!--        {{ row.name | truncate:['16', '...'] }}-->
+<!--      </mat-cell>-->
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="active">
+        <mat-header-cell *matHeaderCellDef [ngClass]="'w-75'">Active</mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngClass]="'w-75'">
+          <mat-icon *ngIf="row.mode === 2" aria-hidden="false" aria-label="i-home" color="accent"
+                    class="material-icons-outlined">sync
+          </mat-icon>
+          <mat-icon *ngIf="row.mode < 2" aria-hidden="false" aria-label="i-home" color="primary"
+                    class="material-icons-outlined">sync_disabled
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="outputPortState">
+        <mat-header-cell *matHeaderCellDef [ngClass]="'w-75'">Output Port State</mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngClass]="'w-75'">
+          <mat-icon *ngIf="row.outputPortState > 0" aria-hidden="false" aria-label="i-home" color="accent"
+                    class="material-icons-outlined">power
+          </mat-icon>
+          <mat-icon *ngIf="row.outputPortState === 0" aria-hidden="false" aria-label="i-home" color="primary"
+                    class="material-icons-outlined">power_off
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="moduleColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: moduleColumns" class="selectable"
+               (click)="rowSelect(row)"
+               [ngClass]="{'highlight': selectedModule && row.id==selectedModule.id}"></mat-row>
+    </ng-container>
+  </mat-table>
+</div>
+<!--<div fxLayout="row" fxFlexFill fxLayoutAlign="left center" *ngFor="let module of moduleSummary">-->
+<!--  <div fxFlex="5%"></div>-->
+<!--  <div fxFlex="50%">-->
+<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
+<!--      <div fxFlex="60%"><h4>{{module.name}}}</h4></div>-->
+<!--      <div fxFlex></div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div fxFlex></div>-->
+<!--</div>-->

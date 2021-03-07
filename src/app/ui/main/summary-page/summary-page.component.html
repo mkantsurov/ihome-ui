@@ -78,8 +78,8 @@
           Converter Power Src
         </div>
         <div fxFlex>
-          <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_on
-          </mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 1" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_on</mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 0" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_off</mat-icon>
         </div>
       </div>
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
@@ -87,8 +87,8 @@
           Direct Power Src
         </div>
         <div fxFlex>
-          <mat-icon aria-hidden="false" aria-label="i-home" class="material-icons-outlined" color="primary">toggle_off
-          </mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcDirectMode === 1" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_on</mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcDirectMode === 0" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_off</mat-icon>
         </div>
       </div>
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">

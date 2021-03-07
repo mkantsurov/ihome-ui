@@ -3,15 +3,9 @@ import {Dht21TempHumiditySensorReadingData} from "./dht21temphumiditysensorreadi
 import {Ds18b20TempSensorReadingData} from "./ds18b20tempsensorreadingdata";
 import {BinarySensorData} from "./binarysensordata";
 import {Tsl2591LuminositySensorReadingData} from "./tsl2591LuminositySensorReadingdata";
+import {ModuleSummary} from "./modulesummary";
 
-export interface ModuleData {
-
-  moduleId: number
-  name: string
-  mode: number
-  active: boolean
-  outputPortState: number
-
+export interface ModuleData extends ModuleSummary {
   binarySensorData: BinarySensorData[]
   temperatureSensorData: Ds18b20TempSensorReadingData[]
   tempHumiditySensorData: Dht21TempHumiditySensorReadingData[]

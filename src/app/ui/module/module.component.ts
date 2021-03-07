@@ -8,6 +8,9 @@ import {SystemService} from "../../services/system.service";
   templateUrl: './module.component.html',
   styleUrls: ['./module.component.css']
 })
+/**
+ * @deprecated
+ */
 export class ModuleComponent implements OnInit {
 
   @Input() category: number;
@@ -28,7 +31,7 @@ export class ModuleComponent implements OnInit {
     this.systemService.getModuleData(module.moduleId).subscribe(response => {
       this.selectedModule = module;
       this.selectedModule.outputPortState = response.outputPortState;
-      this.selectedModule.active = response.active;
+      this.selectedModule.mode = response.mode;
       this.moduleData = response;
     })
 

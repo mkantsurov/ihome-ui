@@ -1,0 +1,9 @@
+<div class="unicorn-dark-theme mat-app-background">
+  <!--<p class="exception-msg">Time: {{(exceptionResponse.timestamp ? exceptionResponse.timestamp: exceptionResponse.timeStamp)| date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
+  <p class="exception-msg">
+    Exception: {{exceptionResponse.exception ? exceptionResponse.exception : exceptionResponse.error}}</p>
+  <p class="exception-msg">Message: {{exceptionResponse.message}}. {{exceptionResponse.errorDetails}}</p>
+
+  <button mat-raised-button color="warn" class="close-btn" (click)="close()" type="button">Close</button>
+</div>
+
