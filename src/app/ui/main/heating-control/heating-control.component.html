@@ -1,1 +1,96 @@
-<p>heating-control works!</p>
+<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%"><h3>Heating Control</h3></div>
+  <div fxFlex></div>
+</div>
+
+<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%">
+    <div class="data-header">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">device_thermostat
+        </mat-icon>
+        <span class="data-header-text">Summary</span>
+      </h3>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Out Door Temperature
+      </div>
+      <div fxFlex>{{ heatingSummary.outDoorTemperature * .01 | number:'1.1' }}&#8451;</div>
+    </div>
+
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Second Floor Temperature
+      </div>
+      <div fxFlex>{{ heatingSummary.sfTemperature * .01 | number:'1.1' }}&#8451;</div>
+    </div>
+
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Ground Floor Temperature
+      </div>
+      <div fxFlex>{{ heatingSummary.gfTemperature * .01 | number:'1.1' }}&#8451;</div>
+    </div>
+
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Garage Temperature
+      </div>
+      <div fxFlex>{{ heatingSummary.garageTemperature * .01 | number:'1.1' }}&#8451;</div>
+    </div>
+
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Boiler Temperature
+      </div>
+      <div fxFlex>{{ heatingSummary.boilerTemperature * .01 | number:'1.1' }}&#8451;</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Ground Floor Heating Pump
+      </div>
+      <div fxFlex>
+        <mat-icon *ngIf="isPumpGfEnabled()" aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined">power
+        </mat-icon>
+        <mat-icon *ngIf="!isPumpGfEnabled()" aria-hidden="false" aria-label="i-home" color="primary"
+                  class="material-icons-outlined">power_off
+        </mat-icon>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Second Floor Heating Pump
+      </div>
+      <div fxFlex>
+        <mat-icon *ngIf="isPumpSfEnabled()" aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined">power
+        </mat-icon>
+        <mat-icon *ngIf="!isPumpSfEnabled()" aria-hidden="false" aria-label="i-home" color="primary"
+                  class="material-icons-outlined">power_off
+        </mat-icon>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="30%">
+    <div class="chart-container">
+      <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
+      <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
+    </div>
+  </div>
+  <div fxFlex></div>
+</div>
+
+<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%">
+    <app-module-list [assignment]="2"></app-module-list>
+  </div>
+  <div fxFlex="5%"></div>
+</div>
