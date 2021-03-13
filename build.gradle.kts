@@ -6,11 +6,16 @@ import java.util.function.Function
 import java.util.regex.Pattern
 
 val dockerRepository: String by project
+val ngDistDir = "${project.projectDir}/dist"
+val ngOutputDir = "${ngDistDir}/static"
+val ngConfDir = "${ngDistDir}/nginx"
 
 node {
-    version = "10.23.1"
+    version = "10.24.0"
     npmVersion = "6.11.3"
-    download = true
+//  Plugin is not able to download node due incompatibility with gradle 6+
+//  https://stackoverflow.com/questions/60604212/configuring-springboot-gadle-with-nodejs
+    download = false
     workDir = file("${project.buildDir}/node")
     nodeModulesDir = file("${project.projectDir}")
 }
@@ -49,19 +54,13 @@ fun execCommandWithOutput(input: String): String {
     }
 }
 
-val ngDistDir = "${project.projectDir}/dist"
-val ngOutputDir = "${ngDistDir}/static"
-val ngConfDir = "${ngDistDir}/nginx"
-
 // clean node/node_modules/dist
 task("npmClean") {
     println("Removing directory: $ngDistDir")
     delete(ngDistDir)
 }
 
-tasks.named("clean") {
-  dependsOn("npmClean")
-}
+tasks.getByName("clean").dependsOn("npmClean")
 
 task("prepareNpm") {
     file(ngOutputDir).mkdirs()
