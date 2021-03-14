@@ -117,7 +117,7 @@ tasks.getByName("docker").dependsOn("prepareFiles")
 tasks.getByName("prepareFiles").dependsOn("npmBuild")
 
 configure<DockerExtension> {
-    name = "$dockerRepository/iot/ui"
+    name = "$dockerRepository/ihome/ui"
     tags("$version", "latest")
     setDockerfile(file("Dockerfile"))
 }
