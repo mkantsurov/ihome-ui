@@ -47,7 +47,8 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
             y: (el.value * 0.01).toFixed(2)
           })),
           backgroundColor: "transparent",
-          borderColor: "#2E4895"
+          borderColor: "#476bb9",//"#2E4895"
+          pointRadius: 1
         }]
       },
 

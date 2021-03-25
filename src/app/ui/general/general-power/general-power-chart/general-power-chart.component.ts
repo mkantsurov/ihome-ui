@@ -43,10 +43,11 @@ export class GeneralPowerChartComponent implements OnInit, OnChanges {
           label: 'Power',
           data: data.power.map(el => ({
             x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
-            y: (el.value * 0.01).toFixed(2)
+            y: el.value*220
           })),
           backgroundColor: "transparent",
-          borderColor: "#2E4895"
+          borderColor: "#476bb9",//"#2E4895"
+          pointRadius: 1
         }]
       },
 

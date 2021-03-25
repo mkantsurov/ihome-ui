@@ -46,7 +46,8 @@ export class GeneralPressureChartComponent implements OnInit, OnChanges {
             y: el.value
           })),
           backgroundColor: "transparent",
-          borderColor: "#2E4895"
+          borderColor: "#476bb9",//"#2E4895"
+          pointRadius: 1
         }]
       },
 
