@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayout.sm="column" xmlns="http://www.w3.org/1999/html">
-  <div fxFlex="15%">
+  <div fxFlex="1 0 300px">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -49,7 +49,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex="15%">
+  <div fxFlex="1 0 300px">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -78,8 +78,12 @@
           Converter Power Src
         </div>
         <div fxFlex>
-          <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 1" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_on</mat-icon>
-          <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 0" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_off</mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 1" aria-hidden="false" aria-label="i-home"
+                    color="accent" class="material-icons-outlined">toggle_on
+          </mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 0" aria-hidden="false" aria-label="i-home"
+                    color="accent" class="material-icons-outlined">toggle_off
+          </mat-icon>
         </div>
       </div>
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
@@ -87,8 +91,12 @@
           Direct Power Src
         </div>
         <div fxFlex>
-          <mat-icon *ngIf="systemSummary.pwSrcDirectMode === 1" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_on</mat-icon>
-          <mat-icon *ngIf="systemSummary.pwSrcDirectMode === 0" aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">toggle_off</mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcDirectMode === 1" aria-hidden="false" aria-label="i-home" color="accent"
+                    class="material-icons-outlined">toggle_on
+          </mat-icon>
+          <mat-icon *ngIf="systemSummary.pwSrcDirectMode === 0" aria-hidden="false" aria-label="i-home" color="accent"
+                    class="material-icons-outlined">toggle_off
+          </mat-icon>
         </div>
       </div>
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
@@ -99,7 +107,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex>
+  <div fxFlex="1 0 500px">
     <div class="chart-container">
       <app-temp-chart [data]="tempStat"></app-temp-chart>
     </div>
@@ -107,7 +115,7 @@
 </div>
 
 <div fxLayout="row" fxLayout.sm="column" xmlns="http://www.w3.org/1999/html">
-<div fxFlex="15%">
+  <div fxFlex="1 0 300px">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -151,7 +159,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex="15%">
+  <div fxFlex="1 0 300px">
     <div class="data-panel">
       <div class="data-header">
         <h3>
@@ -182,21 +190,19 @@
       </div>
     </div>
   </div>
-  <div fxFlex>
+  <div fxFlex="1 0 500px">
     <div class="chart-container">
       <app-pressure-chart [data]="pressureStat"></app-pressure-chart>
     </div>
   </div>
 </div>
 <div fxLayout="row" fxLayout.sm="column">
-
-  <div fxFlex>
+  <div fxFlex="1 0 500px">
     <div class="chart-container">
       <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
     </div>
   </div>
 </div>
-
 
 <div fxLayout="row" fxLayout.sm="column">
 
