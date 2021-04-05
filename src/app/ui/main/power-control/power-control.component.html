@@ -4,7 +4,7 @@
   <div fxFlex></div>
 </div>
 
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+<div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
   <div fxFlex="30%">
     <div class="data-header">
@@ -38,7 +38,7 @@
   </div>
   <div fxFlex="30%">
     <div class="chart-container">
-<!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
+      <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
       <app-power-chart [data]="powerStat"></app-power-chart>
     </div>
   </div>
@@ -47,15 +47,15 @@
 
 <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
-  <div fxFlex="30%">
-<app-module-list [assignment]="1"></app-module-list>
+  <div fxFlex="auto 1 0">
+    <app-module-list [assignment]="1"></app-module-list>
   </div>
   <div fxFlex="5%"></div>
 </div>
 
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+<div fxLayout="row" fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
-  <div fxFlex="30%">
+  <div fxFlex="auto 1 0" >
     <app-module-list [assignment]="3"></app-module-list>
   </div>
   <div fxFlex="5%"></div>

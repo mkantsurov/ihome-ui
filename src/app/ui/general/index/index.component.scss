@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+@import "../../../../theme_variables.scss";
+
 .drawer-content {
   padding: 10px;
   background-image: url("../../../../assets/images/smart-4168483_1920.jpg");
@@ -21,4 +24,23 @@
 .sidenav {
   width: 200px;
   height: 100%;
+}
+
+.icon-display {
+  transform: scale(2);
+}
+
+.login-wizard-logo {
+  width: 600px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  //text-transform: uppercase;
+  //padding-top: 40px;
+  padding-top: 40px;
+  padding-left: 15px;
+  transform: skew(-5deg);
+  color: $accent;
+  line-height: 1em;
+  text-shadow: 3px 3px mat-color($md-ihome-mcgpalette-dblue, 500);
 }

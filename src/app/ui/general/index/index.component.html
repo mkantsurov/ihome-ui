@@ -3,7 +3,10 @@
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="!(isHandset$ | async)">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>
+      <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">home</mat-icon>
+      <div class="login-wizard-logo">I-Home</div>
+    </mat-toolbar>
 
     <mat-nav-list role="navigation">
       <a mat-list-item routerLink="/public-outdoor">
@@ -21,16 +24,16 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
-    <mat-toolbar color="primary">
+    <mat-toolbar>
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <mat-icon aria-label="Side nav toggle icon" color="accent">menu</mat-icon>
+        <span class="login-wizard-logo">I-Home</span>
       </button>
-      <span>IHome</span>
     </mat-toolbar>
     <div>
       <router-outlet></router-outlet>
