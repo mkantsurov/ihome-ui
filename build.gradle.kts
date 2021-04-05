@@ -25,7 +25,7 @@ plugins {
     java
     id("com.moowork.node") version "1.3.1"
     id("org.sonarqube") version "2.6.2"
-    id("com.palantir.docker") version "0.20.1"
+    id("com.palantir.docker") version "0.26.0"
     id("net.ltgt.apt") version "0.10"
 }
 
