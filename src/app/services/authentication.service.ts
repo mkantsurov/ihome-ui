@@ -58,9 +58,9 @@ export class AuthenticationService {
     };
     return this.http.post(url, body, httpOptions).pipe(
       map((res: any) => {
-        if (res.token && res.refreshToken) {
+        if (res.accessToken && res.refreshToken) {
           localStorage.clear();
-          this.accessToken = res.token;
+          this.accessToken = res.accessToken;
           this.decodedToken = this.jwtHelper.decodeToken(this.accessToken);
           this.globalService.addToLocal(ACCESS_TOKEN, this.accessToken);
           this.globalService.addToLocal(REFRESH_TOKEN, res.refreshToken);
