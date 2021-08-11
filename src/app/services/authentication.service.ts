@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {ACCESS_TOKEN, REFRESH_TOKEN, ROLE_ADMIN, ROLE_USER} from "../domain/constant";
-import {Observable, of, throwError} from "rxjs";
-import {catchError, map} from "rxjs/operators";
-import {GlobalService} from "./global.service";
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ACCESS_TOKEN, REFRESH_TOKEN, ROLE_ADMIN, ROLE_USER} from '../domain/constant';
+import {Observable, of, throwError} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {GlobalService} from './global.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +16,13 @@ export class AuthenticationService {
   private jwtHelper = new JwtHelperService();
 
   accessToken: string;
-  //token example: {"sub":"maxim","scopes":["ROLE_ADMIN"],"iss":"https://positivehome.technology/","iat":1547065781,"exp":1547066681}
   decodedToken: {
     sub: string,
     scopes: string[],
     iss: string,
-    iat: bigint,
-    exp: bigint
+    iat: number,
+    exp: number
   };
-
 
   constructor(private http: HttpClient,
               private globalService: GlobalService) {
@@ -36,19 +34,18 @@ export class AuthenticationService {
 
     try {
       this.decodedToken = this.jwtHelper.decodeToken(this.accessToken);
-
     } catch (err) {
-      console.info('err: ' + err);
+      console.error('err: ' + err);
     }
   }
 
-  //NC TODO refactor
+  // NC TODO refactor
   login(username: string, password: string): Observable<void> {
-    const body = JSON.stringify({username: username, password: password});
+    const body = JSON.stringify({username, password});
 
-    console.log("Passing login request: " + username + " body: " + body);
+    console.log('Passing login request: ' + username + ' body: ' + body);
 
-    let url = this.baseUrl + "/login";
+    const url = this.baseUrl + '/login';
     const httpOptions = {
       headers: new HttpHeaders({
         'X-Requested-With': 'XMLHttpRequest',
@@ -62,8 +59,10 @@ export class AuthenticationService {
           localStorage.clear();
           this.accessToken = res.accessToken;
           this.decodedToken = this.jwtHelper.decodeToken(this.accessToken);
-          this.globalService.addToLocal(ACCESS_TOKEN, this.accessToken);
-          this.globalService.addToLocal(REFRESH_TOKEN, res.refreshToken);
+          const uri = this.decodedToken.sub.split('/');
+          this.globalService.setUserId(parseInt(uri[2], 10));
+          this.globalService.setAccessToken(this.accessToken);
+          this.globalService.setRefreshToken(res.refreshToken);
         }
       }),
       catchError(err => throwError(err)));
@@ -95,13 +94,14 @@ export class AuthenticationService {
   }
 
   refreshToken(): Observable<boolean> {
-    let refreshToken = this.globalService.getFromLocal(REFRESH_TOKEN);
-    if (refreshToken == null) return of(false);
+    const refreshToken = this.globalService.getRefreshToken();
+    if (refreshToken == null) {
+      return of(false);
+    }
     return this.http.post(`${this.baseUrl}/refresh`, refreshToken).pipe(
       map((res: any) => {
-        if (res.token && res.refreshToken) {
-          this.accessToken = res.token;
-          this.globalService.addToLocal(REFRESH_TOKEN, res.refreshToken);
+        if (res.accessToken) {
+          this.accessToken = res.accessToken;
           return true;
         }
         return false;
@@ -109,7 +109,10 @@ export class AuthenticationService {
       catchError(err => of(false)));
   }
 
-  tokenExpired() {
+  tokenExpired(): boolean {
+    if (this.accessToken == null) {
+      return true;
+    }
     return this.jwtHelper.isTokenExpired(this.accessToken);
   }
 
@@ -120,4 +123,5 @@ export class AuthenticationService {
   isUser(): boolean {
     return this.decodedToken && this.decodedToken.scopes.length > 0 && this.decodedToken.scopes.indexOf(ROLE_USER) !== -1;
   }
+
 }

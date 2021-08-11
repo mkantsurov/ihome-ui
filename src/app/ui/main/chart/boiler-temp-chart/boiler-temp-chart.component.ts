@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as Chart from 'chart.js';
-import {BoilerTempStat} from "../../../../domain/boilertempstat";
+import {BoilerTempStat} from '../../../../domain/boilertempstat';
 
 @Component({
   selector: 'app-boiler-temp-stat-chart',
@@ -8,21 +8,23 @@ import {BoilerTempStat} from "../../../../domain/boilertempstat";
   styleUrls: ['./boiler-temp-chart.component.css']
 })
 export class BoilerTempChartComponent implements OnInit, OnChanges {
+  constructor() {
+  }
 
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: BoilerTempStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
-  constructor() {
-  }
+  showSpinner = true;
+
+  chart: Chart;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing boiler temp chart...');
       this.initChart(this.data);
     }
@@ -31,10 +33,8 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  chart: Chart;
-
   initChart(data: BoilerTempStat) {
-    var timeArray = data.temperature.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+    const timeArray = data.temperature.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -42,7 +42,7 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
         datasets: [{
           label: 'Boiler Temperature',
           data: data.temperature.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
           // backgroundColor: '#bb3b01',
@@ -55,12 +55,12 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'hour',
               unitStepSize: 2,
               displayFormats: {
-                'hour': 'MMM DD hA',
+                hour: 'MMM DD hA',
               }
             },
             scaleLabel: {

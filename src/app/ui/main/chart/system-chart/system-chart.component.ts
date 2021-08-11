@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {SystemStat} from "../../../../domain/systemstat";
+import {SystemStat} from '../../../../domain/systemstat';
 import * as Chart from 'chart.js';
 
 @Component({
@@ -8,15 +8,15 @@ import * as Chart from 'chart.js';
   styleUrls: ['./system-chart.component.css']
 })
 export class SystemChartComponent implements OnInit, OnChanges {
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: SystemStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
+  showSpinner = true;
 
   chart: Chart;
 
@@ -24,7 +24,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing system-chart...');
       this.initChart(this.data);
     }
@@ -45,7 +45,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
           borderColor: '#790b8e',
           pointRadius: 1,
           data: data.heapMax.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: el.value.toFixed(2)
           })),
         }, {
@@ -55,7 +55,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
           borderColor: '#854492',
           pointRadius: 1,
           data: data.heapUsage.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: el.value.toFixed(2)
           })),
         }]
@@ -78,7 +78,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
               unit: 'hour',
               unitStepSize: 2,
               displayFormats: {
-                'hour': 'MMM DD hA',
+                hour: 'MMM DD hA',
               }
             },
             scaleLabel: {

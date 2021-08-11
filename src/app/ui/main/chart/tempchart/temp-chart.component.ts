@@ -9,15 +9,15 @@ import {TempStat} from '../../../../domain/tempstat';
 })
 export class TempChartComponent implements OnInit, OnChanges {
 
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: TempStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
+  showSpinner = true;
 
   chart: Chart;
 
@@ -25,7 +25,7 @@ export class TempChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing temp-chart...');
       this.initChart(this.data);
     }
@@ -46,7 +46,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           borderColor: '#e8bc00',
           pointRadius: 1,
           data: data.outdoor.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
         }, {
@@ -56,7 +56,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           borderColor: '#790b8e',
           pointRadius: 1,
           data: data.indoor.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
         }, {
@@ -66,7 +66,7 @@ export class TempChartComponent implements OnInit, OnChanges {
             borderColor: '#854492',
             pointRadius: 1,
             data: data.indoorGf.map(el => ({
-              x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+              x: new Date(el.dt),
               y: (el.value * 0.01).toFixed(2)
             })),
           }, {
@@ -76,7 +76,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           borderColor: '#666699',
           pointRadius: 1,
           data: data.garage.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
         }]

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {PressureStat} from "../../../../domain/pressurestat";
+import {PressureStat} from '../../../../domain/pressurestat';
 import * as Chart from 'chart.js';
 
 @Component({
@@ -9,15 +9,15 @@ import * as Chart from 'chart.js';
 })
 export class PressureChartComponent implements OnInit, OnChanges {
 
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: PressureStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
+  showSpinner = true;
 
   chart: Chart;
 
@@ -25,7 +25,7 @@ export class PressureChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing pressure-chart...');
       this.initChart(this.data);
     }
@@ -36,8 +36,8 @@ export class PressureChartComponent implements OnInit, OnChanges {
 
 
   initChart(data: PressureStat) {
-    var timeArray = data.pressure.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
-    var measValueArray = data.pressure.map(el => el.value)
+    const timeArray = data.pressure.map(el => new Date(el.dt));
+    const measValueArray = data.pressure.map(el => el.value)
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -45,7 +45,7 @@ export class PressureChartComponent implements OnInit, OnChanges {
         datasets: [{
           label: 'Pressure',
           data: measValueArray,
-          borderColor: "rgba(255,153,0,0.4)",
+          borderColor: 'rgba(255,153,0,0.4)',
           backgroundColor: 'transparent'
         }]
       },
@@ -53,12 +53,12 @@ export class PressureChartComponent implements OnInit, OnChanges {
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'hour',
               unitStepSize: 2,
               displayFormats: {
-                'hour': 'MMM DD hA',
+                hour: 'MMM DD hA',
               }
             },
             scaleLabel: {

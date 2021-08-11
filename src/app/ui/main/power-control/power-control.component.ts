@@ -30,10 +30,10 @@ export class PowerControlComponent implements OnInit {
     this.systemService.getPowerSummary().subscribe(response => {
       console.log(`received power summary: ` + JSON.stringify(response));
       this.powerSummary = response;
-      this.systemService.getLuminosityStat().subscribe(response => {
-        this.luminosityStat = response;
-        this.guestService.getPowerStat().subscribe(response => {
-          this.powerStat = response;
+      this.systemService.getLuminosityStat().subscribe(luminosityStat => {
+        this.luminosityStat = luminosityStat;
+        this.guestService.getPowerStat().subscribe(powerStat => {
+          this.powerStat = powerStat;
         })
       })
     });

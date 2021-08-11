@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {LuminosityStat} from "../../../../domain/luminositystat";
+import {LuminosityStat} from '../../../../domain/luminositystat';
 import * as Chart from 'chart.js';
 
 @Component({
@@ -9,15 +9,15 @@ import * as Chart from 'chart.js';
 })
 export class LuminosityChartComponent implements OnInit, OnChanges {
 
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: LuminosityStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
+  showSpinner = true;
 
   chart: Chart;
 
@@ -25,7 +25,7 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing luminosity-chart...');
       this.initChart(this.data);
     }
@@ -39,14 +39,13 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
-
         datasets: [{
           label: 'Luminosity',
           data: data.luminosity.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: el.value.toFixed(2)
           })),
-          backgroundColor: '#e8bc00',
+          // backgroundColor: '#e8bc00',
           borderColor: '#e8bc00',
           pointRadius: 1,
         }]
@@ -55,12 +54,12 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'hour',
               unitStepSize: 2,
               displayFormats: {
-                'hour': 'MMM DD hA',
+                hour: 'MMM DD hA',
               }
             },
             scaleLabel: {

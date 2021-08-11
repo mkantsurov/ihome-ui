@@ -45,6 +45,18 @@
   <div fxFlex></div>
 </div>
 
+<div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%">
+  </div>
+  <div fxFlex="30%">
+    <div class="chart-container">
+      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>
+    </div>
+  </div>
+  <div fxFlex></div>
+</div>
+
 <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
   <div fxFlex="auto 1 0">

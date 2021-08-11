@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {OutdoorTempStat} from "../../../../domain/outdoor-temp-stat";
-import * as Chart from "chart.js";
-import {PressureStat} from "../../../../domain/pressurestat";
+import {OutdoorTempStat} from '../../../../domain/outdoor-temp-stat';
+import * as Chart from 'chart.js';
+import {PressureStat} from '../../../../domain/pressurestat';
 
 @Component({
   selector: 'app-general-temp-chart',
@@ -9,15 +9,15 @@ import {PressureStat} from "../../../../domain/pressurestat";
   styleUrls: ['./general-temp-chart.component.css']
 })
 export class GeneralTempChartComponent implements OnInit, OnChanges {
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: OutdoorTempStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
+  showSpinner = true;
 
   chart: Chart;
 
@@ -25,7 +25,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing temp-chart...');
       this.initChart(this.data);
     }
@@ -35,7 +35,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
   }
 
   initChart(data: OutdoorTempStat) {
-    var timeArray = data.temperature.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+    const timeArray = data.temperature.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -43,11 +43,11 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
         datasets: [{
           label: 'Temperature',
           data: data.temperature.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
-          backgroundColor: "transparent",
-          borderColor: "#476bb9",//"#2E4895"
+          backgroundColor: 'transparent',
+          borderColor: '#476bb9',// "#2E4895"
           pointRadius: 1
         }]
       },
@@ -55,12 +55,12 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'hour',
               unitStepSize: 2,
               displayFormats: {
-                'hour': 'MMM DD hA',
+                hour: 'MMM DD hA',
               }
             },
             scaleLabel: {

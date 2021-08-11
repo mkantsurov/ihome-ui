@@ -4,7 +4,24 @@
      fxLayoutAlign="center center">
 
   <div fxFlex="40%">
-    <h3 class="table-title">Power Management Related Modules</h3>
+<!--    UNDEFINED,              //0-->
+<!--    POWER_SUPPLY,           //1-->
+<!--    HEATING_CONTROL,        //2-->
+<!--    GATE_CONTROL,           //3-->
+<!--    LIGHT_CONTROL,          //4-->
+<!--    EXT_LIGHT_CONTROL,      //5-->
+<!--    VENTILATION_CONTROL     //6-->
+    <h3 *ngIf="assignment === 1" class="table-title">Power Management Related Modules</h3>
+    <h3 *ngIf="assignment === 2" class="table-title">Heating Control Related Modules</h3>
+    <h3 *ngIf="assignment === 3" class="table-title">Gate Control Related Modules</h3>
+
+    <h3 *ngIf="assignment === 4 && group === 2" class="table-title">Light Control Related Modules/Ground Floor</h3>
+    <h3 *ngIf="assignment === 4 && group === 3" class="table-title">Light Control Related Modules/Second Floor</h3>
+    <h3 *ngIf="assignment === 4 && group === 1" class="table-title">Light Control Related Modules/Garage</h3>
+    <h3 *ngIf="assignment === 4 && group === 4" class="table-title">Light Control Related Modules/Ext. Lightning</h3>
+
+    <h3 *ngIf="assignment === 5" class="table-title">Ext Light Control Related Modules</h3>
+    <h3 *ngIf="assignment === 6" class="table-title">Ventilation Control Related Modules</h3>
   </div>
 <!--  <div fxFlex="50%" class="actions-section">-->
 <!--    <app-search (filterEvent)="receiveFilter($event)"></app-search>-->

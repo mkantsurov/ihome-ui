@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as Chart from 'chart.js';
-import {LaStat} from "../../../../domain/lastat";
+import {LaStat} from '../../../../domain/lastat';
 
 @Component({
   selector: 'app-system-chart-la',
@@ -9,15 +9,15 @@ import {LaStat} from "../../../../domain/lastat";
 })
 export class SystemChartLaComponent implements OnInit, OnChanges {
 
-  _seed: number = 31;
+  _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
   @Input() data: LaStat;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
-  showSpinner: boolean = true;
+  showSpinner = true;
 
   chart: Chart;
 
@@ -25,7 +25,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["data"] && this.data) {
+    if (changes.data && this.data) {
       console.info('Initializing la-chart...');
       this.initChart(this.data);
     }
@@ -36,7 +36,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
 
 
   initChart(data: LaStat) {
-    var timeArray = data.la.map(el => new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute));
+    let timeArray = data.la.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -44,7 +44,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
         datasets: [{
           label: 'LA',
           data: data.la.map(el => ({
-            x: new Date(el.dt.year, el.dt.monthValue - 1, el.dt.dayOfMonth, el.dt.hour, el.dt.minute),
+            x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
           backgroundColor: '#bb3b01',
@@ -60,7 +60,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
               unit: 'hour',
               unitStepSize: 2,
               displayFormats: {
-                'hour': 'MMM DD hA',
+                hour: 'MMM DD hA',
               }
             },
             scaleLabel: {

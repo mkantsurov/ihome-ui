@@ -1,3 +1,4 @@
+export const USER_ID = 'USER_ID';
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
 export const API_PATTERN: RegExp = /.*\/api.*/;

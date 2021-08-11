@@ -1,13 +1,14 @@
 import {ApplicationRef, Component, Input, OnInit} from '@angular/core';
-import {MainService} from "../../../../services/main.service";
-import {ModuleSummary} from "../../../../domain/modulesummary";
-import {DataSource} from "@angular/cdk/collections";
-import {BehaviorSubject, merge, Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {ErrorHandlerService} from "../../../../services/error-handler.service";
-import {ModuleData} from "../../../../domain/moduledata";
-import {MatDialog} from "@angular/material/dialog";
-import {ModuleConfigComponent} from "./module-config/module-config.component";
+import {MainService} from '../../../../services/main.service';
+import {ModuleSummary} from '../../../../domain/modulesummary';
+import {DataSource} from '@angular/cdk/collections';
+import {BehaviorSubject, merge, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {ErrorHandlerService} from '../../../../services/error-handler.service';
+import {ModuleData} from '../../../../domain/moduledata';
+import {MatDialog} from '@angular/material/dialog';
+import {ModuleConfigComponent} from './module-config/module-config.component';
+import {group} from '@angular/animations';
 
 @Component({
   selector: 'app-module-list',
@@ -17,14 +18,16 @@ import {ModuleConfigComponent} from "./module-config/module-config.component";
 export class ModuleListComponent implements OnInit {
 
   @Input() assignment: number;
+  @Input() group?: number;
   moduleColumns = ['name', 'active', 'outputPortState'];
-  showSpinner: boolean = false;
+  showSpinner = false;
   moduleDatabase: ModuleDataBase;
   moduleDataSource: ModuleDataSource;
-  rowClicked: boolean =false;
+  rowClicked =false;
   selectedModule: ModuleSummary;
 
-  constructor(public mainService: MainService, private errorHandler: ErrorHandlerService, private appRef :ApplicationRef, private dialog: MatDialog) { }
+  constructor(public mainService: MainService, private errorHandler: ErrorHandlerService,
+              private appRef :ApplicationRef, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.moduleDatabase = new ModuleDataBase(this.mainService, this, this.errorHandler, this.appRef);
@@ -45,7 +48,7 @@ export class ModuleListComponent implements OnInit {
         this.openDialog(res)
       },
       error => {
-        this.errorHandler.handle(error, " Cannot get module details");
+        this.errorHandler.handle(error, ' Cannot get module details');
         this.rowClicked = false;
       }
     )
@@ -81,7 +84,7 @@ export class ModuleDataBase {
   update() {
     this.parent.showSpinner = true;
 
-    this.mainService.getModuleList(this.parent.assignment, null).subscribe(
+    this.mainService.getModuleList(this.parent.assignment, this.parent.group).subscribe(
       response => {
         this.dataChange.next(response);
         this.parent.showSpinner = false;
@@ -89,7 +92,7 @@ export class ModuleDataBase {
       },
       error => {
         this.parent.showSpinner = false;
-        this.errorHandler.handle(error, " Cannot get module list: ");
+        this.errorHandler.handle(error, 'Cannot get module list: ');
       }
     );
   }
