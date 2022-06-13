@@ -1,111 +1,125 @@
-<ng-container *ngIf="data.binarySensorData">
-  <mat-list>
-    <mat-list-item *ngFor="let binarySensorData of data.binarySensorData">
-      <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-        <div fxFlex="5%"></div>
-        <div fxFlex="50%">
-          <mat-icon matListIcon *ngIf="binarySensorData.enabled">flash_on</mat-icon>
-          <mat-icon matListIcon *ngIf="!binarySensorData.enabled">flash_off</mat-icon>
-          <h3 matLine>{{binarySensorData.name}}</h3>
-        </div>
-        <div fxFlex><p matLine><span>{{binarySensorData.enabled ? "ON" : "OFF"}}</span></p></div>
-      </div>
-    </mat-list-item>
-  </mat-list>
-</ng-container>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2>Module Config:</h2>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngIf="data.binarySensorData">
+      <mat-list>
+        <mat-list-item *ngFor="let binarySensorData of data.binarySensorData">
+          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+            <div fxFlex="5%"></div>
+            <div fxFlex="50%">
+              <mat-icon matListIcon *ngIf="binarySensorData.enabled">flash_on</mat-icon>
+              <mat-icon matListIcon *ngIf="!binarySensorData.enabled">flash_off</mat-icon>
+              <h3 matLine>{{binarySensorData.name}}</h3>
+            </div>
+            <div fxFlex><p matLine><span>{{binarySensorData.enabled ? "ON" : "OFF"}}</span></p></div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
 
-<ng-container *ngIf="data.temperatureSensorData">
-  <mat-list>
-    <mat-list-item *ngFor="let temperatureSensorData of data.temperatureSensorData">
-      <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-        <div fxFlex="5%"></div>
-        <div fxFlex="50%">
-          <h4 matLine>
-            <mat-icon matListIcon>network_check</mat-icon>
-            {{temperatureSensorData.name}}</h4>
-        </div>
-        <div fxFlex><p matLine><span>{{temperatureSensorData.data}}°C</span></p></div>
-      </div>
-    </mat-list-item>
-  </mat-list>
-</ng-container>
+    <ng-container *ngIf="data.temperatureSensorData">
+      <mat-list>
+        <mat-list-item *ngFor="let temperatureSensorData of data.temperatureSensorData">
+          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+            <div fxFlex="5%"></div>
+            <div fxFlex="50%">
+              <h4 matLine>
+                <mat-icon matListIcon>network_check</mat-icon>
+                {{temperatureSensorData.name}}</h4>
+            </div>
+            <div fxFlex><p matLine><span>{{temperatureSensorData.data}}°C</span></p></div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
 
-<ng-container *ngIf="data.temperatureSensorData">
-  <mat-list>
-    <mat-list-item *ngFor="let tempHumiditySensorData of data.tempHumiditySensorData">
+    <ng-container *ngIf="data.temperatureSensorData">
+      <mat-list>
+        <mat-list-item *ngFor="let tempHumiditySensorData of data.tempHumiditySensorData">
+          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+            <div fxFlex="5%"></div>
+            <div fxFlex="50%">
+              <h4 matLine>
+                <mat-icon matListIcon>network_check</mat-icon>
+                {{tempHumiditySensorData.name}}</h4>
+            </div>
+            <div fxFlex>
+              <p matLine><span>{{tempHumiditySensorData.temperature}}°C</span></p>
+              <p matLine><span>{{tempHumiditySensorData.humidity}}%</span></p>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+    <ng-container *ngIf="data.bme280TempHumidityPressureSensorData">
+      <mat-list>
+        <mat-list-item
+          *ngFor="let bme280TempHumidityPressureSensorData of data.bme280TempHumidityPressureSensorData">
+          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+            <div fxFlex="5%"></div>
+            <div fxFlex="50%">
+              <h4 matLine>
+                <mat-icon matListIcon>network_check</mat-icon>
+                {{bme280TempHumidityPressureSensorData.name}}</h4>
+            </div>
+            <div fxFlex>
+              <p matLine><span>{{bme280TempHumidityPressureSensorData.temperature}}°C</span></p>
+              <p matLine><span>{{bme280TempHumidityPressureSensorData.humidity}}%</span></p>
+              <p matLine><span>{{bme280TempHumidityPressureSensorData.pressure}}</span></p>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+    <ng-container *ngIf="data.tsl2591LuminositySensorData">
+      <mat-list>
+        <mat-list-item *ngFor="let luminositySensorData of data.tsl2591LuminositySensorData">
+          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+            <div fxFlex="5%"></div>
+            <div fxFlex="50%">
+              <h4 matLine>
+                <mat-icon matListIcon>network_check</mat-icon>
+                {{luminositySensorData.name}}</h4>
+            </div>
+            <div fxFlex><p matLine><span>{{luminositySensorData.data}}lum</span></p></div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+    <form class="update-organization-form" [formGroup]="moduleConfigForm">
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
         <div fxFlex="5%"></div>
         <div fxFlex="50%">
-          <h4 matLine>
-            <mat-icon matListIcon>network_check</mat-icon>
-            {{tempHumiditySensorData.name}}</h4>
+          <mat-checkbox [formControlName]="'enabledOnStartup'" [checked]="data.startupMode === 1">Enabled On Startup</mat-checkbox>
         </div>
-        <div fxFlex>
-          <p matLine><span>{{tempHumiditySensorData.temperature}}°C</span></p>
-          <p matLine><span>{{tempHumiditySensorData.humidity}}%</span></p>
-        </div>
+        <div fxFlex></div>
       </div>
-    </mat-list-item>
-  </mat-list>
-</ng-container>
-<ng-container *ngIf="data.bme280TempHumidityPressureSensorData">
-  <mat-list>
-    <mat-list-item
-      *ngFor="let bme280TempHumidityPressureSensorData of data.bme280TempHumidityPressureSensorData">
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
         <div fxFlex="5%"></div>
         <div fxFlex="50%">
-          <h4 matLine>
-            <mat-icon matListIcon>network_check</mat-icon>
-            {{bme280TempHumidityPressureSensorData.name}}</h4>
+          <mat-checkbox [formControlName]="'mode'" [checked]="data.mode === 2">Module Logic Activated</mat-checkbox>
         </div>
-        <div fxFlex>
-          <p matLine><span>{{bme280TempHumidityPressureSensorData.temperature}}°C</span></p>
-          <p matLine><span>{{bme280TempHumidityPressureSensorData.humidity}}%</span></p>
-          <p matLine><span>{{bme280TempHumidityPressureSensorData.pressure}}</span></p>
-        </div>
+        <div fxFlex></div>
       </div>
-    </mat-list-item>
-  </mat-list>
-</ng-container>
-<ng-container *ngIf="data.tsl2591LuminositySensorData">
-  <mat-list>
-    <mat-list-item *ngFor="let luminositySensorData of data.tsl2591LuminositySensorData">
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
         <div fxFlex="5%"></div>
         <div fxFlex="50%">
-          <h4 matLine>
-            <mat-icon matListIcon>network_check</mat-icon>
-            {{luminositySensorData.name}}</h4>
+          <mat-checkbox [formControlName]="'outputPortState'" [checked]="data.outputPortState > 0">Module Output Port
+            Enabled
+          </mat-checkbox>
         </div>
-        <div fxFlex><p matLine><span>{{luminositySensorData.data}}lum</span></p></div>
+        <div fxFlex></div>
       </div>
-    </mat-list-item>
-  </mat-list>
-</ng-container>
-<form class="update-organization-form" [formGroup]="moduleConfigForm">
-  <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-    <div fxFlex="5%"></div>
-    <div fxFlex="50%">
-      <mat-checkbox [formControlName]="'mode'" [checked]="data.mode === 2">Module Logic Activated</mat-checkbox>
-    </div>
-    <div fxFlex></div>
-  </div>
-  <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-    <div fxFlex="5%"></div>
-    <div fxFlex="50%">
-      <mat-checkbox [formControlName]="'outputPortState'" [checked]="data.outputPortState > 0">Module Output Port
-        Enabled
-      </mat-checkbox>
-    </div>
-    <div fxFlex></div>
-  </div>
-</form>
-<div class="form-button-group" style="text-align: right">
-  <button mat-raised-button color="warn" (click)="cancel()" type="button">Cancel</button>
-  <button mat-raised-button color="primary" (click)="save()" [disabled]="moduleConfigForm.invalid || !isChanged()">
-    Save
-  </button>
-
-</div>
-
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="warn" (click)="cancel()" type="button">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="moduleConfigForm.invalid || !isChanged()">
+      Save
+    </button>
+  </mat-card-actions>
+</mat-card>
