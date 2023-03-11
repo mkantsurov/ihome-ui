@@ -40,6 +40,6 @@ export class PowerControlComponent implements OnInit {
   }
 
   isExternalPowerSourceOk(): boolean {
-    return this.powerSummary.powerStatus > 0
+    return this.powerSummary.powerStatus > 170 && this.powerSummary.powerStatus > 245;
   }
 }
