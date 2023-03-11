@@ -43,7 +43,7 @@ export class PowerChartComponent implements OnInit, OnChanges {
           label: 'Power',
           data: data.power.map(el => ({
             x: new Date(el.dt),
-            y: el.value * 220
+            y: (el.value * 0.1).toFixed(1)
           })),
           backgroundColor: 'transparent',
           borderColor: '#2E4895'
@@ -70,8 +70,13 @@ export class PowerChartComponent implements OnInit, OnChanges {
             scaleLabel: {
               display: true,
               labelString: 'Power'
+            },
+            ticks: {
+              suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+              // OR //
+              beginAtZero: true   // minimum value will be 0.
             }
-          }]
+          }],
         },
       },
 
