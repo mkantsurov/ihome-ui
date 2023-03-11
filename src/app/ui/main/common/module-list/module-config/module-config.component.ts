@@ -28,7 +28,7 @@ export class ModuleConfigComponent implements OnInit {
     this.moduleConfigForm = this.fb.group({
         mode: new FormControl(this.data.mode === 2),
         enabledOnStartup: new FormControl(this.data.startupMode === 1),
-        outputPortState: new FormControl(this.data.outputPortState > 0)
+        outputPortState: new FormControl(this.data.outputPortState)
       }
     );
   }
@@ -37,7 +37,7 @@ export class ModuleConfigComponent implements OnInit {
     this.mainService.updateModuleConfig(this.data.moduleId, {
       enabledOnStartup: this.moduleConfigForm.value.enabledOnStartup,
       moduleActive: this.moduleConfigForm.value.mode,
-      outputPortEnabled: this.moduleConfigForm.value.outputPortState
+      outputValue: this.moduleConfigForm.value.outputPortState
     } as ModuleUpdateRequest).subscribe(
       res => {
         this.moduleConfFormComponentRef.close(true);

@@ -108,9 +108,7 @@
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
         <div fxFlex="5%"></div>
         <div fxFlex="50%">
-          <mat-checkbox [formControlName]="'outputPortState'" [checked]="data.outputPortState > 0">Module Output Port
-            Enabled
-          </mat-checkbox>
+          <mat-slider [min]="0" [max]="data.dimmableOutput ? 5 : 1" [step]="1" [formControlName]="'outputPortState'">Module Output</mat-slider>
         </div>
         <div fxFlex></div>
       </div>
