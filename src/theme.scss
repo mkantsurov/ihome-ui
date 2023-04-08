@@ -1,10 +1,10 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import "./theme_variables.scss";
 
-@include mat-core();
+@include mat.core();
 
-$app-theme-dark: mat-dark-theme($app-primary, $app-accent, $app-warn);
+$app-theme-dark: mat.define-dark-theme($app-primary, $app-accent, $app-warn);
 
 $app-theme-dark: map_merge($app-theme-dark, (background: $ihome-mat-dark-theme-background));
 
-@include angular-material-theme($app-theme-dark);
+@include mat.all-component-themes($app-theme-dark);

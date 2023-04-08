@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
 $md-ihome-mcgpalette-dblue: (
   50 : #e0ecfb,
@@ -75,7 +75,7 @@ $ihome-mat-dark-theme-background: (
   dialog:     map-get($md-ihome-mcgpalette-dblue, 700), //dialog:  n   map-get($mat-grey, 800),
   disabled-button: map-get($md-ihome-mcgpalette-dblue, 500), //rgba(white, 0.12),
   raised-button: map-get($md-ihome-mcgpalette-dblue, 800), //raised-button: map-get($mat-grey, 800),
-  focused-button: $light-focused,
+  focused-button: rgba(white, 0.12),
   selected-button: map-get($md-ihome-mcgpalette-dblue, 500), //selected-button: map-get($mat-grey, 900),
   selected-disabled-button: map-get($md-ihome-mcgpalette-dblue, 900), //selected-disabled-button: map-get($mat-grey, 800),
   disabled-button-toggle: black,
@@ -84,10 +84,10 @@ $ihome-mat-dark-theme-background: (
   tooltip: map-get($md-ihome-mcgpalette-dblue, 700)    //tooltip: map-get($mat-grey, 700)
 );
 
-$app-primary: mat-palette($md-ihome-mcgpalette-dblue);
-$app-accent: mat-palette($md-ihome-mcgpalette-green,  500);
-$app-warn: mat-palette($mat-pink, 600);
+$app-primary: mat.define-palette($md-ihome-mcgpalette-dblue);
+$app-accent: mat.define-palette($md-ihome-mcgpalette-green,  500);
+$app-warn: mat.define-palette(mat.$pink-palette, 600);
 
-$primary: mat-color($app-primary);
-$accent: mat-color($app-accent);
-$warn: mat-color($app-warn);
+$primary: mat.get-color-from-palette($app-primary);
+$accent: mat.get-color-from-palette($app-accent);
+$warn: mat.get-color-from-palette($app-warn);
