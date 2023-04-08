@@ -54,3 +54,4 @@ Thumbs.db
 /proxy.conf.json
 /tsconfig.json
 /tslint.json
+/.gradle/
