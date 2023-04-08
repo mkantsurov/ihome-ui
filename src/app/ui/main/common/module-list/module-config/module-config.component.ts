@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ModuleData} from '../../../../../domain/moduledata';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {MainService} from '../../../../../services/main.service';
 import {ErrorHandlerService} from '../../../../../services/error-handler.service';
 import {ModuleUpdateRequest} from '../../../../../domain/module-update-request';
@@ -13,22 +13,22 @@ import {logger} from 'codelyzer/util/logger';
   styleUrls: ['./module-config.component.scss']
 })
 export class ModuleConfigComponent implements OnInit {
-  moduleConfigForm: FormGroup;
+  moduleConfigForm: UntypedFormGroup;
   showSpinner = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ModuleData,
               public moduleConfFormComponentRef: MatDialogRef<ModuleConfigComponent>,
               public mainService: MainService,
               private errorHandler: ErrorHandlerService,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
   ) {
   }
 
   ngOnInit(): void {
     this.moduleConfigForm = this.fb.group({
-        mode: new FormControl(this.data.mode === 2),
-        enabledOnStartup: new FormControl(this.data.startupMode === 1),
-        outputPortState: new FormControl(this.data.outputPortState)
+        mode: new UntypedFormControl(this.data.mode === 2),
+        enabledOnStartup: new UntypedFormControl(this.data.startupMode === 1),
+        outputPortState: new UntypedFormControl(this.data.outputPortState)
       }
     );
   }

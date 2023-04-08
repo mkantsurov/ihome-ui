@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {GlobalService} from "../../../services/global.service";
@@ -13,15 +13,15 @@ import {Router} from "@angular/router";
 })
 export class GeneralSignInComponent implements OnInit {
   loading: boolean = false;
-  loginForm: FormGroup;
-  emailForm: FormGroup;
+  loginForm: UntypedFormGroup;
+  emailForm: UntypedFormGroup;
   loginAttemptErrorMsg: string = null;
 
   constructor(private router: Router,
               private userService: UserService,
               private globalService: GlobalService,
               private authenticationService: AuthenticationService,
-              public formBuilder: FormBuilder,
+              public formBuilder: UntypedFormBuilder,
               public dialog: MatDialog) {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
