@@ -27,6 +27,7 @@
         <mat-icon *ngIf="!isExternalPowerSourceOk()" aria-hidden="false" aria-label="i-home" color="primary"
                   class="material-icons-outlined">power_off
         </mat-icon>
+        <div>{{ (powerSummary.powerStatus*0.1).toFixed(1)}}</div>
       </div>
     </div>
     <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">

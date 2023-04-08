@@ -71,6 +71,7 @@
           <mat-icon *ngIf="systemSummary.powerStatus == 0" aria-hidden="false" aria-label="i-home" color="primary"
                     class="material-icons-outlined">power_off
           </mat-icon>
+          <div>{{ (systemSummary.powerStatus*0.1).toFixed(1)}}</div>
         </div>
       </div>
       <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">

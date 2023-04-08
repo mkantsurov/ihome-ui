@@ -1,32 +1,53 @@
-import com.moowork.gradle.node.npm.NpmTask
 import com.palantir.gradle.docker.DockerExtension
 import groovy.json.JsonOutput
 import java.io.IOException
 import java.util.function.Function
 import java.util.regex.Pattern
 
+import com.github.gradle.node.npm.proxy.ProxySettings
+import com.github.gradle.node.npm.task.NpmTask
+import com.github.gradle.node.npm.task.NpxTask
+import com.github.gradle.node.task.NodeTask
+import com.github.gradle.node.yarn.task.YarnTask
+
 val dockerRepository: String by project
 val ngDistDir = "${project.projectDir}/dist"
 val ngOutputDir = "${ngDistDir}/static"
 val ngConfDir = "${ngDistDir}/nginx"
 
-node {
-    version = "10.24.0"
-    npmVersion = "6.11.3"
-//  Plugin is not able to download node due incompatibility with gradle 6+
-//  https://stackoverflow.com/questions/60604212/configuring-springboot-gadle-with-nodejs
-    download = false
-    workDir = file("${project.buildDir}/node")
-    nodeModulesDir = file("${project.projectDir}")
-}
-
 plugins {
     idea
     java
-    id("com.moowork.node") version "1.3.1"
-    id("org.sonarqube") version "2.6.2"
-    id("com.palantir.docker") version "0.26.0"
-    id("net.ltgt.apt") version "0.10"
+    id("com.github.node-gradle.node") version "3.5.1"
+    id("com.palantir.docker") version "0.34.0"
+}
+
+//node {
+//  setVersion("10.24.0")
+//
+//  workDir = file("${project.buildDir}/node")
+//
+//  version = "10.24.0"
+//  npmVersion = "6.11.3"
+////  Plugin is not able to download node due incompatibility with gradle 6+
+////  https://stackoverflow.com/questions/60604212/configuring-springboot-gadle-with-nodejs
+//  download = false
+//  workDir = file("${project.buildDir}/node")
+//  nodeModulesDir = file("${project.projectDir}")
+//}
+
+node {
+  version.set("12.22.9")
+  npmVersion.set("")
+  yarnVersion.set("")
+  npmInstallCommand.set("install")
+  distBaseUrl.set("https://nodejs.org/dist")
+  download.set(false)
+  workDir.set(file("${project.projectDir}/.cache/nodejs"))
+  npmWorkDir.set(file("${project.projectDir}/.cache/npm"))
+  yarnWorkDir.set(file("${project.projectDir}/.cache/yarn"))
+  nodeProjectDir.set(file("${project.projectDir}"))
+  nodeProxySettings.set(ProxySettings.SMART)
 }
 
 description = "I-Home UI"
@@ -67,12 +88,12 @@ task("prepareNpm") {
 }
 
 task<NpmTask>("compileTypeScript") {
-    setArgs(listOf("run-script", "tsc"))
+  args.set(listOf("run-script", "tsc"))
 }
 
 task<NpmTask>("npmStart") {
   group = "node"
-  setArgs(listOf("start"))
+  args.set(listOf("start"))
   dependsOn("npmInstall")
 }
 
@@ -81,7 +102,7 @@ task<NpmTask>("npmBuild") {
     inputs.files(fileTree("src"))
     inputs.file("package.json")
     outputs.dir(ngOutputDir)
-    setArgs(listOf("run", "prod"))
+    args.set(listOf("run", "prod"))
     group = "node"
     dependsOn("npmInstall")
 }
@@ -102,13 +123,6 @@ task("prepareFiles") {
             into("${project.buildDir}/docker/nginx")
             fileMode = 0b110100100
         }
-    }
-}
-
-sonarqube {
-    properties {
-        property("sonar.sources", "src")
-        property("sonar.typescript.node", node.variant.nodeExec)
     }
 }
 
