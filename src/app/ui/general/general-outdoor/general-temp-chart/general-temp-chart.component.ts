@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {OutdoorTempStat} from '../../../../domain/outdoor-temp-stat';
-import * as Chart from 'chart.js';
+import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 import {PressureStat} from '../../../../domain/pressurestat';
 
 @Component({
@@ -19,7 +19,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
 
   showSpinner = true;
 
-  chart: Chart;
+  chart: any;
 
   constructor() {
   }
@@ -35,6 +35,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
   }
 
   initChart(data: OutdoorTempStat) {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     const timeArray = data.temperature.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
@@ -54,26 +55,26 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
 
       options: {
         scales: {
-          xAxes: [{
+          x: {
             type: 'time',
             time: {
               unit: 'hour',
-              unitStepSize: 2,
+              stepSize: 2,
               displayFormats: {
                 hour: 'MMM DD hA',
               }
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Time'
+              text: 'Time'
             }
-          },],
-          yAxes: [{
-            scaleLabel: {
+          },
+          y: {
+            title: {
               display: true,
-              labelString: 'Temperature'
+              text: 'Temperature'
             }
-          }]
+          }
         },
       },
 

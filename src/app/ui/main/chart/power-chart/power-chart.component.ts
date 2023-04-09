@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import * as Chart from 'chart.js';
+import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 import {PowerStat} from '../../../../domain/power-stat';
 
 @Component({
@@ -18,7 +18,7 @@ export class PowerChartComponent implements OnInit, OnChanges {
 
   showSpinner = true;
 
-  chart: Chart;
+  chart: any;
 
   constructor() {
   }
@@ -34,6 +34,7 @@ export class PowerChartComponent implements OnInit, OnChanges {
   }
 
   initChart(data: PowerStat) {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     const timeArray = data.power.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
@@ -52,31 +53,29 @@ export class PowerChartComponent implements OnInit, OnChanges {
 
       options: {
         scales: {
-          xAxes: [{
+          x: {
             type: 'time',
             time: {
               unit: 'hour',
-              unitStepSize: 2,
+              stepSize: 2,
               displayFormats: {
                 hour: 'MMM DD hA',
               }
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Time'
+              text: 'Time'
             }
-          },],
-          yAxes: [{
-            scaleLabel: {
+          },
+          y: {
+            title: {
               display: true,
-              labelString: 'Power'
+              text: 'Power'
             },
-            ticks: {
-              suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-              // OR //
-              beginAtZero: true   // minimum value will be 0.
-            }
-          }],
+            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            // OR //
+            beginAtZero: true,   // minimum value will be 0.
+          },
         },
       },
 

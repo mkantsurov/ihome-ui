@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import * as Chart from 'chart.js';
+import {Chart, LineController, LineElement, PointElement, LinearScale, Title, TimeScale, Legend} from 'chart.js'
 import {TempStat} from '../../../../domain/tempstat';
 
 @Component({
@@ -19,7 +19,7 @@ export class TempChartComponent implements OnInit, OnChanges {
 
   showSpinner = true;
 
-  chart: Chart;
+  chart: any;
 
   constructor() {
   }
@@ -36,6 +36,7 @@ export class TempChartComponent implements OnInit, OnChanges {
 
 
   initChart(data: TempStat) {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -84,35 +85,34 @@ export class TempChartComponent implements OnInit, OnChanges {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        title: {
-          text: 'Chart.js Time Scale'
-        },
-        tooltips: {
-          mode: 'point',
-          intersect: true,
-          footerFontStyle: 'normal'
+        plugins: {
+          tooltip: {
+            enabled: true,
+            mode: 'point',
+            intersect: true
+          }
         },
         scales: {
-          xAxes: [{
+          x: {
             type: 'time',
             time: {
               unit: 'hour',
-              unitStepSize: 2,
+              stepSize: 2,
               displayFormats: {
                 hour: 'MMM DD hA',
               }
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Date'
+              text: 'Date'
             }
-          }],
-          yAxes: [{
-            scaleLabel: {
+          },
+          y: {
+            title: {
               display: true,
-              labelString: 'Temperature'
+              text: 'Temperature'
             }
-          }]
+          }
         },
       }
     });

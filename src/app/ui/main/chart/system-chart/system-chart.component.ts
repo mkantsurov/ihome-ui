@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {SystemStat} from '../../../../domain/systemstat';
-import * as Chart from 'chart.js';
+import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 
 @Component({
   selector: 'app-system-chart',
@@ -18,7 +18,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
 
   showSpinner = true;
 
-  chart: Chart;
+  chart: any;
 
   constructor() {
   }
@@ -35,6 +35,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
 
 
   initChart(data: SystemStat) {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -63,35 +64,33 @@ export class SystemChartComponent implements OnInit, OnChanges {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        title: {
-          text: 'Chart.js Time Scale'
-        },
-        tooltips: {
-          mode: 'point',
-          intersect: true,
-          footerFontStyle: 'normal'
+        plugins: {
+          tooltip: {
+            mode: 'point',
+            intersect: true
+          }
         },
         scales: {
-          xAxes: [{
+          x: {
             type: 'time',
             time: {
               unit: 'hour',
-              unitStepSize: 2,
+              stepSize: 2,
               displayFormats: {
                 hour: 'MMM DD hA',
               }
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Date'
+              text: 'Date'
             }
-          }],
-          yAxes: [{
-            scaleLabel: {
+          },
+          y: {
+            title: {
               display: true,
-              labelString: 'MB'
+              text: 'MB'
             }
-          }]
+          }
         },
       }
     });

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import * as Chart from 'chart.js';
+import {Chart, LineController, LineElement, PointElement, LinearScale, Title, TimeScale} from 'chart.js'
 import {LaStat} from '../../../../domain/lastat';
 
 @Component({
@@ -19,7 +19,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
 
   showSpinner = true;
 
-  chart: Chart;
+  chart: any;
 
   constructor() {
   }
@@ -36,7 +36,8 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
 
 
   initChart(data: LaStat) {
-    let timeArray = data.la.map(el => new Date(el.dt));
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
+    const timeArray = data.la.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
@@ -54,26 +55,26 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
 
       options: {
         scales: {
-          xAxes: [{
+          x: {
             type: 'time',
             time: {
               unit: 'hour',
-              unitStepSize: 2,
+              stepSize: 2,
               displayFormats: {
                 hour: 'MMM DD hA',
               }
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Time'
+              text: 'Time'
             }
-          },],
-          yAxes: [{
-            scaleLabel: {
+          },
+          y: {
+            title: {
               display: true,
-              labelString: 'LA'
+              text: 'LA'
             }
-          }]
+          }
         },
       }
     });

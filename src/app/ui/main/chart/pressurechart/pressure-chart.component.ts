@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {PressureStat} from '../../../../domain/pressurestat';
-import * as Chart from 'chart.js';
+import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 
 @Component({
   selector: 'app-pressure-chart',
@@ -19,7 +19,7 @@ export class PressureChartComponent implements OnInit, OnChanges {
 
   showSpinner = true;
 
-  chart: Chart;
+  chart: any;
 
   constructor() {
   }
@@ -36,6 +36,7 @@ export class PressureChartComponent implements OnInit, OnChanges {
 
 
   initChart(data: PressureStat) {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     const timeArray = data.pressure.map(el => new Date(el.dt));
     const measValueArray = data.pressure.map(el => el.value)
     this.chart = new Chart(this.canvas.nativeElement, {
@@ -52,26 +53,26 @@ export class PressureChartComponent implements OnInit, OnChanges {
 
       options: {
         scales: {
-          xAxes: [{
+          x: {
             type: 'time',
             time: {
               unit: 'hour',
-              unitStepSize: 2,
+              stepSize: 2,
               displayFormats: {
                 hour: 'MMM DD hA',
               }
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Time'
+              text: 'Time'
             }
-          },],
-          yAxes: [{
-            scaleLabel: {
+          },
+          y: {
+            title: {
               display: true,
-              labelString: 'Pressure'
+              text: 'Pressure'
             }
-          }]
+          }
         },
       }
     });
