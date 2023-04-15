@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {OutdoorTempStat} from '../../../../domain/outdoor-temp-stat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {PressureStat} from '../../../../domain/pressurestat';
 
 @Component({

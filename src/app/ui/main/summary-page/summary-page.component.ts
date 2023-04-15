@@ -5,7 +5,7 @@ import {PressureStat} from '../../../domain/pressurestat';
 import {LuminosityStat} from '../../../domain/luminositystat';
 import {SystemSummary} from '../../../domain/systemsummary';
 import {BoilerTempStat} from '../../../domain/boilertempstat';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs'
 
 @Component({
   selector: 'app-summary-page',
@@ -59,6 +59,6 @@ export class SummaryPageComponent implements OnInit {
   }
 
   getUpTime(): string {
-    return moment.duration(this.systemSummary.upTime).humanize();
+    return dayjs.unix(this.systemSummary.upTime).format('MM-DDTHH:mm:ss');
   }
 }

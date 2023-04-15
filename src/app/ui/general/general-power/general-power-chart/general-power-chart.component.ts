@@ -1,7 +1,6 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 import {PowerStat} from '../../../../domain/power-stat';
-import 'chartjs-adapter-moment';
 
 @Component({
   selector: 'app-general-power-chart',
