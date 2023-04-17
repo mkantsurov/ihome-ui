@@ -2,13 +2,13 @@
   "name": "ui",
   "version": "23.4.1",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --port 4201 --proxy-config ./proxy.conf.json",
-    "build": "ng build",
-    "prod": "ng build --output-path=dist/static --configuration production --verbose",
-    "test": "ng test",
+    "build": "ng build --verbose=true",
+    "e2e": "ng e2e",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "ng": "ng",
+    "prod": "ng build --configuration=production --verbose --output-path=dist/static",
+    "start": "ng serve --configuration=dev --proxy-config=proxy.conf.json --live-reload",
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {

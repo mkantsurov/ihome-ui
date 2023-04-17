@@ -6,6 +6,8 @@ import {LuminosityStat} from '../../../domain/luminositystat';
 import {SystemSummary} from '../../../domain/systemsummary';
 import {BoilerTempStat} from '../../../domain/boilertempstat';
 import * as dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 @Component({
   selector: 'app-summary-page',
@@ -59,6 +61,6 @@ export class SummaryPageComponent implements OnInit {
   }
 
   getUpTime(): string {
-    return dayjs.unix(this.systemSummary.upTime).format('MM-DDTHH:mm:ss');
+    return dayjs.duration(this.systemSummary.upTime).format('D[d] H[h] m[m]');
   }
 }
