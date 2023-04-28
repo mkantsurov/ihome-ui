@@ -1,17 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from "rxjs";
+import {Observable, of} from 'rxjs';
 import {SystemSummary} from '../domain/systemsummary';
 import {TempStat} from '../domain/tempstat';
 import {PressureStat} from '../domain/pressurestat';
-import {ModuleSummary} from "../domain/modulesummary";
-import {ModuleData} from "../domain/moduledata";
-import {BoilerTempStat} from "../domain/boilertempstat";
-import {LuminosityStat} from "../domain/luminositystat";
-import {SystemStat} from "../domain/systemstat";
-import {LaStat} from "../domain/lastat";
-import {PowerSummary} from "../domain/powersummary";
-import {HeatingSummary} from "../domain/heating-summary";
+import {ModuleSummary} from '../domain/modulesummary';
+import {ModuleData} from '../domain/moduledata';
+import {BoilerTempStat} from '../domain/boilertempstat';
+import {LuminosityStat} from '../domain/luminositystat';
+import {SystemStat} from '../domain/systemstat';
+import {LaStat} from '../domain/lastat';
+import {PowerSummary} from '../domain/powersummary';
+import {HeatingSummary} from '../domain/heating-summary';
+import {PowerVoltage} from '../domain/power-voltage';
+import {PowerConsumption} from '../domain/power-consumption';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +57,16 @@ export class SystemService {
   getLuminosityStat(): Observable<LuminosityStat> {
     console.info('Getting luminosity and pressure statistics...');
     return this.http.get<LuminosityStat>(`${this.baseUrl}/luminositystat/`)
+  }
+
+  getPowerVoltageStat(): Observable<PowerVoltage> {
+    console.info('Getting power voltage statistics...');
+    return this.http.get<PowerVoltage>(`${this.baseUrl}/power-voltage-stat/`)
+  }
+
+  getPowerConsumptionStat(): Observable<PowerConsumption> {
+    console.info('Getting power consumption statistics...');
+    return this.http.get<PowerConsumption>(`${this.baseUrl}/power-consumption-stat/`)
   }
 
   getSystemStat(): Observable<SystemStat> {

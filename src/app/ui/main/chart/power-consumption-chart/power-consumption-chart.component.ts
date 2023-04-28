@@ -1,18 +1,18 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
-import {PowerStat} from '../../../../domain/power-stat';
+import {PowerConsumption} from '../../../../domain/power-consumption';
 
 @Component({
-  selector: 'app-power-chart',
-  templateUrl: './power-chart.component.html',
-  styleUrls: ['./power-chart.component.css']
+  selector: 'app-power-consumption-chart',
+  templateUrl: './power-consumption-chart.component.html',
+  styleUrls: ['./power-consumption-chart.component.css']
 })
-export class PowerChartComponent implements OnInit, OnChanges {
+export class PowerConsumptionChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PowerStat;
+  @Input() data: PowerConsumption;
 
   isLoaded = false;
 
@@ -33,25 +33,42 @@ export class PowerChartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  initChart(data: PowerStat) {
+  initChart(data: PowerConsumption) {
     Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
-    const timeArray = data.power.map(el => new Date(el.dt));
+    const timeArray = data.extConsumption.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'Power',
-          data: data.power.map(el => ({
+          label: 'Ext Consumption',
+          data: data.extConsumption.map(el => ({
             x: new Date(el.dt),
             y: (el.value * 0.1).toFixed(1)
           })),
           backgroundColor: 'transparent',
-          borderColor: '#2E4895'
+          borderColor: '#602e95'
+        }, {
+          label: 'Int Consumption',
+          data: data.intConsumption.map(el => ({
+            x: new Date(el.dt),
+            y: (el.value * 0.1).toFixed(1)
+          })),
+          backgroundColor: 'transparent',
+          borderColor: '#952e90'
         }]
       },
 
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            enabled: true,
+            mode: 'point',
+            intersect: true
+          }
+        },
         scales: {
           x: {
             type: 'time',
@@ -70,7 +87,7 @@ export class PowerChartComponent implements OnInit, OnChanges {
           y: {
             title: {
               display: true,
-              text: 'Power'
+              text: 'Consumption'
             },
             suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
             // OR //
@@ -82,5 +99,4 @@ export class PowerChartComponent implements OnInit, OnChanges {
     });
     this.isLoaded = true;
   }
-
 }

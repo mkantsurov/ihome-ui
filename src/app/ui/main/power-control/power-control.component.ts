@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {LuminosityStat} from "../../../domain/luminositystat";
-import {SystemService} from "../../../services/system.service";
-import {PowerSummary} from "../../../domain/powersummary";
-import {GuestService} from "../../../services/guest.service";
-import {PowerStat} from "../../../domain/power-stat";
+import {LuminosityStat} from '../../../domain/luminositystat';
+import {SystemService} from '../../../services/system.service';
+import {PowerSummary} from '../../../domain/powersummary';
+import {GuestService} from '../../../services/guest.service';
+import {PowerVoltage} from '../../../domain/power-voltage';
+import {PowerConsumption} from '../../../domain/power-consumption';
 
 @Component({
   selector: 'app-power-control',
@@ -13,7 +14,8 @@ import {PowerStat} from "../../../domain/power-stat";
 export class PowerControlComponent implements OnInit {
 
   powerSummary: PowerSummary;
-  powerStat: PowerStat;
+  powerVoltageStat: PowerVoltage;
+  powerConsumption: PowerConsumption;
   luminosityStat: LuminosityStat;
 
   constructor(private systemService: SystemService, private guestService: GuestService) {
@@ -32,8 +34,11 @@ export class PowerControlComponent implements OnInit {
       this.powerSummary = response;
       this.systemService.getLuminosityStat().subscribe(luminosityStat => {
         this.luminosityStat = luminosityStat;
-        this.guestService.getPowerStat().subscribe(powerStat => {
-          this.powerStat = powerStat;
+        this.systemService.getPowerVoltageStat().subscribe(powerVoltageStat => {
+          this.powerVoltageStat = powerVoltageStat;
+          this.systemService.getPowerConsumptionStat().subscribe(powerConsumptionStat => {
+            this.powerConsumption = powerConsumptionStat;
+          })
         })
       })
     });

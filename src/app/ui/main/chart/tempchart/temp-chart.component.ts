@@ -34,7 +34,6 @@ export class TempChartComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-
   initChart(data: TempStat) {
     Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
     this.chart = new Chart(this.canvas.nativeElement, {

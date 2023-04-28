@@ -65,7 +65,8 @@ import { LightningControlComponent } from './ui/main/lightning-control/lightning
 import { AuditLogControlComponent } from './ui/main/audit-log-control/audit-log-control.component';
 import { MessagesComponent } from './ui/main/messages/messages.component';
 import { ModuleListComponent } from './ui/main/common/module-list/module-list.component';
-import { PowerChartComponent } from './ui/main/chart/power-chart/power-chart.component';
+import { PowerVoltageChartComponent } from './ui/main/chart/power-voltage-chart/power-voltage-chart.component';
+import { PowerConsumptionChartComponent } from './ui/main/chart/power-consumption-chart/power-consumption-chart.component';
 import { ExceptionModalComponent } from './ui/common/exception-modal-component/exception-modal.component';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {ErrorHandlerService} from './services/error-handler.service';
@@ -106,7 +107,8 @@ import {MatSliderModule} from '@angular/material/slider';
     AuditLogControlComponent,
     MessagesComponent,
     ModuleListComponent,
-    PowerChartComponent,
+    PowerVoltageChartComponent,
+    PowerConsumptionChartComponent,
     ExceptionModalComponent,
     TruncatePipe,
     ModuleConfigComponent

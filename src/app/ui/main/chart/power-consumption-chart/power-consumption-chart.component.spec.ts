@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PowerChartComponent } from './power-chart.component';
+import { PowerConsumptionChartComponent } from './power-consumption-chart.component';
 
 describe('PowerChartComponent', () => {
-  let component: PowerChartComponent;
-  let fixture: ComponentFixture<PowerChartComponent>;
+  let component: PowerConsumptionChartComponent;
+  let fixture: ComponentFixture<PowerConsumptionChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PowerChartComponent ]
+      declarations: [ PowerConsumptionChartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PowerChartComponent);
+    fixture = TestBed.createComponent(PowerConsumptionChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

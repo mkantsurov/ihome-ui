@@ -3,7 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from "rxjs";
 import {PressureStat} from "../domain/pressurestat";
 import {OutdoorTempStat} from "../domain/outdoor-temp-stat";
-import {PowerStat} from "../domain/power-stat";
+import {PowerVoltage} from "../domain/power-voltage";
+import {PowerVoltageExt} from '../domain/power-voltage-ext';
 
 
 @Injectable({
@@ -25,9 +26,9 @@ export class GuestService {
     return this.http.get<PressureStat>(`${this.baseUrl}/pressure-stat`)
   }
 
-  getPowerStat(): Observable<PowerStat> {
+  getPowerStat(): Observable<PowerVoltageExt> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<PowerStat>(`${this.baseUrl}/power-stat`)
+    return this.http.get<PowerVoltageExt>(`${this.baseUrl}/power-stat`)
   }
 
 }

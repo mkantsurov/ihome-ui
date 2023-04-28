@@ -1,19 +1,18 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 import {PowerVoltage} from '../../../../domain/power-voltage';
-import {PowerVoltageExt} from '../../../../domain/power-voltage-ext';
 
 @Component({
-  selector: 'app-general-power-chart',
-  templateUrl: './general-power-chart.component.html',
-  styleUrls: ['./general-power-chart.component.css']
+  selector: 'app-power-voltage-chart',
+  templateUrl: './power-voltage-chart.component.html',
+  styleUrls: ['./power-voltage-chart.component.css']
 })
-export class GeneralPowerChartComponent implements OnInit, OnChanges {
+export class PowerVoltageChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
   @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PowerVoltageExt;
+  @Input() data: PowerVoltage;
 
   isLoaded = false;
 
@@ -34,27 +33,42 @@ export class GeneralPowerChartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  initChart(data: PowerVoltageExt) {
+  initChart(data: PowerVoltage) {
     Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     const timeArray = data.extVoltage.map(el => new Date(el.dt));
-    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     this.chart = new Chart(this.canvas.nativeElement, {
       type: 'line',
       data: {
         labels: timeArray,
         datasets: [{
-          label: 'Power',
+          label: 'Ext Voltage',
           data: data.extVoltage.map(el => ({
             x: new Date(el.dt),
             y: (el.value * 0.1).toFixed(1)
           })),
           backgroundColor: 'transparent',
-          borderColor: '#476bb9',// "#2E4895"
-          pointRadius: 1
+          borderColor: '#2E4895'
+        }, {
+          label: 'Int Voltage',
+          data: data.intVoltage.map(el => ({
+            x: new Date(el.dt),
+            y: (el.value * 0.1).toFixed(1)
+          })),
+          backgroundColor: 'transparent',
+          borderColor: '#2E4895'
         }]
       },
 
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            enabled: true,
+            mode: 'point',
+            intersect: true
+          }
+        },
         scales: {
           x: {
             type: 'time',
@@ -73,17 +87,16 @@ export class GeneralPowerChartComponent implements OnInit, OnChanges {
           y: {
             title: {
               display: true,
-              text: 'Power'
+              text: 'Voltage'
             },
-            suggestedMin: 0,
-            beginAtZero: true
-          }
+            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            // OR //
+            beginAtZero: true,   // minimum value will be 0.
+          },
         },
       },
 
     });
     this.isLoaded = true;
   }
-
-
 }
