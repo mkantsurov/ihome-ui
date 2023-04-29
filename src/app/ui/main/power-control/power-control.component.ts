@@ -15,7 +15,7 @@ export class PowerControlComponent implements OnInit {
 
   powerSummary: PowerSummary;
   powerVoltageStat: PowerVoltage;
-  powerConsumption: PowerConsumption;
+  powerConsumptionStat: PowerConsumption;
   luminosityStat: LuminosityStat;
 
   constructor(private systemService: SystemService, private guestService: GuestService) {
@@ -37,7 +37,7 @@ export class PowerControlComponent implements OnInit {
         this.systemService.getPowerVoltageStat().subscribe(powerVoltageStat => {
           this.powerVoltageStat = powerVoltageStat;
           this.systemService.getPowerConsumptionStat().subscribe(powerConsumptionStat => {
-            this.powerConsumption = powerConsumptionStat;
+            this.powerConsumptionStat = powerConsumptionStat;
           })
         })
       })

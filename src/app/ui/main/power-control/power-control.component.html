@@ -48,15 +48,24 @@
 <div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
   <div fxFlex="30%">
-    <div class="chart-container">
-      <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
-      <app-power-consumption-chart [data]="powerConsumption"></app-power-consumption-chart>
-    </div>
   </div>
   <div fxFlex="30%">
     <div class="chart-container">
       <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
       <app-power-voltage-chart [data]="powerVoltageStat"></app-power-voltage-chart>
+    </div>
+  </div>
+  <div fxFlex></div>
+</div>
+
+<div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
+  <div fxFlex="5%"></div>
+  <div fxFlex="30%">
+  </div>
+  <div fxFlex="30%">
+    <div class="chart-container">
+      <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
+      <app-power-consumption-chart [data]="powerConsumptionStat"></app-power-consumption-chart>
     </div>
   </div>
   <div fxFlex></div>

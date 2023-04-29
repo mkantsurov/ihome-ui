@@ -47,7 +47,7 @@ export class PowerConsumptionChartComponent implements OnInit, OnChanges {
             y: (el.value * 0.1).toFixed(1)
           })),
           backgroundColor: 'transparent',
-          borderColor: '#602e95'
+          borderColor: '#352e95'
         }, {
           label: 'Int Consumption',
           data: data.intConsumption.map(el => ({

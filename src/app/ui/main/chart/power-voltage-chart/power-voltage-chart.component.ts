@@ -55,7 +55,7 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
             y: (el.value * 0.1).toFixed(1)
           })),
           backgroundColor: 'transparent',
-          borderColor: '#2E4895'
+          borderColor: '#782e95'
         }]
       },
 
