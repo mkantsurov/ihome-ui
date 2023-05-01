@@ -52,6 +52,6 @@ export class PowerControlComponent implements OnInit {
   }
 
   isExternalPowerSourceOk(): boolean {
-    return this.powerSummary.extVoltage > 1700 && this.powerSummary.extVoltage  > 2450;
+    return +this.powerSummary.extVoltage > 1700 && +this.powerSummary.extVoltage  > 2450;
   }
 }
