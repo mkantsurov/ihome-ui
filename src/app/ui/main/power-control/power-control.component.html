@@ -27,8 +27,26 @@
         <mat-icon *ngIf="!isExternalPowerSourceOk()" aria-hidden="false" aria-label="i-home" color="primary"
                   class="material-icons-outlined">power_off
         </mat-icon>
-        <div>{{ (powerSummary.powerStatus*0.1).toFixed(1)}}</div>
+        <div>{{ (powerSummary.extVoltage * 0.1).toFixed(1)}}</div>
       </div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Frequency
+      </div>
+      <div>{{ (powerSummary.extFrequency * 0.01).toFixed(2)}}</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Current
+      </div>
+      <div>{{ (powerSummary.extCurrent * 0.1).toFixed(1)}}</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Consumption
+      </div>
+      <div>{{ (powerSummary.extConsumption * 0.1).toFixed(1)}}</div>
     </div>
     <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
       <div fxFlex="60%">
@@ -48,6 +66,39 @@
 <div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
   <div fxFlex="30%">
+
+
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Internal Power Line
+      </div>
+      <div fxFlex>
+        <div>{{ (powerSummary.intVoltage * 0.1).toFixed(1)}}</div>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Frequency
+      </div>
+      <div>{{ (powerSummary.intFrequency * 0.01).toFixed(2)}}</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Current
+      </div>
+      <div>{{ (powerSummary.intCurrent * 0.1).toFixed(1)}}</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Consumption
+      </div>
+      <div>{{ (powerSummary.intConsumption * 0.1).toFixed(1)}}</div>
+    </div>
+
+
+
+
   </div>
   <div fxFlex="30%">
     <div class="chart-container">
@@ -61,6 +112,17 @@
 <div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
   <div fxFlex="30%">
+
+
+
+
+
+
+
+
+
+
+
   </div>
   <div fxFlex="30%">
     <div class="chart-container">
@@ -81,7 +143,7 @@
 
 <div fxLayout="row" fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0" >
+  <div fxFlex="auto 1 0">
     <app-module-list [assignment]="3"></app-module-list>
   </div>
   <div fxFlex="5%"></div>
@@ -89,7 +151,7 @@
 
 <div fxLayout="row" fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0" >
+  <div fxFlex="auto 1 0">
     <app-module-list [assignment]="6"></app-module-list>
   </div>
   <div fxFlex="5%"></div>

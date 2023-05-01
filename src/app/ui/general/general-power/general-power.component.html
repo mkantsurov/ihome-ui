@@ -2,7 +2,38 @@
      fxLayout.sm="column"
      fxFlexFill
      fxLayoutAlign="left center">
-
+  <div fxFlex="5%"></div>
+  <div fxFlex="0 0 550px">
+    <div class="data-header">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">power_settings_new
+        </mat-icon>
+        <span class="data-header-text">Summary</span>
+      </h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        External Power Line
+      </div>
+      <div fxFlex>
+        <div>{{ (powerSummary.extVoltage*0.1).toFixed(1)}} V</div>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Frequency
+      </div>
+      <div>{{ (powerSummary.extFrequency*0.01).toFixed(2)}} Hz</div>
+    </div>
+  </div>
+  <div fxFlex></div>
+</div>
+<div fxLayout="row"
+     fxLayout.sm="column"
+     fxFlexFill
+     fxLayoutAlign="left center">
   <div fxFlex="0 0 550px">
     <app-general-power-chart [data]="powerStat"></app-general-power-chart>
   </div>

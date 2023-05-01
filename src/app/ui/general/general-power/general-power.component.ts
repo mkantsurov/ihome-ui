@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GuestService} from "../../../services/guest.service";
-import {PowerVoltage} from "../../../domain/power-voltage";
+import {GuestService} from '../../../services/guest.service';
 import {PowerVoltageExt} from '../../../domain/power-voltage-ext';
+import {ExtPowerSummary} from '../../../domain/ext-power-summary';
 
 @Component({
   selector: 'app-general-power',
@@ -11,12 +11,21 @@ import {PowerVoltageExt} from '../../../domain/power-voltage-ext';
 export class GeneralPowerComponent implements OnInit {
 
   powerStat: PowerVoltageExt;
+  powerSummary: ExtPowerSummary;
 
-  constructor(public guestService: GuestService) { }
+  constructor(public guestService: GuestService) {
+    this.powerSummary = {
+      extVoltage: 0,
+      extFrequency: 0
+    }
+  }
 
   ngOnInit(): void {
     this.guestService.getPowerStat().subscribe(response => {
       this.powerStat = response;
+      this.guestService.getExtPowerVoltageStat().subscribe(powerSummary => {
+        this.powerSummary = powerSummary;
+      })
     })
   }
 

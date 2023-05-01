@@ -5,6 +5,7 @@ import {PressureStat} from "../domain/pressurestat";
 import {OutdoorTempStat} from "../domain/outdoor-temp-stat";
 import {PowerVoltage} from "../domain/power-voltage";
 import {PowerVoltageExt} from '../domain/power-voltage-ext';
+import {ExtPowerSummary} from '../domain/ext-power-summary';
 
 
 @Injectable({
@@ -29,6 +30,11 @@ export class GuestService {
   getPowerStat(): Observable<PowerVoltageExt> {
     console.info('Getting temperature and pressure statistics...');
     return this.http.get<PowerVoltageExt>(`${this.baseUrl}/power-stat`)
+  }
+
+  getExtPowerVoltageStat(): Observable<ExtPowerSummary> {
+    console.info('Getting power voltage statistics...');
+    return this.http.get<ExtPowerSummary>(`${this.baseUrl}/power-summary/`)
   }
 
 }

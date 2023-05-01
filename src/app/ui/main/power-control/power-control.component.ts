@@ -21,7 +21,14 @@ export class PowerControlComponent implements OnInit {
   constructor(private systemService: SystemService, private guestService: GuestService) {
     this.powerSummary = {
       luminosity: 0,
-      powerStatus: 0,
+      extVoltage: 0,
+      extCurrent: 0,
+      extFrequency: 0,
+      extConsumption: 0,
+      intVoltage: 0,
+      intCurrent: 0,
+      intFrequency: 0,
+      intConsumption: 0,
       securityMode: 0,
       pwSrcConverterMode: 0,
       pwSrcDirectMode: 0
@@ -45,6 +52,6 @@ export class PowerControlComponent implements OnInit {
   }
 
   isExternalPowerSourceOk(): boolean {
-    return this.powerSummary.powerStatus > 170 && this.powerSummary.powerStatus > 245;
+    return this.powerSummary.extVoltage > 1700 && this.powerSummary.extVoltage  > 2450;
   }
 }
