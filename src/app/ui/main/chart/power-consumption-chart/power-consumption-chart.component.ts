@@ -55,7 +55,8 @@ export class PowerConsumptionChartComponent implements OnInit, OnChanges {
             y: (el.value * 0.1).toFixed(1)
           })),
           backgroundColor: 'transparent',
-          borderColor: '#952e90'
+          borderColor: '#952e90',
+          pointRadius: 1
         }]
       },
 
