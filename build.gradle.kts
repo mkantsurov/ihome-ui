@@ -19,7 +19,7 @@ plugins {
     idea
     java
     id("com.github.node-gradle.node") version "3.5.1"
-    id("com.palantir.docker") version "0.34.0"
+    id("com.palantir.docker") version "0.35.0"
 }
 
 //node {
