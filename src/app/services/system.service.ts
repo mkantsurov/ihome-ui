@@ -27,7 +27,7 @@ export class SystemService {
 
   getSystemSummary(): Observable<SystemSummary> {
     console.info('Getting System Summary...');
-    return this.http.get<SystemSummary>(`${this.baseUrl}/summary/`)
+    return this.http.get<SystemSummary>(`${this.baseUrl}/summary`)
   }
 
   getPowerSummary() : Observable<PowerSummary> {
@@ -41,42 +41,42 @@ export class SystemService {
 
   getTempStat(): Observable<TempStat> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<TempStat>(`${this.baseUrl}/tempstat/`)
+    return this.http.get<TempStat>(`${this.baseUrl}/tempstat`)
   }
 
   getBoilerTempStat(): Observable<BoilerTempStat> {
     console.info('Getting boiler temperature');
-    return this.http.get<BoilerTempStat>(`${this.baseUrl}/boiler-temp-stat/`)
+    return this.http.get<BoilerTempStat>(`${this.baseUrl}/boiler-temp-stat`)
   }
 
   getPressureStat(): Observable<PressureStat> {
     console.info('Getting temperature and pressure statistics...');
-    return this.http.get<PressureStat>(`${this.baseUrl}/pressure-stat/`)
+    return this.http.get<PressureStat>(`${this.baseUrl}/pressure-stat`)
   }
 
   getLuminosityStat(): Observable<LuminosityStat> {
     console.info('Getting luminosity and pressure statistics...');
-    return this.http.get<LuminosityStat>(`${this.baseUrl}/luminositystat/`)
+    return this.http.get<LuminosityStat>(`${this.baseUrl}/luminosity-stat`)
   }
 
   getPowerVoltageStat(): Observable<PowerVoltage> {
     console.info('Getting power voltage statistics...');
-    return this.http.get<PowerVoltage>(`${this.baseUrl}/power-voltage-stat/`)
+    return this.http.get<PowerVoltage>(`${this.baseUrl}/power-voltage-stat`)
   }
 
   getPowerConsumptionStat(): Observable<PowerConsumption> {
     console.info('Getting power consumption statistics...');
-    return this.http.get<PowerConsumption>(`${this.baseUrl}/power-consumption-stat/`)
+    return this.http.get<PowerConsumption>(`${this.baseUrl}/power-consumption-stat`)
   }
 
   getSystemStat(): Observable<SystemStat> {
     console.info('Getting system mem statistics...');
-    return this.http.get<SystemStat>(`${this.baseUrl}/systemstat/`)
+    return this.http.get<SystemStat>(`${this.baseUrl}/system-stat`)
   }
 
   getLaStat(): Observable<LaStat> {
     console.info('Getting la system statistics...');
-    return this.http.get<LaStat>(`${this.baseUrl}/lastat/`)
+    return this.http.get<LaStat>(`${this.baseUrl}/la-stat`)
   }
 
   getModuleList(category: number): Observable<ModuleSummary[]> {
