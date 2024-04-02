@@ -106,21 +106,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ihome-ui:build"
+            "buildTarget": "ihome-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ihome-ui:build:production"
+              "buildTarget": "ihome-ui:build:production"
             },
             "dev": {
-              "browserTarget": "ihome-ui:build:dev"
+              "buildTarget": "ihome-ui:build:dev"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ihome-ui:build"
+            "buildTarget": "ihome-ui:build"
           }
         },
         "test": {
