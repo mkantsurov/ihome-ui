@@ -6,5 +6,9 @@ export interface PowerVoltage {
   intVoltage: {
     dt: Date,
     value: number
+  }[];
+  intBckVoltage: {
+    dt: Date,
+    value: number
   }[]
 }

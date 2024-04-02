@@ -6,5 +6,9 @@ export interface PowerConsumption {
   intConsumption: {
     dt: Date,
     value: number
+  }[];
+  intBckConsumption: {
+    dt: Date,
+    value: number
   }[]
 }

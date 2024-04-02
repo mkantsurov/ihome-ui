@@ -58,6 +58,15 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
           backgroundColor: 'transparent',
           borderColor: '#782e95',
           pointRadius: 1
+        }, {
+          label: 'Int Bck Voltage',
+          data: data.intBckVoltage.map(el => ({
+            x: new Date(el.dt),
+            y: (el.value * 0.1).toFixed(1)
+          })),
+          backgroundColor: 'transparent',
+          borderColor: '#790b8e',
+          pointRadius: 1
         }]
       },
 

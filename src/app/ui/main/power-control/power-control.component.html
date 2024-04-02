@@ -67,6 +67,33 @@
   <div fxFlex="5%"></div>
   <div fxFlex="30%">
 
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Internal Backup Power Line
+      </div>
+      <div fxFlex>
+        <div>{{ (powerSummary.intBckVoltage * 0.1).toFixed(1)}} V</div>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Frequency
+      </div>
+      <div>{{ (powerSummary.intBckFrequency * 0.01).toFixed(2)}} Hz</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Current
+      </div>
+      <div>{{ (powerSummary.intBckCurrent * 0.1).toFixed(1)}} A</div>
+    </div>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
+      <div fxFlex="60%">
+        Consumption
+      </div>
+      <div>{{ (powerSummary.intBckConsumption * 0.1).toFixed(1)}} Kw/H</div>
+    </div>
 
     <mat-divider></mat-divider>
     <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
@@ -112,17 +139,6 @@
 <div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
   <div fxFlex="5%"></div>
   <div fxFlex="30%">
-
-
-
-
-
-
-
-
-
-
-
   </div>
   <div fxFlex="30%">
     <div class="chart-container">

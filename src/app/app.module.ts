@@ -73,6 +73,7 @@ import {ErrorHandlerService} from './services/error-handler.service';
 import { ModuleConfigComponent } from './ui/main/common/module-list/module-config/module-config.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
+import { MessagesDataSourceComponent } from './ui/main/messages/messages-data-source/messages-data-source.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import {MatSliderModule} from '@angular/material/slider';
     PowerConsumptionChartComponent,
     ExceptionModalComponent,
     TruncatePipe,
-    ModuleConfigComponent
+    ModuleConfigComponent,
+    MessagesDataSourceComponent
   ],
     imports: [
         HttpClientModule,

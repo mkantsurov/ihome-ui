@@ -1,1 +1,104 @@
-<p>messages works!</p>
+<div class="position-m header-container">
+  <h3>Messages</h3>
+  <div>
+<!--    <form [formGroup]="searchForm" autocomplete="off" class="search-fields">-->
+
+<!--      <mat-form-field>-->
+<!--        <input matInput placeholder="Login" autocomplete="off"-->
+<!--               formControlName="userName">-->
+<!--        <mat-error *appErrorView="searchForm.controls.userName.errors; errorMessage as error">-->
+<!--          {{ error }}-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field>-->
+<!--        <input matInput placeholder="Full Name" autocomplete="new-password"-->
+<!--               formControlName="name">-->
+<!--        <mat-error *appErrorView="searchForm.controls.name.errors; errorMessage as error">-->
+<!--          {{ error }}-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field>-->
+<!--        <input matInput placeholder="Email" autocomplete="new-password"-->
+<!--               formControlName="email">-->
+<!--        <mat-error *appErrorView="searchForm.controls.email.errors; errorMessage as error">-->
+<!--          {{ error }}-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+<!--      <mat-form-field>-->
+<!--        <mat-select placeholder="Role"-->
+<!--                    formControlName="role" class="mat-select">-->
+<!--          <mat-option value="ADMIN">Admin</mat-option>-->
+<!--          <mat-option value="USER">User</mat-option>-->
+<!--        </mat-select>-->
+<!--        <mat-error *appErrorView="searchForm.controls.role.errors; errorMessage as error">-->
+<!--          {{ error }}-->
+<!--        </mat-error>-->
+
+<!--      </mat-form-field>-->
+
+<!--      <mat-checkbox formControlName="showInactive">-->
+<!--        <div>Show Inactive</div>-->
+<!--      </mat-checkbox>-->
+
+<!--      &lt;!&ndash;  BUTTONS SECTION&ndash;&gt;-->
+<!--      <div>-->
+<!--        <button mat-button matTooltip="Search"-->
+<!--                (click)="search('search')">-->
+<!--          <i class="fa fa-search fa-lg"></i>-->
+<!--        </button>-->
+
+<!--        <button mat-button matTooltip="Reset Search"-->
+<!--                (click)="resetSearch()">-->
+<!--          <i class="fa fa-remove fa-lg"></i>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </form>-->
+  </div>
+
+</div>
+
+<div class="position-m">
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="onSort($event)">
+
+    <ng-container matColumnDef="login">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Login</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.userName }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.fullName }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.email }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.role }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastLogTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Last Login Time</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.lastLogTime|date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator (page)="pageChanged()"
+                 [length]="dataSource.totalCount"
+                 [pageSizeOptions]="[10, 20, 50, 100]">
+  </mat-paginator>
+
+</div>
+
+@if (showSpinner) {
+<div class="loader-container">
+<mat-spinner></mat-spinner>
+</div>
+}
+

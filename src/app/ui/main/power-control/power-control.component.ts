@@ -29,6 +29,10 @@ export class PowerControlComponent implements OnInit {
       intCurrent: 0,
       intFrequency: 0,
       intConsumption: 0,
+      intBckVoltage: 0,
+      intBckCurrent: 0,
+      intBckFrequency: 0,
+      intBckConsumption: 0,
       securityMode: 0,
       pwSrcConverterMode: 0,
       pwSrcDirectMode: 0

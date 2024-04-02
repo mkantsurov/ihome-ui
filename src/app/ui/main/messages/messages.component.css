@@ -1,0 +1,33 @@
+* {
+  --cols: 2;
+  --break-at: 30rem;
+  --breakpoint: var(--break-at, 30rem);
+  --min: min((var(--breakpoint) - 100%) * 999, 100%);
+  --clamp: clamp(100% / var(--cols, 1) - 15px, (var(--breakpoint) - 100%) * 999, 100%);
+}
+
+.header-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns:  minmax(min-content, 300px) minmax(300px, 1fr) 100px;
+  align-items: center;
+}
+
+.search-fields {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(
+        var(--min),
+        1fr
+      )
+    );
+  grid-auto-flow: dense;
+  grid-gap: 10px;
+  align-items: center;
+}
+
+mat-form-field {
+  margin-top: 20px;
+}

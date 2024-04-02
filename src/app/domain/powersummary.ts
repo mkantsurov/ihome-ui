@@ -8,6 +8,10 @@ export interface PowerSummary {
   intCurrent: number;
   intFrequency: number;
   intConsumption:number;
+  intBckVoltage: number;
+  intBckCurrent: number;
+  intBckFrequency: number;
+  intBckConsumption:number;
   securityMode: number;
   pwSrcConverterMode: number;
   pwSrcDirectMode: number;
