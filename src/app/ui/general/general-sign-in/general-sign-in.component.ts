@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {GlobalService} from "../../../services/global.service";
 import {UserService} from "../../../services/user.service";

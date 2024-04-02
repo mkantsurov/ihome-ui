@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable, Output, Directive} from '@angular/core';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
-import {MatLegacySnackBarConfig as MatSnackBarConfig} from '@angular/material/legacy-snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBarConfig} from '@angular/material/snack-bar';
 import {ExceptionResponse} from '../domain/exception-response';
 import {ExceptionModalComponent} from '../ui/common/exception-modal-component/exception-modal.component'
 

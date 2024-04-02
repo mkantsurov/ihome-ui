@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card appearance="outlined">
   <mat-card-header>
     <mat-card-title>
       <h2>Module Config:</h2>
@@ -110,7 +110,7 @@
         <div fxFlex="50%">
           <mat-card-content>
             <div>Output</div>
-            <mat-slider [min]="0" [max]="data.dimmableOutput ? 5 : 1" [step]="1" [formControlName]="'outputPortState'">Module Output</mat-slider>
+            <mat-slider [min]="0" [max]="data.dimmableOutput ? 5 : 1" [step]="1" [formControlName]="'outputPortState'"><input matSliderThumb />Module Output</mat-slider>
           </mat-card-content>
         </div>
         <div fxFlex></div>
