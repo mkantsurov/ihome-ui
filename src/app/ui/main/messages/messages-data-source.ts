@@ -3,7 +3,7 @@ import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ErrorHandlerService} from '../../../services/error-handler.service';
 import {AdminService} from '../../../services/admin.service';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatLegacyPaginator as MatPaginator} from '@angular/material/legacy-paginator';
 import {MessagesComponent} from './messages.component';
 import {ErrorMessageSortRule} from '../../../domain/error-message-sort-rule';
 import {HttpParams} from '@angular/common/http';

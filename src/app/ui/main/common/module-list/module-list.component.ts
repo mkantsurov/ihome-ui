@@ -6,7 +6,7 @@ import {BehaviorSubject, merge, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ErrorHandlerService} from '../../../../services/error-handler.service';
 import {ModuleData} from '../../../../domain/moduledata';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {ModuleConfigComponent} from './module-config/module-config.component';
 import {group} from '@angular/animations';
 
