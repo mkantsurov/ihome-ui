@@ -55,3 +55,4 @@ Thumbs.db
 /tsconfig.json
 /tslint.json
 /.gradle/
+/.angular/
