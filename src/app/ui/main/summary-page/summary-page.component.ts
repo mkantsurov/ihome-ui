@@ -7,12 +7,28 @@ import {SystemSummary} from '../../../domain/systemsummary';
 import {BoilerTempStat} from '../../../domain/boilertempstat';
 import * as dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {DecimalPipe, PercentPipe} from '@angular/common';
+import {PressureChartComponent} from '../chart/pressurechart/pressure-chart.component';
+import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
+import {TempChartComponent} from '../chart/tempchart/temp-chart.component';
 dayjs.extend(duration);
 
 @Component({
   selector: 'app-summary-page',
   templateUrl: './summary-page.component.html',
-  styleUrls: ['./summary-page.component.scss']
+  styleUrls: ['./summary-page.component.scss'],
+  imports: [
+    MatIconModule,
+    MatListModule,
+    DecimalPipe,
+    PercentPipe,
+    PressureChartComponent,
+    BoilerTempChartComponent,
+    TempChartComponent
+  ],
+  standalone: true
 })
 export class SummaryPageComponent implements OnInit {
 

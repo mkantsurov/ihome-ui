@@ -5,7 +5,8 @@ import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScal
 @Component({
   selector: 'app-general-pressure-chart',
   templateUrl: './general-pressure-chart.component.html',
-  styleUrls: ['./general-pressure-chart.component.css']
+  styleUrls: ['./general-pressure-chart.component.css'],
+  standalone: true
 })
 export class GeneralPressureChartComponent implements OnInit, OnChanges {
   _seed = 31;

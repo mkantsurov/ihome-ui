@@ -5,11 +5,26 @@ import {PowerSummary} from '../../../domain/powersummary';
 import {GuestService} from '../../../services/guest.service';
 import {PowerVoltage} from '../../../domain/power-voltage';
 import {PowerConsumption} from '../../../domain/power-consumption';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {LuminosityChartComponent} from '../chart/luminosity-chart/luminosity-chart.component';
+import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-voltage-chart.component';
+import {PowerConsumptionChartComponent} from '../chart/power-consumption-chart/power-consumption-chart.component';
+import {ModuleListComponent} from '../common/module-list/module-list.component';
 
 @Component({
   selector: 'app-power-control',
   templateUrl: './power-control.component.html',
-  styleUrls: ['./power-control.component.scss']
+  styleUrls: ['./power-control.component.scss'],
+  imports: [
+    MatIconModule,
+    MatListModule,
+    LuminosityChartComponent,
+    PowerVoltageChartComponent,
+    PowerConsumptionChartComponent,
+    ModuleListComponent
+  ],
+  standalone: true
 })
 export class PowerControlComponent implements OnInit {
 

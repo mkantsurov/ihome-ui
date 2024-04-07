@@ -5,7 +5,8 @@ import {PowerConsumption} from '../../../../domain/power-consumption';
 @Component({
   selector: 'app-power-consumption-chart',
   templateUrl: './power-consumption-chart.component.html',
-  styleUrls: ['./power-consumption-chart.component.css']
+  styleUrls: ['./power-consumption-chart.component.css'],
+  standalone: true
 })
 export class PowerConsumptionChartComponent implements OnInit, OnChanges {
   _seed = 31;

@@ -5,7 +5,8 @@ import {BoilerTempStat} from '../../../../domain/boilertempstat';
 @Component({
   selector: 'app-boiler-temp-stat-chart',
   templateUrl: './boiler-temp-chart.component.html',
-  styleUrls: ['./boiler-temp-chart.component.css']
+  styleUrls: ['./boiler-temp-chart.component.css'],
+  standalone: true
 })
 export class BoilerTempChartComponent implements OnInit, OnChanges {
   constructor() {

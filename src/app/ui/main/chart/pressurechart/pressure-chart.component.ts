@@ -1,11 +1,16 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {PressureStat} from '../../../../domain/pressurestat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-pressure-chart',
   templateUrl: './pressurechart.component.html',
-  styleUrls: ['./pressurechart.component.css']
+  styleUrls: ['./pressurechart.component.css'],
+  imports: [
+    MatProgressSpinnerModule
+  ],
+  standalone: true
 })
 export class PressureChartComponent implements OnInit, OnChanges {
 

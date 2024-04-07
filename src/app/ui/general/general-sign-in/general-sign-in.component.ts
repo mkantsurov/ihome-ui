@@ -9,7 +9,8 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-general-sign-in',
   templateUrl: './general-sign-in.component.html',
-  styleUrls: ['./general-sign-in.component.css']
+  styleUrls: ['./general-sign-in.component.css'],
+  standalone: true
 })
 export class GeneralSignInComponent implements OnInit {
   loading: boolean = false;

@@ -7,7 +7,8 @@ import {PressureStat} from '../../../../domain/pressurestat';
 @Component({
   selector: 'app-general-temp-chart',
   templateUrl: './general-temp-chart.component.html',
-  styleUrls: ['./general-temp-chart.component.css']
+  styleUrls: ['./general-temp-chart.component.css'],
+  standalone: true
 })
 export class GeneralTempChartComponent implements OnInit, OnChanges {
   _seed = 31;

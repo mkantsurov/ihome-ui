@@ -1,9 +1,14 @@
 import {Component, OnInit} from '@angular/core';
+import {ModuleComponent} from '../module/module.component';
 
 @Component({
   selector: 'app-groundfloor',
   templateUrl: './groundfloor.component.html',
-  styleUrls: ['./groundfloor.component.css']
+  styleUrls: ['./groundfloor.component.css'],
+  imports: [
+    ModuleComponent
+  ],
+  standalone: true
 })
 export class GroundfloorComponent implements OnInit {
 

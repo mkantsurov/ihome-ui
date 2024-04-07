@@ -63,25 +63,17 @@
 <div class="position-m">
   <mat-table [dataSource]="dataSource" matSort (matSortChange)="onSort($event)">
 
-    <ng-container matColumnDef="login">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Login</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.userName }}</mat-cell>
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.created|date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.fullName }}</mat-cell>
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.type }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.email }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="role">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.role }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="lastLogTime">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Last Login Time</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.lastLogTime|date: 'yyyy-MM-dd HH:mm:ss' }}</mat-cell>
+    <ng-container matColumnDef="message">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Message</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.message }}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

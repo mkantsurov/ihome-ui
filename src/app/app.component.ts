@@ -1,15 +1,21 @@
 import {Component} from '@angular/core';
-import {Router} from "@angular/router";
+import {Router, RouterModule, RouterOutlet} from '@angular/router';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  imports: [
+    CommonModule, RouterModule
+  ],
+  standalone: true
 })
 export class AppComponent {
   title = 'Home Keeper';
 
   // constructor(public _webSocketTestService: WebSocketService, private router: Router) {
+  // templateUrl: './root.component.html',
   // }
   constructor(private router: Router) {
   }
@@ -20,7 +26,6 @@ export class AppComponent {
   }
 
   isLoginPage(): boolean {
-    return this.router.url === '/' || this.router.url.split('/')[1] == 'reset'
-      || this.router.url.split('/')[1] == 'ssl_auth' || this.router.url.split('/')[1] == 'cert_validation';
+    return this.router.url === '/' || this.router.url.split('/')[1] === 'reset';
   }
 }

@@ -5,7 +5,8 @@ import {TempStat} from '../../../../domain/tempstat';
 @Component({
   selector: 'app-temp-chart',
   templateUrl: './temp-chart.component.html',
-  styleUrls: ['./temp-chart.component.css']
+  styleUrls: ['./temp-chart.component.css'],
+  standalone: true
 })
 export class TempChartComponent implements OnInit, OnChanges {
 

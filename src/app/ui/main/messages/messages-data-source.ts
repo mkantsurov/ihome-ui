@@ -1,7 +1,7 @@
 import {ErrorMessageEntry} from '../../../domain/error-message-entry';
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {ErrorHandlerService} from '../../../services/error-handler.service';
+import {Error, ErrorHandlerService} from '../../../services/error-handler.service';
 import {AdminService} from '../../../services/admin.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MessagesComponent} from './messages.component';
@@ -17,7 +17,7 @@ export class MessagesDataSource implements DataSource<ErrorMessageEntry> {
   request: any
   constructor(private paginator: MatPaginator,
               private parent: MessagesComponent,
-              private adminServive: AdminService,
+              private adminService: AdminService,
               private errorHandler: ErrorHandlerService) {
   }
   private static updateFilterHttpParams(filter: string[], value: any): void {
@@ -40,10 +40,6 @@ export class MessagesDataSource implements DataSource<ErrorMessageEntry> {
     }
   }
 
-  private concat(value: string): string {
-    return value.toUpperCase()
-  }
-
   private static httpParamsFrom(filter?: string[], sort?: string[]): HttpParams {
     let httpParams = new HttpParams({encoder: new CustomHttpParamEncoder()})
     if (filter) {
@@ -53,6 +49,10 @@ export class MessagesDataSource implements DataSource<ErrorMessageEntry> {
       sort.forEach(value => httpParams = httpParams.append('sort', value))
     }
     return httpParams
+  }
+
+  private concat(value: string): string {
+    return value.toUpperCase()
   }
 
   loadData(value: any): void {
@@ -65,10 +65,12 @@ export class MessagesDataSource implements DataSource<ErrorMessageEntry> {
     MessagesDataSource.updateFilterHttpParams(filter, value)
     MessagesDataSource.updateSortHttpParams(sort, value)
 
-    this.adminServive.getErrorCount(MessagesDataSource.httpParamsFrom(filter, null)).pipe(
+    this.adminService.getErrorCount(MessagesDataSource.httpParamsFrom(filter, null)).pipe(
       switchMap((count) => {
         this.totalCount = count.headers.get('x-total-count')
-        return this.adminServive.searchErrors(this.paginator.pageIndex, this.paginator.pageSize, MessagesDataSource.httpParamsFrom(filter, sort))
+        return this.adminService.searchErrors(this.paginator.pageIndex,
+          this.paginator.pageSize,
+          MessagesDataSource.httpParamsFrom(filter, sort))
       })
     ).subscribe((users) => {
       this.dataSubject.next(users)

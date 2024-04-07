@@ -9,11 +9,20 @@ import {ModuleData} from '../../../../domain/moduledata';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleConfigComponent} from './module-config/module-config.component';
 import {group} from '@angular/animations';
+import {MatTableModule} from '@angular/material/table';
+import {NgClass} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-module-list',
   templateUrl: './module-list.component.html',
-  styleUrls: ['./module-list.component.scss']
+  styleUrls: ['./module-list.component.scss'],
+  imports: [
+    MatTableModule,
+    NgClass,
+    MatIconModule
+  ],
+  standalone: true
 })
 export class ModuleListComponent implements OnInit {
 

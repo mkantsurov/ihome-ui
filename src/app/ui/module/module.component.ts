@@ -2,11 +2,22 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ModuleSummary} from "../../domain/modulesummary";
 import {ModuleData} from "../../domain/moduledata";
 import {SystemService} from "../../services/system.service";
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-module',
   templateUrl: './module.component.html',
-  styleUrls: ['./module.component.css']
+  styleUrls: ['./module.component.css'],
+  imports: [
+    MatExpansionModule,
+    MatIconModule,
+    MatListModule,
+    MatCheckboxModule
+  ],
+  standalone: true
 })
 /**
  * @deprecated

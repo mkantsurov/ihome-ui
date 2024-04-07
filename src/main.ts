@@ -1,13 +1,28 @@
 import 'hammerjs';
-import {enableProdMode} from '@angular/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {enableProdMode, importProvidersFrom} from '@angular/core';
 
-import {AppModule} from './app/app.module';
 import {environment} from './environments/environment';
+import {AppComponent} from './app/app.component';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {provideRouter} from '@angular/router';
+import {commonRoutes, routes} from './app/app.route';
+import {provideHttpClient} from '@angular/common/http';
+import {MatNativeDateModule} from '@angular/material/core';
+import {provideAnimations} from '@angular/platform-browser/animations';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+bootstrapApplication(AppComponent,
+  {
+    providers: [
+      provideRouter(commonRoutes),
+      provideRouter(routes),
+      importProvidersFrom(MatNativeDateModule),
+      provideAnimations(),
+      provideHttpClient()
+    ]
+  })
   .catch(err => console.error(err));
+

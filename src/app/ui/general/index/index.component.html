@@ -1,42 +1,108 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-               [mode]="(isHandset$ | async) ? 'over' : 'side'"
-               [opened]="!(isHandset$ | async)">
-    <mat-toolbar>
-      <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">home</mat-icon>
-      <div class="login-wizard-logo">I-Home</div>
+<div class="app-container">
+  <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="example-toolbar">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1 class="example-app-name">I-Home</h1>
     </mat-toolbar>
 
-    <mat-nav-list role="navigation">
-      <a mat-list-item routerLink="/public-outdoor">
-        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">device_thermostat</mat-icon>
-        Outdoor Conditions
-      </a>
-      <a mat-list-item routerLink="/public-power">
-        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">power_inut</mat-icon>
-        Power Input
-      </a>
-      <a mat-list-item routerLink="/public-sign-in">
-        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">login</mat-icon>
-        Sign-In
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
-    <mat-toolbar>
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon" color="accent">menu</mat-icon>
-        <span class="login-wizard-logo">I-Home</span>
-      </button>
-    </mat-toolbar>
-    <div>
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-container class="example-sidenav-container"
+                           [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
+                   [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+        <mat-nav-list>
+          <a mat-list-item routerLink="/public-outdoor">
+            <div class="menu-item">
+              <span class="menu-item-img">
+                <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">device_thermostat</mat-icon>
+              </span>
+              <div class="menu-item-lb">
+                Outdoor Conditions
+              </div>
+            </div>
+          </a>
+          <a mat-list-item routerLink="/public-power">
+            <div class="menu-item">
+              <span class="menu-item-img">
+                <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">power_inut</mat-icon>
+              </span>
+              <div class="menu-item-lb">
+                Power Input
+              </div>
+            </div>
+          </a>
+          <a mat-list-item routerLink="/public-sign-in">
+            <div class="menu-item">
+              <span class="menu-item-img">
+                <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                          class="material-icons-outlined">login</mat-icon>
+              </span>
+              <div class="menu-item-lb">
+                Sign-In
+              </div>
+            </div>
+          </a>
+        </mat-nav-list>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <div>
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>>
+
+
+<!--<mat-sidenav-container class="sidenav-container">-->
+<!--  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"-->
+<!--               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"-->
+<!--               [mode]="(isHandset$ | async) ? 'over' : 'side'"-->
+<!--               [opened]="!(isHandset$ | async)">-->
+<!--    <mat-toolbar class="header">-->
+<!--      <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined icon-display">home</mat-icon>-->
+<!--      <div class="login-wizard-logo">I-Home</div>-->
+<!--    </mat-toolbar>-->
+
+<!--    <mat-nav-list role="navigation">-->
+<!--      <a mat-list-item routerLink="/public-outdoor">-->
+<!--        <div class="menu-item">-->
+<!--          <span class="menu-item-img">-->
+<!--            <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">device_thermostat</mat-icon>-->
+<!--          </span>-->
+<!--          <div class="menu-item-lb">-->
+<!--            Outdoor Conditions-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <a mat-list-item routerLink="/public-power">-->
+<!--        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">power_inut</mat-icon>-->
+<!--        Power Input-->
+<!--      </a>-->
+<!--      <a mat-list-item routerLink="/public-sign-in">-->
+<!--        <mat-icon aria-hidden="false" aria-label="i-home" color="accent" class="material-icons-outlined">login</mat-icon>-->
+<!--        Sign-In-->
+<!--      </a>-->
+<!--    </mat-nav-list>-->
+<!--  </mat-sidenav>-->
+<!--  <mat-sidenav-content class="sidenav-content">-->
+<!--    <mat-toolbar class="header">-->
+<!--      @if (isHandset$ | async) {-->
+<!--      <button-->
+<!--        type="button"-->
+<!--        aria-label="Toggle sidenav"-->
+<!--        mat-icon-button-->
+<!--        (click)="drawer.toggle()"-->
+<!--        *ngIf="isHandset$ | async">-->
+<!--        <mat-icon aria-label="Side nav toggle icon" color="accent">menu</mat-icon>-->
+<!--        <div class="login-wizard-logo">I-Home</div>-->
+<!--      </button>-->
+<!--      }-->
+<!--    </mat-toolbar>-->
+<!--    <div>-->
+<!--      <router-outlet></router-outlet>-->
+<!--    </div>-->
+<!--  </mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->

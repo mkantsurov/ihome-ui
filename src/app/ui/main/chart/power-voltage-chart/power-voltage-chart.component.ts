@@ -5,7 +5,8 @@ import {PowerVoltage} from '../../../../domain/power-voltage';
 @Component({
   selector: 'app-power-voltage-chart',
   templateUrl: './power-voltage-chart.component.html',
-  styleUrls: ['./power-voltage-chart.component.css']
+  styleUrls: ['./power-voltage-chart.component.css'],
+  standalone: true
 })
 export class PowerVoltageChartComponent implements OnInit, OnChanges {
   _seed = 31;

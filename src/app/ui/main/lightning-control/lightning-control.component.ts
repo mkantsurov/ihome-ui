@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {SystemService} from '../../../services/system.service';
+import {ModuleListComponent} from '../common/module-list/module-list.component';
 
 @Component({
   selector: 'app-lightning-control',
   templateUrl: './lightning-control.component.html',
-  styleUrls: ['./lightning-control.component.css']
+  styleUrls: ['./lightning-control.component.css'],
+  imports: [
+    ModuleListComponent
+  ],
+  standalone: true
 })
 export class LightningControlComponent implements OnInit {
 

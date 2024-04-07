@@ -1,11 +1,16 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {LuminosityStat} from '../../../../domain/luminositystat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-luminosity-chart',
   templateUrl: './luminosity-chart.component.html',
-  styleUrls: ['./luminosity-chart.component.css']
+  styleUrls: ['./luminosity-chart.component.css'],
+  imports: [
+    MatProgressSpinnerModule
+  ],
+  standalone: true
 })
 export class LuminosityChartComponent implements OnInit, OnChanges {
 

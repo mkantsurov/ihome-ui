@@ -13,14 +13,14 @@ export class ErrorHandlerService {
 
   @Output() userSendEvent = new EventEmitter<ExceptionResponse>();
 
-  private static from(error: Error, message: string) {
-    return new class implements ExceptionResponse {
-      exception = error.error;
-      errorDetails = error.errorDetails;
-      message = message;
-    };
+  private static from(error: Error, msg: string) {
+    return {
+      exception: error.error,
+      message: msg,
+      error: error.error,
+      status: error.status,
+    } as ExceptionResponse;
   }
-
 
   handle(error: Error, message: string, config?: MatSnackBarConfig) {
     const errorElement = error.error;

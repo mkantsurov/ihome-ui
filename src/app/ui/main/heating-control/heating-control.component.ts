@@ -2,11 +2,24 @@ import {Component, Input, OnInit} from '@angular/core';
 import {SystemService} from '../../../services/system.service';
 import {HeatingSummary} from '../../../domain/heating-summary';
 import {BoilerTempStat} from '../../../domain/boilertempstat';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
+import {ModuleListComponent} from '../common/module-list/module-list.component';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-heating-control',
   templateUrl: './heating-control.component.html',
-  styleUrls: ['./heating-control.component.css']
+  styleUrls: ['./heating-control.component.css'],
+  imports: [
+    MatIconModule,
+    MatListModule,
+    BoilerTempChartComponent,
+    ModuleListComponent,
+    DecimalPipe
+  ],
+  standalone: true
 })
 export class HeatingControlComponent implements OnInit {
 

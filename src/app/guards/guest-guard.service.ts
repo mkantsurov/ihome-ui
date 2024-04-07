@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import {UserService} from "../services/user.service";
-import {AuthenticationService} from "../services/authentication.service";
-import {Observable} from "rxjs";
+import {UserService} from '../services/user.service';
+import {AuthenticationService} from '../services/authentication.service';
+import {Observable} from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class GuestGuard  {
 
   constructor(private router: Router,

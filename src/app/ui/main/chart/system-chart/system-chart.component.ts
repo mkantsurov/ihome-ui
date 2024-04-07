@@ -1,11 +1,16 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {SystemStat} from '../../../../domain/systemstat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-system-chart',
   templateUrl: './system-chart.component.html',
-  styleUrls: ['./system-chart.component.css']
+  styleUrls: ['./system-chart.component.css'],
+  imports: [
+    MatProgressSpinnerModule
+  ],
+  standalone: true
 })
 export class SystemChartComponent implements OnInit, OnChanges {
   _seed = 31;

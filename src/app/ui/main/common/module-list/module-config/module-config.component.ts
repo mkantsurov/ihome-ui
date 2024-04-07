@@ -1,16 +1,30 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ModuleData} from '../../../../../domain/moduledata';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {MainService} from '../../../../../services/main.service';
 import {ErrorHandlerService} from '../../../../../services/error-handler.service';
 import {ModuleUpdateRequest} from '../../../../../domain/module-update-request';
 import {logger} from 'codelyzer/util/logger';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSliderModule} from '@angular/material/slider';
 
 @Component({
   selector: 'app-module-config',
   templateUrl: './module-config.component.html',
-  styleUrls: ['./module-config.component.scss']
+  styleUrls: ['./module-config.component.scss'],
+  imports: [
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatSliderModule
+  ],
+  standalone: true
 })
 export class ModuleConfigComponent implements OnInit {
   moduleConfigForm: UntypedFormGroup;

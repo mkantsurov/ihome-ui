@@ -73,7 +73,7 @@
       <mat-header-row *matHeaderRowDef="moduleColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: moduleColumns" class="selectable"
                (click)="rowSelect(row)"
-               [ngClass]="{'highlight': selectedModule && row.id==selectedModule.id}"></mat-row>
+               [ngClass]="{'highlight': selectedModule && row.id==selectedModule.moduleId}"></mat-row>
     </ng-container>
   </mat-table>
 </div>
