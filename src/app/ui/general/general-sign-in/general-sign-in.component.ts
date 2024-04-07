@@ -1,19 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {AuthenticationService} from "../../../services/authentication.service";
-import {GlobalService} from "../../../services/global.service";
-import {UserService} from "../../../services/user.service";
-import {Router} from "@angular/router";
+import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {AuthenticationService} from '../../../services/authentication.service';
+import {GlobalService} from '../../../services/global.service';
+import {UserService} from '../../../services/user.service';
+import {Router} from '@angular/router';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-general-sign-in',
   templateUrl: './general-sign-in.component.html',
   styleUrls: ['./general-sign-in.component.css'],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   standalone: true
 })
 export class GeneralSignInComponent implements OnInit {
-  loading: boolean = false;
+  loading = false;
   loginForm: UntypedFormGroup;
   emailForm: UntypedFormGroup;
   loginAttemptErrorMsg: string = null;
@@ -52,8 +62,8 @@ export class GeneralSignInComponent implements OnInit {
     this.loading = true;
 
     this.authenticationService.login(
-      this.loginForm.controls['username'].value,
-      this.loginForm.controls['password'].value).subscribe(
+      this.loginForm.controls.username.value,
+      this.loginForm.controls.password.value).subscribe(
       response => {
         this.loading = false;
         this.globalService.loginEvent.next(true);
@@ -62,8 +72,9 @@ export class GeneralSignInComponent implements OnInit {
       },
       error => {
         this.loginAttemptErrorMsg = error.error.message;
-        //console.log(error);
+        // console.log(error);
         this.loading = false;
+        console.log('Logging error... ' + this.loginAttemptErrorMsg);
       }
     );
   }

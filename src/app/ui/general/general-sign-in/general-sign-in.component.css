@@ -1,0 +1,11 @@
+form {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  margin: 25px;
+}
+mat-form-field {
+  grid-column: 1/3;
+}
+button {
+  grid-column: 2/3;
+}
