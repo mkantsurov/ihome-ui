@@ -5,6 +5,7 @@ import {ExtPowerSummary} from '../../../domain/ext-power-summary';
 import {GeneralPowerChartComponent} from './general-power-chart/general-power-chart.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {GeneralPressureChartComponent} from '../general-outdoor/general-pressure-chart/general-pressure-chart.component';
 
 @Component({
   selector: 'app-general-power',
@@ -13,7 +14,8 @@ import {MatListModule} from '@angular/material/list';
   imports: [
     GeneralPowerChartComponent,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    GeneralPressureChartComponent
   ],
   standalone: true
 })

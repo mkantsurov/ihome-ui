@@ -1,21 +1,4 @@
-<div fxLayout="row"
-     fxLayout.sm="column"
-     fxFlexFill
-     fxLayoutAlign="left center">
-
-  <div fxFlex="0 0 550px">
-    <app-general-temp-chart [data]="tempStat"></app-general-temp-chart>
-  </div>
-  <div fxFlex></div>
-</div>
-
-<div fxLayout="row"
-     fxLayout.xs="column"
-     fxFlexFill
-     fxLayoutAlign="left center">
-
-  <div fxFlex="0 0 550px">
-    <app-general-pressure-chart [data]="pressureStat"></app-general-pressure-chart>
-  </div>
-  <div fxFlex></div>
+<div class="chart-body">
+  <div class="chart-container"><app-general-temp-chart [data]="tempStat"></app-general-temp-chart></div>
+  <div class="chart-container"><app-general-pressure-chart [data]="pressureStat"></app-general-pressure-chart></div>
 </div>

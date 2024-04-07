@@ -1,0 +1,18 @@
+.charts-container {
+  display: grid;
+  grid-template-columns: 200px 100px;
+  margin: 25px;
+}
+
+.data-header {
+  grid-column: 1/span 3;
+}
+.chart-summary-lb {
+  grid-column: 1/1;
+}
+.chart-summary-val {
+  grid-column: 2/2;
+}
+.chart-container {
+  grid-column: 1/3;
+}
