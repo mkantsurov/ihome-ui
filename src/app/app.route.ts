@@ -17,7 +17,7 @@ import {AuditLogControlComponent} from './ui/main/audit-log-control/audit-log-co
 import {MessagesComponent} from './ui/main/messages/messages.component';
 
 
-export const commonRoutes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     component: IndexComponent,
@@ -30,10 +30,7 @@ export const commonRoutes: Routes = [
       {path: 'public-sign-in', component: GeneralSignInComponent},
     ]
   },
-  {path: 'accessDenied', component: AccessDeniedComponent}
-];
-
-export const routes: Routes = [
+  {path: 'accessDenied', component: AccessDeniedComponent},
   {
     path: 'main',
     component: MainComponent,
@@ -56,4 +53,3 @@ export const routes: Routes = [
     ]
   }
 ];
-

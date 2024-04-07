@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import {Observable} from 'rxjs';
 
-import {AuthenticationService} from "../services/authentication.service";
+import {AuthenticationService} from '../services/authentication.service';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class IsUserGuard  {
   constructor(private authService: AuthenticationService, private router: Router) {
   }
