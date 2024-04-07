@@ -1,37 +1,33 @@
-.mat-data-card, .mat-data-chart-card {
-  display: inline-block;
-  vertical-align: top;
-  width: 300px;
-  margin: 10px;
-}
-//
-//h3 {
-//  margin: 0 !important;
-//}
-.mat-data-chart-card {
-  width: 500px
-}
-
-.chart-container {
-  padding-top: 10px;
-  height: 250px;
-  width: 550px;
+.charts-container {
+  display: grid;
+  grid-template-columns: 150px 100px;
+  margin: 25px;
 }
 
 .data-header {
-  position:relative;
-  padding-top:4px;
+  grid-column: 1/span 4;
 }
-.data-header-icon {
-  position:relative;
+.sub-header {
+  grid-column: 1/span 2;
 }
-.data-header-text{
-  position:absolute;
-  //padding-top:2px;
+.sub-header1 {
+  grid-column: 3/span 2;
 }
-
-.data-panel {
-  display: block;
-  padding: 10px;
-  width: 250px;
+.free-space-col {
+  grid-column: 5/5;
+}
+.chart-summary-lb {
+  grid-column: 1/1;
+}
+.chart-summary-val {
+  grid-column: 2/2;
+}
+.chart-summary-lb1 {
+  grid-column: 3/3;
+}
+.chart-summary-val1 {
+  grid-column: 4/4;
+}
+.chart-container {
+  grid-column: 1/span 5;
 }

@@ -13,6 +13,8 @@ import {DecimalPipe, PercentPipe} from '@angular/common';
 import {PressureChartComponent} from '../chart/pressurechart/pressure-chart.component';
 import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
 import {TempChartComponent} from '../chart/tempchart/temp-chart.component';
+import {GeneralPowerChartComponent} from '../../general/general-power/general-power-chart/general-power-chart.component';
+import {PowerVoltageExt} from '../../../domain/power-voltage-ext';
 dayjs.extend(duration);
 
 @Component({
@@ -26,7 +28,8 @@ dayjs.extend(duration);
     PercentPipe,
     PressureChartComponent,
     BoilerTempChartComponent,
-    TempChartComponent
+    TempChartComponent,
+    GeneralPowerChartComponent
   ],
   standalone: true
 })
@@ -55,6 +58,7 @@ export class SummaryPageComponent implements OnInit {
     upTime: 0
   };
 
+  powerStat: PowerVoltageExt;
   @Input() tempStat: TempStat;
   @Input() pressureStat: PressureStat;
   @Input() boilerTempStat: BoilerTempStat;
@@ -62,14 +66,17 @@ export class SummaryPageComponent implements OnInit {
   constructor(public systemService: SystemService) { }
 
   ngOnInit(): void {
-    this.systemService.getSystemSummary().subscribe(systemData => {
-      this.systemSummary = systemData;
-      this.systemService.getTempStat().subscribe(tempStat => {
-        this.tempStat = tempStat;
-        this.systemService.getPressureStat().subscribe(pressureStat => {
-          this.pressureStat = pressureStat;
-          this.systemService.getBoilerTempStat().subscribe(boilerTempStat => {
-            this.boilerTempStat = boilerTempStat;
+    this.systemService.getPowerVoltageStat().subscribe(response => {
+      this.powerStat = response;
+      this.systemService.getSystemSummary().subscribe(systemData => {
+        this.systemSummary = systemData;
+        this.systemService.getTempStat().subscribe(tempStat => {
+          this.tempStat = tempStat;
+          this.systemService.getPressureStat().subscribe(pressureStat => {
+            this.pressureStat = pressureStat;
+            this.systemService.getBoilerTempStat().subscribe(boilerTempStat => {
+              this.boilerTempStat = boilerTempStat;
+            })
           })
         })
       })

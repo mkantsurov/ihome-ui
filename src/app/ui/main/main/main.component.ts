@@ -1,70 +1,49 @@
-import {Component, OnInit} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
-import {AuthenticationService} from '../../../services/authentication.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
+import {AsyncPipe, CommonModule, NgIf} from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {AsyncPipe} from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import {RouterOutlet} from '@angular/router';
-
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
+  styleUrls: ['./main.component.scss'],
   imports: [
-    MatSidenavModule,
-    AsyncPipe,
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
     MatToolbarModule,
+    MatSidenavModule,
     MatIconModule,
     MatListModule,
-    RouterOutlet
+    MatButtonModule,
+    AsyncPipe,
+    NgIf
   ],
   standalone: true
 })
 export class MainComponent implements OnInit {
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
-  constructor(iconRegistry: MatIconRegistry,
-              sanitizer: DomSanitizer,
-              private authService: AuthenticationService,
-              private breakpointObserver: BreakpointObserver) {
-    iconRegistry.addSvgIcon('thumbs-up', sanitizer.bypassSecurityTrustResourceUrl('/assets/images/thumbup-icon.svg'));
-
-    this.routeLinks = [
-      {
-        label: 'Summary',
-        path: '/app/summary'
-      },
-      {
-        label: 'Ground Floor',
-        path: '/app/gf'
-      },
-      {
-        label: 'Second Floor',
-        path: '/app/sf'
-      },
-      {
-        label: 'Garage',
-        path: '/app/garage'
-      },
-      {
-        label: 'Exterior lighting',
-        path: '/app/el'
-      }
-    ];
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  routeLinks: any[];
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
-
-  ngOnInit() {
+  ngOnInit(): void {
+  console.log('Initializing index component')
   }
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+  // shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 }
