@@ -1,12 +1,12 @@
-import {Injectable, Injector} from "@angular/core";
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {EMPTY, Observable} from "rxjs";
-import {AuthenticationService} from "./services/authentication.service";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {empty} from "rxjs/internal/Observer";
-import {mergeMap} from "rxjs/operators";
-import {ACCESS_TOKEN, API_PATTERN, GUEST_API_PATTERN} from "./domain/constant";
+import {Injectable, Injector} from '@angular/core';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {EMPTY, Observable} from 'rxjs';
+import {AuthenticationService} from './services/authentication.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {empty} from 'rxjs/internal/Observer';
+import {mergeMap} from 'rxjs/operators';
+import {ACCESS_TOKEN, API_PATTERN, GUEST_API_PATTERN} from './domain/constant';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -38,7 +38,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
 
     return authService.refreshToken().pipe(mergeMap((result) => {
-      console.log("refresh status " + result);
+      console.log('refresh status ' + result);
       if (result) {
         return next.handle(this.addTokenToHeader(request));
       } else {
@@ -53,21 +53,21 @@ export class JwtInterceptor implements HttpInterceptor {
 
   private addTokenToHeader(request: HttpRequest<any>): HttpRequest<any> {
     const authService = this.injector.get(AuthenticationService);
-    let accept = request.headers.get('Accept');
-    let content = request.headers.get('Content-Type');
-    let uploadRequest = request.url.includes('upload');
+    const accept = request.headers.get('Accept');
+    const content = request.headers.get('Content-Type');
+    const uploadRequest = request.url.includes('upload');
     if (uploadRequest)
       return request.clone({
         setHeaders: {
-          'Authorization': `Bearer ${authService.accessToken}`
+          Authorization: `Bearer ${authService.accessToken}`
         }
       });
 
     return request.clone({
       setHeaders: {
-        'Accept': accept ? accept : `application/json`,
+        Accept: accept ? accept : `application/json`,
         'Content-Type': content ? content : `application/json`,
-        'Authorization': `Bearer ${authService.accessToken}`
+        Authorization: `Bearer ${authService.accessToken}`
       }
     });
   }
@@ -75,7 +75,7 @@ export class JwtInterceptor implements HttpInterceptor {
   private simpleHeaders(request: HttpRequest<any>): HttpRequest<any> {
     return request.clone({
       setHeaders: {
-        'Accept': `application/json`,
+        Accept: `application/json`,
         'Content-Type': `application/json`,
       }
     });
