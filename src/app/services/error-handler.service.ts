@@ -5,7 +5,7 @@ import {ExceptionResponse} from '../domain/exception-response';
 import {ExceptionModalComponent} from '../ui/common/exception-modal-component/exception-modal.component'
 
 @Directive()
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ErrorHandlerService {
 
   constructor(private dialog: MatDialog) {

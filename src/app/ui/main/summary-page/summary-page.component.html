@@ -1,33 +1,52 @@
 <div class="charts-container">
-  <div class="sub-header">
-    <h3>
-      <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                class="material-icons-outlined data-header-icon">network_check
+  <div class="charts-container-sub">
+    <div class="sub-header-system">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">network_check
+        </mat-icon>
+        <span class="data-header-text">System</span>
+      </h3>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="chart-summary-lb">Up Time</div>
+    <div class="chart-summary-val">{{ getUpTime() }}</div>
+    <div class="chart-summary-lb">Security Mode</div>
+    <div class="chart-summary-val">
+      <mat-icon *ngIf="systemSummary.securityMode > 0" aria-hidden="false" aria-label="i-home" color="accent"
+                class="material-icons-outlined">lock
       </mat-icon>
-      <span class="data-header-text">System</span>
-    </h3>
-    <mat-divider></mat-divider>
-  </div>
-  <div class="sub-header1">
-    <h3>
-      <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                class="material-icons-outlined data-header-icon">power_settings_new
+      <mat-icon *ngIf="systemSummary.securityMode == 0" aria-hidden="false" aria-label="i-home" color="primary"
+                class="material-icons-outlined">lock_open
       </mat-icon>
-      <span class="data-header-text">Power Settings</span>
-    </h3>
-    <mat-divider></mat-divider>
-  </div>
-  <div class="free-space-col"></div>
+    </div>
 
-  <div class="chart-summary-lb">Security Mode</div>
-  <div class="chart-summary-val">
-    <mat-icon *ngIf="systemSummary.securityMode > 0" aria-hidden="false" aria-label="i-home" color="accent"
-              class="material-icons-outlined">lock
-    </mat-icon>
-    <mat-icon *ngIf="systemSummary.securityMode == 0" aria-hidden="false" aria-label="i-home" color="primary"
-              class="material-icons-outlined">lock_open
-    </mat-icon>
+
   </div>
+  <div class="chart-container">
+      <app-temp-chart [data]="tempStat"></app-temp-chart>
+  </div>
+
+  <div class="charts-container-sub">
+    <div class="sub-header-power">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">power_settings_new
+        </mat-icon>
+        <span class="data-header-text">Power Settings</span>
+      </h3>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="chart-summary-lb">Luminosity</div>
+    <div class="chart-summary-val">{{ systemSummary.luminosity }}</div>
+    <div class="free-space-col"></div>
+  </div>
+</div>
+
+
+
+
   <div class="chart-summary-lb1">External Power Line</div>
   <div class="chart-summary-val1">
     <mat-icon *ngIf="systemSummary.powerStatus > 0" aria-hidden="false" aria-label="i-home" color="accent"
@@ -37,17 +56,13 @@
               class="material-icons-outlined">power_off
     </mat-icon>
   </div>
-  <div class="chart-summary-lb">Up Time</div>
-  <div class="chart-summary-val">{{ getUpTime() }}</div>
-  <div class="chart-summary-lb1">Luminosity</div>
-  <div class="chart-summary-val1">{{ systemSummary.luminosity }}</div>
-  <div style="grid-column: 5/5;"></div>
+
 
   <div class="chart-summary-lb">Load AVG</div>
   <div class="chart-summary-val">{{ systemSummary.loadAvg }}</div>
   <div style="grid-column: 3/5;"></div>
 
-  <div class="chart-container">
+  <div class="chart-container-power">
     <app-general-power-chart [data]="powerStat"></app-general-power-chart>
   </div>
   <div class="free-space-col"></div>
@@ -91,11 +106,9 @@
   <div class="free-space-col"></div>
 
 
-  <div class="chart-container">
-    <app-temp-chart [data]="tempStat"></app-temp-chart>
-  </div>
 
-  <div class="chart-container">
+
+  <div class="chart-container-boiler">
     <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
   </div>
 </div>
