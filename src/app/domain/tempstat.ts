@@ -1,5 +1,5 @@
 export interface TempStat {
-  indoor: {
+  indoorSf: {
     dt: Date,
     value: number
   }[];

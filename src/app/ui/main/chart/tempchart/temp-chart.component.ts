@@ -56,7 +56,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           backgroundColor: '#790b8e',
           borderColor: '#790b8e',
           pointRadius: 1,
-          data: data.indoor.map(el => ({
+          data: data.indoorSf.map(el => ({
             x: new Date(el.dt),
             y: (el.value * 0.01).toFixed(2)
           })),
