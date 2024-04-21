@@ -11,6 +11,7 @@ import {LuminosityChartComponent} from '../chart/luminosity-chart/luminosity-cha
 import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-voltage-chart.component';
 import {PowerConsumptionChartComponent} from '../chart/power-consumption-chart/power-consumption-chart.component';
 import {ModuleListComponent} from '../common/module-list/module-list.component';
+import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
 
 @Component({
   selector: 'app-power-control',
@@ -22,7 +23,8 @@ import {ModuleListComponent} from '../common/module-list/module-list.component';
     LuminosityChartComponent,
     PowerVoltageChartComponent,
     PowerConsumptionChartComponent,
-    ModuleListComponent
+    ModuleListComponent,
+    BoilerTempChartComponent
   ],
   standalone: true
 })

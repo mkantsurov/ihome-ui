@@ -1,9 +1,3 @@
-<div fxLayout="row"
-     fxLayout.sm="column"
-     fxFlexFill
-     fxLayoutAlign="center center">
-
-  <div fxFlex="40%">
 <!--    UNDEFINED,              //0-->
 <!--    POWER_SUPPLY,           //1-->
 <!--    HEATING_CONTROL,        //2-->
@@ -11,63 +5,57 @@
 <!--    LIGHT_CONTROL,          //4-->
 <!--    EXT_LIGHT_CONTROL,      //5-->
 <!--    VENTILATION_CONTROL     //6-->
-    <h3 *ngIf="assignment === 1" class="table-title">Power Management Related Modules</h3>
-    <h3 *ngIf="assignment === 2" class="table-title">Heating Control Related Modules</h3>
-    <h3 *ngIf="assignment === 3" class="table-title">Gate Control Related Modules</h3>
+<h3 *ngIf="assignment === 1">Power Management Related Modules</h3>
+<h3 *ngIf="assignment === 2">Heating Control Related Modules</h3>
+<h3 *ngIf="assignment === 3">Gate Control Related Modules</h3>
 
-    <h3 *ngIf="assignment === 4 && group === 2" class="table-title">Light Control Related Modules/Ground Floor</h3>
-    <h3 *ngIf="assignment === 4 && group === 3" class="table-title">Light Control Related Modules/Second Floor</h3>
-    <h3 *ngIf="assignment === 4 && group === 1" class="table-title">Light Control Related Modules/Garage</h3>
-    <h3 *ngIf="assignment === 4 && group === 4" class="table-title">Light Control Related Modules/Ext. Lightning</h3>
+<h3 *ngIf="assignment === 4 && group === 2">Light Control Related Modules/Ground Floor</h3>
+<h3 *ngIf="assignment === 4 && group === 3">Light Control Related Modules/Second Floor</h3>
+<h3 *ngIf="assignment === 4 && group === 1">Light Control Related Modules/Garage</h3>
+<h3 *ngIf="assignment === 4 && group === 4">Light Control Related Modules/Ext. Lightning</h3>
 
-    <h3 *ngIf="assignment === 5" class="table-title">Ext Light Control Related Modules</h3>
-    <h3 *ngIf="assignment === 6" class="table-title">Ventilation Control Related Modules</h3>
-  </div>
-<!--  <div fxFlex="50%" class="actions-section">-->
-<!--    <app-search (filterEvent)="receiveFilter($event)"></app-search>-->
-<!--  </div>-->
-<!--  <div fxFlex="10%" class="actions-section">-->
-<!--    <button-->
-<!--      mat-icon-button-->
-<!--      matTooltip="Add User"-->
-<!--      (click)="openAddAdminFormDialog()">-->
-<!--      <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>-->
-<!--    </button>-->
-<!--  </div>-->
-</div>
+<h3 *ngIf="assignment === 5">Ext Light Control Related Modules</h3>
+<h3 *ngIf="assignment === 6">Ventilation Control Related Modules</h3>
+
 <div class="divider"></div>
 <div class="table-container">
   <mat-table #table [dataSource]="moduleDataSource">
     <ng-container matColumnDef="moduleName">
-<!--      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>-->
-<!--      <mat-cell *matCellDef="let row" matTooltip="{{row.name}}">-->
-<!--        {{ row.name | truncate:['16', '...'] }}-->
-<!--      </mat-cell>-->
+      <!--      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>-->
+      <!--      <mat-cell *matCellDef="let row" matTooltip="{{row.name}}">-->
+      <!--        {{ row.name | truncate:['16', '...'] }}-->
+      <!--      </mat-cell>-->
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef [ngClass]="'w-100'">Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="active">
-        <mat-header-cell *matHeaderCellDef [ngClass]="'w-75'">Active</mat-header-cell>
-        <mat-cell *matCellDef="let row" [ngClass]="'w-75'">
-          <mat-icon *ngIf="row.mode === 2" aria-hidden="false" aria-label="i-home" color="accent"
-                    class="material-icons-outlined">sync
-          </mat-icon>
-          <mat-icon *ngIf="row.mode < 2" aria-hidden="false" aria-label="i-home" color="primary"
-                    class="material-icons-outlined">sync_disabled
-          </mat-icon>
+        <mat-header-cell *matHeaderCellDef [ngClass]="'w-50'">Active</mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
+          @if (row.mode === 2) {
+            <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                      class="material-icons-outlined">sync
+            </mat-icon>
+          } @else if (row.mode < 2) {
+            <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
+                      class="material-icons-outlined">sync_disabled
+            </mat-icon>
+          }
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="outputPortState">
-        <mat-header-cell *matHeaderCellDef [ngClass]="'w-75'">Output Port State</mat-header-cell>
-        <mat-cell *matCellDef="let row" [ngClass]="'w-75'">
-          <mat-icon *ngIf="row.outputPortState > 0" aria-hidden="false" aria-label="i-home" color="accent"
-                    class="material-icons-outlined">power
-          </mat-icon>
-          <mat-icon *ngIf="row.outputPortState === 0" aria-hidden="false" aria-label="i-home" color="primary"
-                    class="material-icons-outlined">power_off
-          </mat-icon>
+        <mat-header-cell *matHeaderCellDef [ngClass]="'w-50'">Output Port State</mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
+          @if (row.outputPortState > 0) {
+            <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                      class="material-icons-outlined">power
+            </mat-icon>
+          } @else if (row.outputPortState === 0) {
+            <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
+                      class="material-icons-outlined">power_off
+            </mat-icon>
+          }
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="moduleColumns"></mat-header-row>

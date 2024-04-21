@@ -1,174 +1,85 @@
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="30%"><h3>Power Control</h3></div>
-  <div fxFlex></div>
-</div>
-
-<div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="30%">
+<div class="page-container">
+  <div class="page-container-sub">
     <div class="data-header">
       <h3>
         <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
                   class="material-icons-outlined data-header-icon">power_settings_new
         </mat-icon>
-        <span class="data-header-text">Summary</span>
+        <span class="data-header-text">Ext Line</span>
       </h3>
+      <mat-divider></mat-divider>
     </div>
-    <mat-divider></mat-divider>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        External Power Line
-      </div>
-      <div fxFlex>
-        <mat-icon *ngIf="isExternalPowerSourceOk()" aria-hidden="false" aria-label="i-home" color="accent"
-                  class="material-icons-outlined">power
+    <div class="chart-summary-lb">External Power Line</div>
+    <div class="chart-summary-val">{{ (powerSummary.extVoltage * 0.1).toFixed(1) }} V</div>
+    <div class="chart-summary-lb">Frequency</div>
+    <div class="chart-summary-val">{{ (powerSummary.extFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-lb">Current</div>
+    <div class="chart-summary-val">{{ (powerSummary.extFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-lb">Consumption</div>
+    <div class="chart-summary-val">{{ (powerSummary.extConsumption * 0.1).toFixed(1) }} Kw/H</div>
+    <div class="chart-summary-lb">Luminosity</div>
+    <div class="chart-summary-val">{{ powerSummary.luminosity }}</div>
+  </div>
+  <div class="page-container-sub">
+    <div class="data-header">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">power_settings_new
         </mat-icon>
-        <mat-icon *ngIf="!isExternalPowerSourceOk()" aria-hidden="false" aria-label="i-home" color="primary"
-                  class="material-icons-outlined">power_off
+        <span class="data-header-text">Int Bck Line</span>
+      </h3>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="chart-summary-lb">Internal Bck Power Line</div>
+    <div class="chart-summary-val">{{ (powerSummary.intBckVoltage * 0.1).toFixed(1) }} V</div>
+    <div class="chart-summary-lb">Frequency</div>
+    <div class="chart-summary-val">{{ (powerSummary.intBckFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-lb">Current</div>
+    <div class="chart-summary-val">{{ (powerSummary.intBckCurrent * 0.1).toFixed(1) }} A</div>
+    <div class="chart-summary-lb">Consumption</div>
+    <div class="chart-summary-val">{{ (powerSummary.intBckConsumption * 0.1).toFixed(1) }} Kw/H</div>
+  </div>
+
+  <div class="page-container-sub">
+    <div class="data-header">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">power_settings_new
         </mat-icon>
-        <div>{{ (powerSummary.extVoltage * 0.1).toFixed(1)}} V</div>
-      </div>
+        <span class="data-header-text">Int Direct Line</span>
+      </h3>
+      <mat-divider></mat-divider>
     </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Frequency
-      </div>
-      <div>{{ (powerSummary.extFrequency * 0.01).toFixed(2)}} Hz</div>
+    <div class="chart-summary-lb">Int Direct Line</div>
+    <div class="chart-summary-val">{{ (powerSummary.intVoltage * 0.1).toFixed(1) }} V</div>
+    <div class="chart-summary-lb">Frequency</div>
+    <div class="chart-summary-val">{{ (powerSummary.intFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-lb">Current</div>
+    <div class="chart-summary-val">{{ (powerSummary.intCurrent * 0.1).toFixed(1) }} A</div>
+    <div class="chart-summary-lb">Consumption</div>
+    <div class="chart-summary-val">{{ (powerSummary.intConsumption * 0.1).toFixed(1) }} Kw/H</div>
+  </div>
+  <div class="chart-container">
+    <app-power-voltage-chart [data]="powerVoltageStat"></app-power-voltage-chart>
+  </div>
+  <div class="chart-container2">
+    <app-power-consumption-chart [data]="powerConsumptionStat"></app-power-consumption-chart>
+  </div>
+  <div class="chart-container3">
+    <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>
+  </div>
+  <div class="table-container">
+    <div class="table-sub-container">
+      <h3>Power Management Modules</h3>
+      <app-module-list [assignment]="1"></app-module-list>
     </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Current
-      </div>
-      <div>{{ (powerSummary.extCurrent * 0.1).toFixed(1)}} A</div>
+    <div class="table-sub-container2">
+      <h3>Gate Control</h3>
+      <app-module-list [assignment]="3"></app-module-list>
     </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Consumption
-      </div>
-      <div>{{ (powerSummary.extConsumption * 0.1).toFixed(1)}} Kw/H</div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Luminosity
-      </div>
-      <div fxFlex>{{ powerSummary.luminosity}}</div>
+    <div class="table-sub-container">
+      <h3>Ventilation Control</h3>
+      <app-module-list [assignment]="6"></app-module-list>
     </div>
   </div>
-  <div fxFlex="30%">
-    <div class="chart-container">
-      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>
-    </div>
-  </div>
-  <div fxFlex></div>
-</div>
-
-<div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="30%">
-
-    <mat-divider></mat-divider>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Internal Backup Power Line
-      </div>
-      <div fxFlex>
-        <div>{{ (powerSummary.intBckVoltage * 0.1).toFixed(1)}} V</div>
-      </div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Frequency
-      </div>
-      <div>{{ (powerSummary.intBckFrequency * 0.01).toFixed(2)}} Hz</div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Current
-      </div>
-      <div>{{ (powerSummary.intBckCurrent * 0.1).toFixed(1)}} A</div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Consumption
-      </div>
-      <div>{{ (powerSummary.intBckConsumption * 0.1).toFixed(1)}} Kw/H</div>
-    </div>
-
-    <mat-divider></mat-divider>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Internal Power Line
-      </div>
-      <div fxFlex>
-        <div>{{ (powerSummary.intVoltage * 0.1).toFixed(1)}} V</div>
-      </div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Frequency
-      </div>
-      <div>{{ (powerSummary.intFrequency * 0.01).toFixed(2)}} Hz</div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Current
-      </div>
-      <div>{{ (powerSummary.intCurrent * 0.1).toFixed(1)}} A</div>
-    </div>
-    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-      <div fxFlex="60%">
-        Consumption
-      </div>
-      <div>{{ (powerSummary.intConsumption * 0.1).toFixed(1)}} Kw/H</div>
-    </div>
-
-
-
-
-  </div>
-  <div fxFlex="30%">
-    <div class="chart-container">
-      <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
-      <app-power-voltage-chart [data]="powerVoltageStat"></app-power-voltage-chart>
-    </div>
-  </div>
-  <div fxFlex></div>
-</div>
-
-<div fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="30%">
-  </div>
-  <div fxFlex="30%">
-    <div class="chart-container">
-      <!--      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>-->
-      <app-power-consumption-chart [data]="powerConsumptionStat"></app-power-consumption-chart>
-    </div>
-  </div>
-  <div fxFlex></div>
-</div>
-
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0">
-    <app-module-list [assignment]="1"></app-module-list>
-  </div>
-  <div fxFlex="5%"></div>
-</div>
-
-<div fxLayout="row" fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0">
-    <app-module-list [assignment]="3"></app-module-list>
-  </div>
-  <div fxFlex="5%"></div>
-</div>
-
-<div fxLayout="row" fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0">
-    <app-module-list [assignment]="6"></app-module-list>
-  </div>
-  <div fxFlex="5%"></div>
 </div>
