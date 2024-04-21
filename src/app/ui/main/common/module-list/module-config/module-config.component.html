@@ -5,115 +5,77 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <ng-container *ngIf="data.binarySensorData">
-      <mat-list>
-        <mat-list-item *ngFor="let binarySensorData of data.binarySensorData">
-          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-            <div fxFlex="5%"></div>
-            <div fxFlex="50%">
-              <mat-icon matListIcon *ngIf="binarySensorData.enabled">flash_on</mat-icon>
-              <mat-icon matListIcon *ngIf="!binarySensorData.enabled">flash_off</mat-icon>
-              <h3 matLine>{{binarySensorData.name}}</h3>
+    <mat-list>
+      @if (data.binarySensorData) {
+        @for (binarySensorData of data.binarySensorData; track binarySensorData.id) {
+          <mat-list-item>
+            @if (binarySensorData.enabled) {
+              <mat-icon matListItemIcon>flash_on</mat-icon>
+            } @else {
+              <mat-icon matListItemIcon>flash_off</mat-icon>
+            }
+            <div matListItemTitle>{{ binarySensorData.name }}</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        }
+      }
+      @if (data.temperatureSensorData) {
+        @for (temperatureSensorData of data.temperatureSensorData; track temperatureSensorData.id) {
+          <mat-list-item>
+            <mat-icon matListItemIcon matListIcon>network_check</mat-icon>
+            <div matListItemTitle>{{ temperatureSensorData.name }}</div>
+            <div matListItemLine>{{ temperatureSensorData.data }}°C</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        }
+      }
+      @if (data.tempHumiditySensorData) {
+        @for (tempHumiditySensorData of data.tempHumiditySensorData; track tempHumiditySensorData.id) {
+          <mat-list-item>
+            <mat-icon matListIcon>network_check</mat-icon>
+            <div matListItemTitle>{{ tempHumiditySensorData.name }}</div>
+            <div matListItemLine>
+              <span>{{ tempHumiditySensorData.temperature }}°C</span>
+              <span>{{ tempHumiditySensorData.humidity }}%</span>
             </div>
-            <div fxFlex><p matLine><span>{{binarySensorData.enabled ? "ON" : "OFF"}}</span></p></div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </ng-container>
-
-    <ng-container *ngIf="data.temperatureSensorData">
-      <mat-list>
-        <mat-list-item *ngFor="let temperatureSensorData of data.temperatureSensorData">
-          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-            <div fxFlex="5%"></div>
-            <div fxFlex="50%">
-              <h4 matLine>
-                <mat-icon matListIcon>network_check</mat-icon>
-                {{temperatureSensorData.name}}</h4>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        }
+      }
+      @if (data.bme280TempHumidityPressureSensorData) {
+        @for (bme280TempHumidityPressureSensorData of data.bme280TempHumidityPressureSensorData; track bme280TempHumidityPressureSensorData.id) {
+          <mat-list-item>
+            <mat-icon matListIcon>network_check</mat-icon>
+            <div matListItemTitle>{{ bme280TempHumidityPressureSensorData.name }}</div>
+            <div matListItemLine>
+              <span>{{ bme280TempHumidityPressureSensorData.temperature }}°C</span>
+              <span>{{ bme280TempHumidityPressureSensorData.humidity }}%</span>
+              <span>{{ bme280TempHumidityPressureSensorData.pressure }}</span>
             </div>
-            <div fxFlex><p matLine><span>{{temperatureSensorData.data}}°C</span></p></div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </ng-container>
-
-    <ng-container *ngIf="data.temperatureSensorData">
-      <mat-list>
-        <mat-list-item *ngFor="let tempHumiditySensorData of data.tempHumiditySensorData">
-          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-            <div fxFlex="5%"></div>
-            <div fxFlex="50%">
-              <h4 matLine>
-                <mat-icon matListIcon>network_check</mat-icon>
-                {{tempHumiditySensorData.name}}</h4>
-            </div>
-            <div fxFlex>
-              <p matLine><span>{{tempHumiditySensorData.temperature}}°C</span></p>
-              <p matLine><span>{{tempHumiditySensorData.humidity}}%</span></p>
-            </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </ng-container>
-    <ng-container *ngIf="data.bme280TempHumidityPressureSensorData">
-      <mat-list>
-        <mat-list-item
-          *ngFor="let bme280TempHumidityPressureSensorData of data.bme280TempHumidityPressureSensorData">
-          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-            <div fxFlex="5%"></div>
-            <div fxFlex="50%">
-              <h4 matLine>
-                <mat-icon matListIcon>network_check</mat-icon>
-                {{bme280TempHumidityPressureSensorData.name}}</h4>
-            </div>
-            <div fxFlex>
-              <p matLine><span>{{bme280TempHumidityPressureSensorData.temperature}}°C</span></p>
-              <p matLine><span>{{bme280TempHumidityPressureSensorData.humidity}}%</span></p>
-              <p matLine><span>{{bme280TempHumidityPressureSensorData.pressure}}</span></p>
-            </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </ng-container>
-    <ng-container *ngIf="data.tsl2591LuminositySensorData">
-      <mat-list>
-        <mat-list-item *ngFor="let luminositySensorData of data.tsl2591LuminositySensorData">
-          <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-            <div fxFlex="5%"></div>
-            <div fxFlex="50%">
-              <h4 matLine>
-                <mat-icon matListIcon>network_check</mat-icon>
-                {{luminositySensorData.name}}</h4>
-            </div>
-            <div fxFlex><p matLine><span>{{luminositySensorData.data}}lum</span></p></div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </ng-container>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        }
+      }
+      @if (data.tsl2591LuminositySensorData) {
+        @for (tsl2591LuminositySensorData of data.tsl2591LuminositySensorData; track tsl2591LuminositySensorData.id) {
+          <mat-list-item>
+            <mat-icon matListIcon>network_check</mat-icon>
+            <div matListItemTitle>{{ tsl2591LuminositySensorData.name }}</div>
+            <div matListItemLine>{{ tsl2591LuminositySensorData.data }}lum</div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        }
+      }
+    </mat-list>
     <form class="update-organization-form" [formGroup]="moduleConfigForm">
-      <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-        <div fxFlex="5%"></div>
-        <div fxFlex="50%">
+      <div class="form-container">
+        <div class="form-control-line">
           <mat-checkbox [formControlName]="'enabledOnStartup'" [checked]="data.startupMode === 1">Enabled On Startup</mat-checkbox>
         </div>
-        <div fxFlex></div>
-      </div>
-      <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-        <div fxFlex="5%"></div>
-        <div fxFlex="50%">
+        <div class="form-control-line">
           <mat-checkbox [formControlName]="'mode'" [checked]="data.mode === 2">Module Logic Activated</mat-checkbox>
         </div>
-        <div fxFlex></div>
-      </div>
-      <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-        <div fxFlex="5%"></div>
-        <div fxFlex="50%">
-          <mat-card-content>
-            <div>Output</div>
-            <mat-slider [min]="0" [max]="data.dimmableOutput ? 5 : 1" [step]="1" [formControlName]="'outputPortState'"><input matSliderThumb />Module Output</mat-slider>
-          </mat-card-content>
-        </div>
-        <div fxFlex></div>
+        <div class="form-control-line"><mat-slider [min]="0" [max]="data.dimmableOutput ? 5 : 1" [step]="1" color="accent"><input matSliderThumb [formControlName]="'outputPortState'">Module Output</mat-slider></div>
       </div>
     </form>
   </mat-card-content>
@@ -124,3 +86,4 @@
     </button>
   </mat-card-actions>
 </mat-card>
+

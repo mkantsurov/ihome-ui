@@ -1,117 +1,29 @@
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="30%"><h3>Lightning Control</h3></div>
-  <div fxFlex></div>
-</div>
-
-<!--<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--  <div fxFlex="5%"></div>-->
-<!--  <div fxFlex="30%">-->
-<!--    <div class="data-header">-->
-<!--      <h3>-->
-<!--        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"-->
-<!--                  class="material-icons-outlined data-header-icon">device_thermostat-->
-<!--        </mat-icon>-->
-<!--        <span class="data-header-text">Summary</span>-->
-<!--      </h3>-->
-<!--    </div>-->
-<!--    <mat-divider></mat-divider>-->
-
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Out Door Temperature-->
-<!--      </div>-->
-<!--      <div fxFlex>{{ heatingSummary.outDoorTemperature * .01 | number:'1.1' }}&#8451;</div>-->
-<!--    </div>-->
-
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Second Floor Temperature-->
-<!--      </div>-->
-<!--      <div fxFlex>{{ heatingSummary.sfTemperature * .01 | number:'1.1' }}&#8451;</div>-->
-<!--    </div>-->
-
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Ground Floor Temperature-->
-<!--      </div>-->
-<!--      <div fxFlex>{{ heatingSummary.gfTemperature * .01 | number:'1.1' }}&#8451;</div>-->
-<!--    </div>-->
-
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Garage Temperature-->
-<!--      </div>-->
-<!--      <div fxFlex>{{ heatingSummary.garageTemperature * .01 | number:'1.1' }}&#8451;</div>-->
-<!--    </div>-->
-
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Boiler Temperature-->
-<!--      </div>-->
-<!--      <div fxFlex>{{ heatingSummary.boilerTemperature * .01 | number:'1.1' }}&#8451;</div>-->
-<!--    </div>-->
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Ground Floor Heating Pump-->
-<!--      </div>-->
-<!--      <div fxFlex>-->
-<!--        <mat-icon *ngIf="isPumpGfEnabled()" aria-hidden="false" aria-label="i-home" color="accent"-->
-<!--                  class="material-icons-outlined">power-->
-<!--        </mat-icon>-->
-<!--        <mat-icon *ngIf="!isPumpGfEnabled()" aria-hidden="false" aria-label="i-home" color="primary"-->
-<!--                  class="material-icons-outlined">power_off-->
-<!--        </mat-icon>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div fxLayout="row" fxFlexFill fxLayoutAlign="left center">-->
-<!--      <div fxFlex="60%">-->
-<!--        Second Floor Heating Pump-->
-<!--      </div>-->
-<!--      <div fxFlex>-->
-<!--        <mat-icon *ngIf="isPumpSfEnabled()" aria-hidden="false" aria-label="i-home" color="accent"-->
-<!--                  class="material-icons-outlined">power-->
-<!--        </mat-icon>-->
-<!--        <mat-icon *ngIf="!isPumpSfEnabled()" aria-hidden="false" aria-label="i-home" color="primary"-->
-<!--                  class="material-icons-outlined">power_off-->
-<!--        </mat-icon>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div fxFlex="30%">-->
-<!--    <div class="chart-container">-->
-<!--      &lt;!&ndash;      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>&ndash;&gt;-->
-<!--      <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div fxFlex></div>-->
-<!--</div>-->
-
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0" >
-    <app-module-list [assignment]="4" [group]="2"></app-module-list>
+<div class="page-container">
+  <div class="page-container-sub">
+    <div class="data-header">
+      <h3>
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+                  class="material-icons-outlined data-header-icon">power_settings_new
+        </mat-icon>
+        <span class="data-header-text">Lightning Control</span>
+      </h3>
+      <mat-divider></mat-divider>
+    </div>
   </div>
-  <div fxFlex="5%"></div>
-</div>
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0" >
+  <div class="table-sub-container">
+    <h3>Second Floor</h3>
     <app-module-list [assignment]="4" [group]="3"></app-module-list>
   </div>
-  <div fxFlex="5%"></div>
-</div>
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0" >
+  <div class="table-sub-container2">
+    <h3>Ground Floor</h3>
+    <app-module-list [assignment]="4" [group]="2"></app-module-list>
+  </div>
+  <div class="table-sub-container">
+    <h3>Garage</h3>
     <app-module-list [assignment]="4" [group]="1"></app-module-list>
   </div>
-  <div fxFlex="5%"></div>
-</div>
-<div fxLayout="row" fxFlexFill fxLayoutAlign="left center">
-  <div fxFlex="5%"></div>
-  <div fxFlex="auto 1 0" >
+  <div class="table-sub-container2">
+    <h3>External</h3>
     <app-module-list [assignment]="5" [group]="4"></app-module-list>
   </div>
-  <div fxFlex="5%"></div>
 </div>

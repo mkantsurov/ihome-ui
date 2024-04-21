@@ -7,17 +7,19 @@ import {MatListModule} from '@angular/material/list';
 import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
 import {ModuleListComponent} from '../common/module-list/module-list.component';
 import {DecimalPipe} from '@angular/common';
+import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-voltage-chart.component';
 
 @Component({
   selector: 'app-heating-control',
   templateUrl: './heating-control.component.html',
-  styleUrls: ['./heating-control.component.css'],
+  styleUrls: ['./heating-control.component.scss'],
   imports: [
     MatIconModule,
     MatListModule,
     BoilerTempChartComponent,
     ModuleListComponent,
-    DecimalPipe
+    DecimalPipe,
+    PowerVoltageChartComponent
   ],
   standalone: true
 })

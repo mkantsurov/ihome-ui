@@ -1,0 +1,17 @@
+
+@import "theme_variables.scss";
+.form-container {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px;
+}
+.form-control-line {
+  grid-column: 1/5;
+}
+.form-label-left {
+  grid-column: 1/2;
+}
+.form-slider-right {
+  grid-column: 2/4;
+}
+
+

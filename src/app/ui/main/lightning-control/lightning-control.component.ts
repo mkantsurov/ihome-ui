@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {SystemService} from '../../../services/system.service';
 import {ModuleListComponent} from '../common/module-list/module-list.component';
+import {MatDivider} from '@angular/material/divider';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-lightning-control',
   templateUrl: './lightning-control.component.html',
-  styleUrls: ['./lightning-control.component.css'],
+  styleUrls: ['./lightning-control.component.scss'],
   imports: [
-    ModuleListComponent
+    ModuleListComponent,
+    MatDivider,
+    MatIcon
   ],
   standalone: true
 })
