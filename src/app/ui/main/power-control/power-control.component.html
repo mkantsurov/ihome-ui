@@ -18,7 +18,7 @@
     <div class="chart-summary-lb">Consumption</div>
     <div class="chart-summary-val">{{ (powerSummary.extConsumption * 0.1).toFixed(1) }} Kw/H</div>
     <div class="chart-summary-lb">Luminosity</div>
-    <div class="chart-summary-val">{{ powerSummary.luminosity }}</div>
+    <div class="chart-summary-val">{{ powerSummary.luminosity * .01 | number:'1.1' }}</div>
   </div>
   <div class="page-container-sub">
     <div class="data-header">

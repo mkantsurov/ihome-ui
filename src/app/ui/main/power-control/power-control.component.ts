@@ -12,6 +12,7 @@ import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-vol
 import {PowerConsumptionChartComponent} from '../chart/power-consumption-chart/power-consumption-chart.component';
 import {ModuleListComponent} from '../common/module-list/module-list.component';
 import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-power-control',
@@ -24,7 +25,8 @@ import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-c
     PowerVoltageChartComponent,
     PowerConsumptionChartComponent,
     ModuleListComponent,
-    BoilerTempChartComponent
+    BoilerTempChartComponent,
+    DecimalPipe
   ],
   standalone: true
 })

@@ -49,7 +49,7 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
           label: 'Luminosity',
           data: data.luminosity.map(el => ({
             x: new Date(el.dt),
-            y: el.value.toFixed(2)
+            y: (el.value * 0.01).toFixed(2)
           })),
           // backgroundColor: '#e8bc00',
           borderColor: '#e8bc00',
