@@ -45,25 +45,25 @@ export class PowerConsumptionChartComponent implements OnInit, OnChanges {
           label: 'Ext Consumption',
           data: data.extConsumption.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.1).toFixed(1)
+            y: el.value
           })),
           backgroundColor: 'transparent',
-          borderColor: '#352e95',
+          borderColor: '#2E4895',
           pointRadius: 1
         }, {
           label: 'Int Consumption',
           data: data.intConsumption.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.1).toFixed(1)
+            y: el.value
           })),
           backgroundColor: 'transparent',
-          borderColor: '#952e90',
+          borderColor: '#854492',
           pointRadius: 1
         }, {
-          label: 'Int Consumption',
+          label: 'Int Bck Consumption',
           data: data.intBckConsumption.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.1).toFixed(1)
+            y: el.value
           })),
           backgroundColor: 'transparent',
           borderColor: '#790b8e',

@@ -64,7 +64,7 @@ export class MessagesDataSource implements DataSource<ErrorMessageEntry> {
 
     MessagesDataSource.updateFilterHttpParams(filter, value)
     MessagesDataSource.updateSortHttpParams(sort, value)
-
+console.log('creating request for errors count')
     this.adminService.getErrorCount(MessagesDataSource.httpParamsFrom(filter, null)).pipe(
       switchMap((count) => {
         this.totalCount = count.headers.get('x-total-count')
@@ -72,8 +72,8 @@ export class MessagesDataSource implements DataSource<ErrorMessageEntry> {
           this.paginator.pageSize,
           MessagesDataSource.httpParamsFrom(filter, sort))
       })
-    ).subscribe((users) => {
-      this.dataSubject.next(users)
+    ).subscribe((errors) => {
+      this.dataSubject.next(errors)
     }, (error: Error) => {
       this.dataSubject.next([])
       this.errorHandler.handle(error, ' Cannot get error messages ')

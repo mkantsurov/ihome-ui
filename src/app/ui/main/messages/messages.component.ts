@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MessagesDataSource} from './messages-data-source';
 import {ErrorMessageEntry} from '../../../domain/error-message-entry';
 import {MessagesSearchRequest} from '../../../domain/messages-search-request';
-import {FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {AdminService} from '../../../services/admin.service';
 import {ErrorHandlerService} from '../../../services/error-handler.service';
@@ -18,6 +18,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
+import {ErrorViewDirective} from '../../../directive/error-view.directive';
 
 @Component({
   selector: 'app-messages',
@@ -34,6 +35,7 @@ import {MatTableModule} from '@angular/material/table';
     MatInputModule,
     MatCheckboxModule,
     DatePipe,
+    ErrorViewDirective,
     MatOptionModule,
     MatSelectModule,
     MatSortModule,
@@ -50,10 +52,18 @@ export class MessagesComponent implements OnInit {
   searchForm: FormGroup
   showSpinner: boolean
   messagesSort = {}
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
+
   constructor(private errorHandler: ErrorHandlerService,
-              private adminService: AdminService) { }
+              private adminService: AdminService,
+              public fb: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      errorType: ['', [Validators.pattern('ALL')]]
+    })
+    this.dataSource = new MessagesDataSource(this.paginator, this, this.adminService, this.errorHandler)
+    this.search();
   }
 
   onSort($event): void {
@@ -63,8 +73,21 @@ export class MessagesComponent implements OnInit {
       this.dataSource.loadData({filter: this.messagesSearchModel, sortColumns: $event});
     }
   }
+
+  search(str?: string): void {
+    if (this.searchForm.valid) {
+      this.getValuesFromSearchFields()
+      if (str) {
+        this.dataSource.goToFirstPage()
+      }
+      this.dataSource.loadData({filter: this.messagesSearchModel, sortColumns: this.messagesSort})
+    }
+  }
+
   getValuesFromSearchFields(): void {
-    this.messagesSearchModel.type = this.searchForm.get('type').value
+    // console.log(JSON.stringify(this.searchForm.controls));
+    console.log('Control name type:' + this.searchForm.get('errorType').value);
+    // this.messagesSearchModel.errorType = 'ALL'; // this.searchForm.get('errorType').value ? this.searchForm.get('errorType').value : 'ALL';
   }
 
   pageChanged(): void {
