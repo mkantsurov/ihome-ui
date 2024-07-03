@@ -12,7 +12,7 @@
   <div class="chart-summary-lb">External Power Line</div>
   <div class="chart-summary-val">{{ (powerSummary.extVoltage * 0.1).toFixed(1) }} V</div>
   <div class="chart-summary-lb">External Power Frequency</div>
-  <div class="chart-summary-val">{{ (powerSummary.extFrequency * 0.1).toFixed(1) }} V</div>
+  <div class="chart-summary-val">{{ (powerSummary.extFrequency * 0.01).toFixed(1) }} HZ</div>
   <div class="chart-container">
     <app-general-power-chart [data]="powerStat"></app-general-power-chart>
   </div>
