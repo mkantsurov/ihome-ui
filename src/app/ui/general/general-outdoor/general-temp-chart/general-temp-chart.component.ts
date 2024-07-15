@@ -56,6 +56,13 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
       },
 
       options: {
+        plugins: {
+          tooltip: {
+            enabled: true,
+            mode: 'point',
+            intersect: true
+          }
+        },
         scales: {
           x: {
             type: 'time',

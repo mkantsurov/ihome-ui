@@ -57,6 +57,15 @@ export class PressureChartComponent implements OnInit, OnChanges {
       },
 
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            enabled: true,
+            mode: 'point',
+            intersect: true
+          }
+        },
         scales: {
           x: {
             type: 'time',
