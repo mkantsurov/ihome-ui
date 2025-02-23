@@ -15,20 +15,19 @@ import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-c
 import {DecimalPipe} from '@angular/common';
 
 @Component({
-  selector: 'app-power-control',
-  templateUrl: './power-control.component.html',
-  styleUrls: ['./power-control.component.scss'],
-  imports: [
-    MatIconModule,
-    MatListModule,
-    LuminosityChartComponent,
-    PowerVoltageChartComponent,
-    PowerConsumptionChartComponent,
-    ModuleListComponent,
-    BoilerTempChartComponent,
-    DecimalPipe
-  ],
-  standalone: true
+    selector: 'app-power-control',
+    templateUrl: './power-control.component.html',
+    styleUrls: ['./power-control.component.scss'],
+    imports: [
+        MatIconModule,
+        MatListModule,
+        LuminosityChartComponent,
+        PowerVoltageChartComponent,
+        PowerConsumptionChartComponent,
+        ModuleListComponent,
+        BoilerTempChartComponent,
+        DecimalPipe
+    ]
 })
 export class PowerControlComponent implements OnInit {
 

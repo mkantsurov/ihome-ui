@@ -11,22 +11,21 @@ import {RouterLink, RouterOutlet} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
-    AsyncPipe,
-    NgIf
-  ],
-  standalone: true
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss'],
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonModule,
+        AsyncPipe,
+        NgIf
+    ]
 })
 export class IndexComponent implements OnInit {
   mobileQuery: MediaQueryList;

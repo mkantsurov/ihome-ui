@@ -18,21 +18,20 @@ import {PressureChartComponent} from '../main/chart/pressurechart/pressure-chart
 
 
 @Component({
-  selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.css'],
-  imports: [
-    MatCardModule,
-    PercentPipe,
-    DecimalPipe,
-    SystemChartComponent,
-    SystemChartLaComponent,
-    LuminosityChartComponent,
-    TempChartComponent,
-    BoilerTempChartComponent,
-    PressureChartComponent
-  ],
-  standalone: true
+    selector: 'app-summary',
+    templateUrl: './summary.component.html',
+    styleUrls: ['./summary.component.css'],
+    imports: [
+        MatCardModule,
+        PercentPipe,
+        DecimalPipe,
+        SystemChartComponent,
+        SystemChartLaComponent,
+        LuminosityChartComponent,
+        TempChartComponent,
+        BoilerTempChartComponent,
+        PressureChartComponent
+    ]
 })
 export class SummaryComponent implements OnInit {
 

@@ -8,16 +8,15 @@ import {MatListModule} from '@angular/material/list';
 import {GeneralPressureChartComponent} from '../general-outdoor/general-pressure-chart/general-pressure-chart.component';
 
 @Component({
-  selector: 'app-general-power',
-  templateUrl: './general-power.component.html',
-  styleUrls: ['./general-power.component.css'],
-  imports: [
-    GeneralPowerChartComponent,
-    MatIconModule,
-    MatListModule,
-    GeneralPressureChartComponent
-  ],
-  standalone: true
+    selector: 'app-general-power',
+    templateUrl: './general-power.component.html',
+    styleUrls: ['./general-power.component.css'],
+    imports: [
+        GeneralPowerChartComponent,
+        MatIconModule,
+        MatListModule,
+        GeneralPressureChartComponent
+    ]
 })
 export class GeneralPowerComponent implements OnInit {
 

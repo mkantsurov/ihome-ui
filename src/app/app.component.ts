@@ -3,13 +3,12 @@ import {Router, RouterModule, RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  imports: [
-    CommonModule, RouterModule
-  ],
-  standalone: true
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [
+        CommonModule, RouterModule
+    ]
 })
 export class AppComponent {
   title = 'Home Keeper';

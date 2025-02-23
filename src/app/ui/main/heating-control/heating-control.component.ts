@@ -10,18 +10,17 @@ import {DecimalPipe} from '@angular/common';
 import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-voltage-chart.component';
 
 @Component({
-  selector: 'app-heating-control',
-  templateUrl: './heating-control.component.html',
-  styleUrls: ['./heating-control.component.scss'],
-  imports: [
-    MatIconModule,
-    MatListModule,
-    BoilerTempChartComponent,
-    ModuleListComponent,
-    DecimalPipe,
-    PowerVoltageChartComponent
-  ],
-  standalone: true
+    selector: 'app-heating-control',
+    templateUrl: './heating-control.component.html',
+    styleUrls: ['./heating-control.component.scss'],
+    imports: [
+        MatIconModule,
+        MatListModule,
+        BoilerTempChartComponent,
+        ModuleListComponent,
+        DecimalPipe,
+        PowerVoltageChartComponent
+    ]
 })
 export class HeatingControlComponent implements OnInit {
 

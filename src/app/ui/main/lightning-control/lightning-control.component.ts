@@ -5,15 +5,14 @@ import {MatDivider} from '@angular/material/divider';
 import {MatIcon} from '@angular/material/icon';
 
 @Component({
-  selector: 'app-lightning-control',
-  templateUrl: './lightning-control.component.html',
-  styleUrls: ['./lightning-control.component.scss'],
-  imports: [
-    ModuleListComponent,
-    MatDivider,
-    MatIcon
-  ],
-  standalone: true
+    selector: 'app-lightning-control',
+    templateUrl: './lightning-control.component.html',
+    styleUrls: ['./lightning-control.component.scss'],
+    imports: [
+        ModuleListComponent,
+        MatDivider,
+        MatIcon
+    ]
 })
 export class LightningControlComponent implements OnInit {
 

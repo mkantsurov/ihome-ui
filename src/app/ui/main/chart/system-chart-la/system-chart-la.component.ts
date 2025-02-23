@@ -4,13 +4,12 @@ import {LaStat} from '../../../../domain/lastat';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-system-chart-la',
-  templateUrl: './system-chart-la.component.html',
-  styleUrls: ['./system-chart-la.component.css'],
-  imports: [
-    MatProgressSpinnerModule
-  ],
-  standalone: true
+    selector: 'app-system-chart-la',
+    templateUrl: './system-chart-la.component.html',
+    styleUrls: ['./system-chart-la.component.css'],
+    imports: [
+        MatProgressSpinnerModule
+    ]
 })
 export class SystemChartLaComponent implements OnInit, OnChanges {
 

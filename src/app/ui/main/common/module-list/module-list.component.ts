@@ -14,15 +14,14 @@ import {NgClass} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
-  selector: 'app-module-list',
-  templateUrl: './module-list.component.html',
-  styleUrls: ['./module-list.component.scss'],
-  imports: [
-    MatTableModule,
-    NgClass,
-    MatIconModule
-  ],
-  standalone: true
+    selector: 'app-module-list',
+    templateUrl: './module-list.component.html',
+    styleUrls: ['./module-list.component.scss'],
+    imports: [
+        MatTableModule,
+        NgClass,
+        MatIconModule
+    ]
 })
 export class ModuleListComponent implements OnInit {
 

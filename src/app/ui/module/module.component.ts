@@ -8,16 +8,15 @@ import {MatListModule} from '@angular/material/list';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-module',
-  templateUrl: './module.component.html',
-  styleUrls: ['./module.component.css'],
-  imports: [
-    MatExpansionModule,
-    MatIconModule,
-    MatListModule,
-    MatCheckboxModule
-  ],
-  standalone: true
+    selector: 'app-module',
+    templateUrl: './module.component.html',
+    styleUrls: ['./module.component.css'],
+    imports: [
+        MatExpansionModule,
+        MatIconModule,
+        MatListModule,
+        MatCheckboxModule
+    ]
 })
 /**
  * @deprecated

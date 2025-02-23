@@ -15,20 +15,19 @@ import {MatLine} from '@angular/material/core';
 import {MatButton} from '@angular/material/button';
 
 @Component({
-  selector: 'app-module-config',
-  templateUrl: './module-config.component.html',
-  styleUrls: ['./module-config.component.scss'],
-  imports: [
-    MatCardModule,
-    MatListModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatCheckboxModule,
-    MatSliderModule,
-    MatLine,
-    MatButton
-  ],
-  standalone: true
+    selector: 'app-module-config',
+    templateUrl: './module-config.component.html',
+    styleUrls: ['./module-config.component.scss'],
+    imports: [
+        MatCardModule,
+        MatListModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatCheckboxModule,
+        MatSliderModule,
+        MatLine,
+        MatButton
+    ]
 })
 export class ModuleConfigComponent implements OnInit {
   moduleConfigForm: UntypedFormGroup;

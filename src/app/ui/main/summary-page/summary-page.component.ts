@@ -18,20 +18,19 @@ import {PowerVoltageExt} from '../../../domain/power-voltage-ext';
 dayjs.extend(duration);
 
 @Component({
-  selector: 'app-summary-page',
-  templateUrl: './summary-page.component.html',
-  styleUrls: ['./summary-page.component.scss'],
-  imports: [
-    MatIconModule,
-    MatListModule,
-    DecimalPipe,
-    PercentPipe,
-    PressureChartComponent,
-    BoilerTempChartComponent,
-    TempChartComponent,
-    GeneralPowerChartComponent
-  ],
-  standalone: true
+    selector: 'app-summary-page',
+    templateUrl: './summary-page.component.html',
+    styleUrls: ['./summary-page.component.scss'],
+    imports: [
+        MatIconModule,
+        MatListModule,
+        DecimalPipe,
+        PercentPipe,
+        PressureChartComponent,
+        BoilerTempChartComponent,
+        TempChartComponent,
+        GeneralPowerChartComponent
+    ]
 })
 export class SummaryPageComponent implements OnInit {
 

@@ -7,14 +7,13 @@ import {GeneralPressureChartComponent} from './general-pressure-chart/general-pr
 
 
 @Component({
-  selector: 'app-general-outdoor',
-  templateUrl: './general-outdoor.component.html',
-  styleUrls: ['./general-outdoor.component.scss'],
-  imports: [
-    GeneralTempChartComponent,
-    GeneralPressureChartComponent
-  ],
-  standalone: true
+    selector: 'app-general-outdoor',
+    templateUrl: './general-outdoor.component.html',
+    styleUrls: ['./general-outdoor.component.scss'],
+    imports: [
+        GeneralTempChartComponent,
+        GeneralPressureChartComponent
+    ]
 })
 export class GeneralOutdoorComponent implements OnInit {
 
