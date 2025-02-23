@@ -92,7 +92,7 @@ h1.app-name {
   transform: skew(-5deg);
   color: $accent;
   line-height: 1em;
-  text-shadow: 3px 3px mat.get-color-from-palette($md-ihome-mcgpalette-dblue, 500);
+  text-shadow: 3px 3px mat.m2-get-color-from-palette($md-ihome-mcgpalette-dblue, 500);
 }
 .header {
   height: 64px;
