@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {ModuleSummary} from "../domain/modulesummary";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import {ModuleData} from "../domain/moduledata";
 import {ModuleUpdateRequest} from "../domain/module-update-request";
 

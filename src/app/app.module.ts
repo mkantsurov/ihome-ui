@@ -1,14 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SummaryComponent} from './ui/summary/summary.component';
 import {GroundfloorComponent} from './ui/groundfloor/groundfloor.component';
 import {SecondfloorComponent} from './ui/secondfloor/secondfloor.component';
 import {GarageComponent} from './ui/garage/garage.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {JwtInterceptor} from './jwt-interceptor';
@@ -29,7 +29,6 @@ import {ExtlightComponent} from './ui/extlight/extlight.component';
 import {TempChartComponent} from './ui/main/chart/tempchart/temp-chart.component';
 import {PressureChartComponent} from './ui/main/chart/pressurechart/pressure-chart.component';
 import {BoilerTempChartComponent} from './ui/main/chart/boiler-temp-chart/boiler-temp-chart.component';
-import {LeftMenuComponent} from './ui/left-menu/left-menu.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
@@ -50,32 +49,63 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
-import { GeneralOutdoorComponent } from './ui/general/general-outdoor/general-outdoor.component';
-import { GeneralPowerComponent } from './ui/general/general-power/general-power.component';
-import { GeneralSignInComponent } from './ui/general/general-sign-in/general-sign-in.component';
-import { IndexComponent } from './ui/general/index/index.component';
+import {GeneralOutdoorComponent} from './ui/general/general-outdoor/general-outdoor.component';
+import {GeneralPowerComponent} from './ui/general/general-power/general-power.component';
+import {GeneralSignInComponent} from './ui/general/general-sign-in/general-sign-in.component';
+import {IndexComponent} from './ui/general/index/index.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { GeneralTempChartComponent } from './ui/general/general-outdoor/general-temp-chart/general-temp-chart.component';
-import { GeneralPowerChartComponent } from './ui/general/general-power/general-power-chart/general-power-chart.component';
-import { GeneralPressureChartComponent } from './ui/general/general-outdoor/general-pressure-chart/general-pressure-chart.component';
-import { SummaryPageComponent } from './ui/main/summary-page/summary-page.component';
-import { PowerControlComponent } from './ui/main/power-control/power-control.component';
-import { HeatingControlComponent } from './ui/main/heating-control/heating-control.component';
-import { LightningControlComponent } from './ui/main/lightning-control/lightning-control.component';
-import { AuditLogControlComponent } from './ui/main/audit-log-control/audit-log-control.component';
-import { MessagesComponent } from './ui/main/messages/messages.component';
-import { ModuleListComponent } from './ui/main/common/module-list/module-list.component';
-import { PowerVoltageChartComponent } from './ui/main/chart/power-voltage-chart/power-voltage-chart.component';
-import { PowerConsumptionChartComponent } from './ui/main/chart/power-consumption-chart/power-consumption-chart.component';
-import { ExceptionModalComponent } from './ui/common/exception-modal-component/exception-modal.component';
+import {GeneralTempChartComponent} from './ui/general/general-outdoor/general-temp-chart/general-temp-chart.component';
+import {GeneralPowerChartComponent} from './ui/general/general-power/general-power-chart/general-power-chart.component';
+import {GeneralPressureChartComponent} from './ui/general/general-outdoor/general-pressure-chart/general-pressure-chart.component';
+import {SummaryPageComponent} from './ui/main/summary-page/summary-page.component';
+import {PowerControlComponent} from './ui/main/power-control/power-control.component';
+import {HeatingControlComponent} from './ui/main/heating-control/heating-control.component';
+import {LightningControlComponent} from './ui/main/lightning-control/lightning-control.component';
+import {AuditLogControlComponent} from './ui/main/audit-log-control/audit-log-control.component';
+import {MessagesComponent} from './ui/main/messages/messages.component';
+import {ModuleListComponent} from './ui/main/common/module-list/module-list.component';
+import {PowerVoltageChartComponent} from './ui/main/chart/power-voltage-chart/power-voltage-chart.component';
+import {PowerConsumptionChartComponent} from './ui/main/chart/power-consumption-chart/power-consumption-chart.component';
+import {ExceptionModalComponent} from './ui/common/exception-modal-component/exception-modal.component';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {ErrorHandlerService} from './services/error-handler.service';
-import { ModuleConfigComponent } from './ui/main/common/module-list/module-config/module-config.component';
+import {ModuleConfigComponent} from './ui/main/common/module-list/module-config/module-config.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
+    TruncatePipe
+  ],
+  exports: [ExceptionModalComponent],
+  imports: [BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    MatIconModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    MatTooltipModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTableModule,
+    MatExpansionModule,
+    MatTreeModule,
+    MatGridListModule,
+    MatCardModule,
+    FlexLayoutModule,
+    MatRadioModule,
+    MatSliderModule,
     AppComponent,
     SummaryComponent,
     GroundfloorComponent,
@@ -89,7 +119,6 @@ import {MatSliderModule} from '@angular/material/slider';
     TempChartComponent,
     PressureChartComponent,
     BoilerTempChartComponent,
-    LeftMenuComponent,
     SystemChartComponent,
     LuminosityChartComponent,
     SystemChartLaComponent,
@@ -110,41 +139,7 @@ import {MatSliderModule} from '@angular/material/slider';
     PowerVoltageChartComponent,
     PowerConsumptionChartComponent,
     ExceptionModalComponent,
-    TruncatePipe,
-    ModuleConfigComponent
-  ],
-    imports: [
-        HttpClientModule,
-        BrowserModule,
-        RouterModule,
-        AppRoutingModule,
-        MatIconModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatCheckboxModule,
-        MatTabsModule,
-        MatTooltipModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatDialogModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatTableModule,
-        MatExpansionModule,
-        MatTreeModule,
-        MatGridListModule,
-        MatCardModule,
-        FlexLayoutModule,
-        MatRadioModule,
-        MatSliderModule,
-    ],exports: [ExceptionModalComponent],
-  providers: [
+    ModuleConfigComponent], providers: [
     AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     UserService,
@@ -154,9 +149,9 @@ import {MatSliderModule} from '@angular/material/slider';
     IsAdminGuard,
     IsUserGuard,
     GuestGuard,
-    ErrorHandlerService
-  ],
-  bootstrap: [AppComponent]
+    ErrorHandlerService,
+    provideHttpClient(withInterceptorsFromDi())
+  ]
 })
 export class AppModule {
 }

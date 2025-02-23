@@ -6,7 +6,7 @@ import {AppComponent} from './app/app.component';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {provideRouter} from '@angular/router';
 import {APP_ROUTES} from './app/app.route';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material/core';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {JwtInterceptor} from './app/jwt-interceptor';

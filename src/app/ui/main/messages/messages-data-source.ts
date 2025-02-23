@@ -6,7 +6,7 @@ import {AdminService} from '../../../services/admin.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MessagesComponent} from './messages.component';
 import {ErrorMessageSortRule} from '../../../domain/error-message-sort-rule';
-import {HttpParams} from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import {CustomHttpParamEncoder} from '../../../services/custom-http-param-encoder';
 import {switchMap} from 'rxjs/operators';
 
