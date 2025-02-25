@@ -26,7 +26,6 @@ dayjs.extend(duration);
         MatListModule,
         DecimalPipe,
         PercentPipe,
-        PressureChartComponent,
         BoilerTempChartComponent,
         TempChartComponent,
         GeneralPowerChartComponent

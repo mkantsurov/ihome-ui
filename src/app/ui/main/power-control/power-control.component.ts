@@ -25,7 +25,6 @@ import {DecimalPipe} from '@angular/common';
         PowerVoltageChartComponent,
         PowerConsumptionChartComponent,
         ModuleListComponent,
-        BoilerTempChartComponent,
         DecimalPipe
     ]
 })

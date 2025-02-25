@@ -14,8 +14,7 @@ import {GeneralPressureChartComponent} from '../general-outdoor/general-pressure
     imports: [
         GeneralPowerChartComponent,
         MatIconModule,
-        MatListModule,
-        GeneralPressureChartComponent
+        MatListModule
     ]
 })
 export class GeneralPowerComponent implements OnInit {

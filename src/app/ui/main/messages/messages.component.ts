@@ -39,7 +39,6 @@ import {ErrorViewDirective} from '../../../directive/error-view.directive';
         MatSelectModule,
         MatSortModule,
         MatProgressSpinnerModule,
-        NgClass,
         MatPaginatorModule
     ]
 })

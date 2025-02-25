@@ -18,8 +18,7 @@ import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-vol
         MatListModule,
         BoilerTempChartComponent,
         ModuleListComponent,
-        DecimalPipe,
-        PowerVoltageChartComponent
+        DecimalPipe
     ]
 })
 export class HeatingControlComponent implements OnInit {

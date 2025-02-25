@@ -22,9 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
         MatSidenavModule,
         MatIconModule,
         MatListModule,
-        MatButtonModule,
-        AsyncPipe,
-        NgIf
+        MatButtonModule
     ]
 })
 export class IndexComponent implements OnInit {

@@ -25,7 +25,6 @@ import {MatButton} from '@angular/material/button';
         ReactiveFormsModule,
         MatCheckboxModule,
         MatSliderModule,
-        MatLine,
         MatButton
     ]
 })
