@@ -5,7 +5,7 @@ import {PressureStat} from '../../../domain/pressurestat';
 import {LuminosityStat} from '../../../domain/luminositystat';
 import {SystemSummary} from '../../../domain/systemsummary';
 import {BoilerTempStat} from '../../../domain/boilertempstat';
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
