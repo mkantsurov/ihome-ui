@@ -7,19 +7,18 @@ import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+
 
 @Component({
     selector: 'app-general-sign-in',
     templateUrl: './general-sign-in.component.html',
     styleUrls: ['./general-sign-in.component.css'],
     imports: [
-        CommonModule,
-        MatDialogModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatButtonModule
-    ]
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule
+]
 })
 export class GeneralSignInComponent implements OnInit {
   loading = false;

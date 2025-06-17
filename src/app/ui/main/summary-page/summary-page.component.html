@@ -3,7 +3,7 @@
     <div class="data-header">
       <h3>
         <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                  class="material-icons-outlined data-header-icon">network_check
+          class="material-icons-outlined data-header-icon">network_check
         </mat-icon>
         <span class="data-header-text">System</span>
       </h3>
@@ -11,12 +11,16 @@
     </div>
     <div class="chart-summary-lb">Security Mode</div>
     <div class="chart-summary-val">
-      <mat-icon *ngIf="systemSummary.securityMode > 0" aria-hidden="false" aria-label="i-home" color="accent"
-                class="material-icons-outlined">lock
-      </mat-icon>
-      <mat-icon *ngIf="systemSummary.securityMode == 0" aria-hidden="false" aria-label="i-home" color="primary"
-                class="material-icons-outlined">lock_open
-      </mat-icon>
+      @if (systemSummary.securityMode > 0) {
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+          class="material-icons-outlined">lock
+        </mat-icon>
+      }
+      @if (systemSummary.securityMode == 0) {
+        <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
+          class="material-icons-outlined">lock_open
+        </mat-icon>
+      }
     </div>
     <div class="chart-summary-lb">Up Time</div>
     <div class="chart-summary-val">{{ getUpTime() }}</div>
@@ -28,7 +32,7 @@
     <div class="data-header">
       <h3>
         <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                  class="material-icons-outlined data-header-icon">power_settings_new
+          class="material-icons-outlined data-header-icon">power_settings_new
         </mat-icon>
         <span class="data-header-text">Power Settings</span>
       </h3>
@@ -36,23 +40,31 @@
     </div>
     <div class="chart-summary-lb">External Power Line</div>
     <div class="chart-summary-val">
-      <mat-icon *ngIf="systemSummary.powerStatus > 0" aria-hidden="false" aria-label="i-home" color="accent"
-                class="material-icons-outlined">power
-      </mat-icon>
-      <mat-icon *ngIf="systemSummary.powerStatus == 0" aria-hidden="false" aria-label="i-home" color="primary"
-                class="material-icons-outlined">power_off
-      </mat-icon>
+      @if (systemSummary.powerStatus > 0) {
+        <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+          class="material-icons-outlined">power
+        </mat-icon>
+      }
+      @if (systemSummary.powerStatus == 0) {
+        <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
+          class="material-icons-outlined">power_off
+        </mat-icon>
+      }
     </div>
     <div class="chart-summary-val2"></div>
 
     <div class="chart-summary-lb">Converter Power Src</div>
     <div class="chart-summary-val">
-      <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 1" aria-hidden="false" aria-label="i-home"
-                color="accent" class="material-icons-outlined">toggle_on
-      </mat-icon>
-      <mat-icon *ngIf="systemSummary.pwSrcConverterMode === 0" aria-hidden="false" aria-label="i-home"
-                color="primary" class="material-icons-outlined">toggle_off
-      </mat-icon>
+      @if (systemSummary.pwSrcConverterMode === 1) {
+        <mat-icon aria-hidden="false" aria-label="i-home"
+          color="accent" class="material-icons-outlined">toggle_on
+        </mat-icon>
+      }
+      @if (systemSummary.pwSrcConverterMode === 0) {
+        <mat-icon aria-hidden="false" aria-label="i-home"
+          color="primary" class="material-icons-outlined">toggle_off
+        </mat-icon>
+      }
     </div>
     <div class="chart-summary-val2"></div>
     <div class="chart-summary-lb">Luminosity</div>
@@ -69,7 +81,7 @@
     <div class="data-header">
       <h3>
         <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                  class="material-icons-outlined data-header-icon">device_thermostat
+          class="material-icons-outlined data-header-icon">device_thermostat
         </mat-icon>
         <span class="data-header-text">Temperature/Humidity</span>
       </h3>

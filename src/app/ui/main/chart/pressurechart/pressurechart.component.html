@@ -4,6 +4,8 @@
   </canvas>
 </div>
 
-<div class="example-loading-shade" *ngIf="! isLoaded">
-  <mat-spinner></mat-spinner>
-</div>
+@if (! isLoaded) {
+  <div class="example-loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+}

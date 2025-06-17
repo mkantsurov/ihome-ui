@@ -5,17 +5,35 @@
 <!--    LIGHT_CONTROL,          //4-->
 <!--    EXT_LIGHT_CONTROL,      //5-->
 <!--    VENTILATION_CONTROL     //6-->
-<h3 *ngIf="assignment === 1">Power Management Related Modules</h3>
-<h3 *ngIf="assignment === 2">Heating Control Related Modules</h3>
-<h3 *ngIf="assignment === 3">Gate Control Related Modules</h3>
+@if (assignment === 1) {
+  <h3>Power Management Related Modules</h3>
+}
+@if (assignment === 2) {
+  <h3>Heating Control Related Modules</h3>
+}
+@if (assignment === 3) {
+  <h3>Gate Control Related Modules</h3>
+}
 
-<h3 *ngIf="assignment === 4 && group === 2">Light Control Related Modules/Ground Floor</h3>
-<h3 *ngIf="assignment === 4 && group === 3">Light Control Related Modules/Second Floor</h3>
-<h3 *ngIf="assignment === 4 && group === 1">Light Control Related Modules/Garage</h3>
-<h3 *ngIf="assignment === 4 && group === 4">Light Control Related Modules/Ext. Lightning</h3>
+@if (assignment === 4 && group === 2) {
+  <h3>Light Control Related Modules/Ground Floor</h3>
+}
+@if (assignment === 4 && group === 3) {
+  <h3>Light Control Related Modules/Second Floor</h3>
+}
+@if (assignment === 4 && group === 1) {
+  <h3>Light Control Related Modules/Garage</h3>
+}
+@if (assignment === 4 && group === 4) {
+  <h3>Light Control Related Modules/Ext. Lightning</h3>
+}
 
-<h3 *ngIf="assignment === 5">Ext Light Control Related Modules</h3>
-<h3 *ngIf="assignment === 6">Ventilation Control Related Modules</h3>
+@if (assignment === 5) {
+  <h3>Ext Light Control Related Modules</h3>
+}
+@if (assignment === 6) {
+  <h3>Ventilation Control Related Modules</h3>
+}
 
 <div class="divider"></div>
 <div class="table-container">
@@ -24,46 +42,46 @@
       <!--      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>-->
       <!--      <mat-cell *matCellDef="let row" matTooltip="{{row.name}}">-->
       <!--        {{ row.name | truncate:['16', '...'] }}-->
-      <!--      </mat-cell>-->
+    <!--      </mat-cell>-->
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef [ngClass]="'w-100'">Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="active">
-        <mat-header-cell *matHeaderCellDef [ngClass]="'w-50'">Active</mat-header-cell>
-        <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
-          @if (row.mode === 2) {
-            <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                      class="material-icons-outlined">sync
-            </mat-icon>
-          } @else if (row.mode < 2) {
-            <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
-                      class="material-icons-outlined">sync_disabled
-            </mat-icon>
-          }
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="outputPortState">
-        <mat-header-cell *matHeaderCellDef [ngClass]="'w-50'">Output Port State</mat-header-cell>
-        <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
-          @if (row.outputPortState > 0) {
-            <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-                      class="material-icons-outlined">power
-            </mat-icon>
-          } @else if (row.outputPortState === 0) {
-            <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
-                      class="material-icons-outlined">power_off
-            </mat-icon>
-          }
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="moduleColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: moduleColumns" class="selectable"
-               (click)="rowSelect(row)"
-               [ngClass]="{'highlight': selectedModule && row.id==selectedModule.moduleId}"></mat-row>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef [ngClass]="'w-100'">Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
     </ng-container>
-  </mat-table>
+    <ng-container matColumnDef="active">
+      <mat-header-cell *matHeaderCellDef [ngClass]="'w-50'">Active</mat-header-cell>
+      <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
+        @if (row.mode === 2) {
+          <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+            class="material-icons-outlined">sync
+          </mat-icon>
+        } @else if (row.mode < 2) {
+          <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
+            class="material-icons-outlined">sync_disabled
+          </mat-icon>
+        }
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="outputPortState">
+      <mat-header-cell *matHeaderCellDef [ngClass]="'w-50'">Output Port State</mat-header-cell>
+      <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
+        @if (row.outputPortState > 0) {
+          <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
+            class="material-icons-outlined">power
+          </mat-icon>
+        } @else if (row.outputPortState === 0) {
+          <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
+            class="material-icons-outlined">power_off
+          </mat-icon>
+        }
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="moduleColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: moduleColumns" class="selectable"
+      (click)="rowSelect(row)"
+    [ngClass]="{'highlight': selectedModule && row.id==selectedModule.moduleId}"></mat-row>
+  </ng-container>
+</mat-table>
 </div>
 <!--<div fxLayout="row" fxFlexFill fxLayoutAlign="left center" *ngFor="let module of moduleSummary">-->
 <!--  <div fxFlex="5%"></div>-->

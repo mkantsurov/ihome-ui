@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
-import {AsyncPipe, CommonModule, NgIf} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -15,15 +15,14 @@ import {MatButtonModule} from '@angular/material/button';
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.scss'],
     imports: [
-        CommonModule,
-        RouterOutlet,
-        RouterLink,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatButtonModule
-    ]
+    RouterOutlet,
+    RouterLink,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule
+]
 })
 export class IndexComponent implements OnInit {
   mobileQuery: MediaQueryList;
