@@ -1,14 +1,10 @@
 import com.github.gradle.node.npm.task.NpmTask
 import com.github.gradle.node.task.NodeTask
 import com.github.gradle.node.yarn.task.YarnTask
-import com.github.gradle.node.npm.proxy.ProxySettings
 import com.github.gradle.node.npm.task.NpxTask
-import com.palantir.gradle.docker.DockerExtension
-import groovy.json.JsonOutput
-import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.util.function.Function
-import java.util.regex.Pattern
+import java.util.concurrent.TimeUnit
+import com.bmuschko.gradle.docker.tasks.image.*
 
 
 val dockerRepository: String by project
@@ -25,8 +21,8 @@ description = "I-Home UI"
 plugins {
   idea
   java
-  id ("com.github.node-gradle.node") version "7.1.0"
-  id("com.palantir.docker") version "0.35.0"
+  id("com.github.node-gradle.node")
+  id("com.bmuschko.docker-remote-api") version "9.4.0"
 }
 
 node {
@@ -106,25 +102,6 @@ tasks.yarn {
   }
 }
 
-//val testTaskUsingNpx = tasks.register<NpxTask>("testNpx") {
-//  dependsOn(tasks.npmInstall)
-//  command.set("mocha")
-//  args.set(listOf("test", "--grep", "should say hello"))
-//  ignoreExitValue.set(false)
-//  environment.set(mapOf("MY_CUSTOM_VARIABLE" to "hello"))
-//  workingDir.set(projectDir)
-//  execOverrides {
-//    standardOutput = System.out
-//  }
-//  inputs.dir("node_modules")
-//  inputs.file("package.json")
-//  inputs.dir("src")
-//  inputs.dir("test")
-//  outputs.upToDateWhen {
-//    true
-//  }
-//}
-
 val testTaskUsingNpm = tasks.register<NpmTask>("testNpm") {
   dependsOn(tasks.npmInstall)
   npmCommand.set(listOf("run", "test"))
@@ -180,61 +157,89 @@ tasks.register<NodeTask>("run") {
   }
 }
 
-//val buildTaskUsingNpx = tasks.register<NpxTask>("buildNpx") {
-//  dependsOn(tasks.npmInstall)
-//  command.set("babel")
-//  args.set(listOf("src", "--output-path", "${buildDir}/npx-output"))
-//  inputs.dir("src")
-//  outputs.dir("${buildDir}/npx-output")
-//}
-
 val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
   dependsOn(tasks.npmInstall)
   npmCommand.set(listOf("run", "build"))
   //output hashing values are: "none", "all", "media", "bundles".
-  args.set(listOf("--", "--output-hashing", "all", "--output-path", "${buildDir}/npm-output"))
+  args.set(
+    listOf(
+      "--",
+      "--output-hashing",
+      "all",
+      "--output-path",
+      layout.buildDirectory.dir("npm-output").get().asFile.absolutePath
+    )
+  )
   inputs.dir("src")
-  outputs.dir("${buildDir}/npm-output")
+  outputs.dir(layout.buildDirectory.dir("npm-output"))
 }
 
-//val buildTaskUsingYarn = tasks.register<YarnTask>("buildYarn") {
-//  dependsOn(tasks.npmInstall)
-//  yarnCommand.set(listOf("run", "build"))
-//  args.set(listOf("--output-path", "${buildDir}/yarn-output"))
-//  inputs.dir("src")
-//  outputs.dir("${buildDir}/yarn-output")
-//}
-
-task("prepareNpm") {
-//  file("${buildDir}/npx-output").mkdirs();
-  file("${buildDir}/npm-output").mkdirs();
-//  file("${buildDir}/yarn-output").mkdirs();
-}
-
-tasks.getByName("npmSetup").dependsOn("prepareNpm")
-
-task("prepareFiles") {
-  file("${project.buildDir}/docker/nginx").mkdir()
+tasks.register("prepareNpm") {
+  group = "build"
   doLast {
+//      layout.buildDirectory.dir("npx-output").get().asFile.mkdirs()
+    layout.buildDirectory.dir("npm-output").get().asFile.mkdirs()
+//      layout.buildDirectory.dir("yarn-output").get().asFile.mkdirs()
+  }
+}
+
+tasks.named("npmSetup") { dependsOn("prepareNpm") }
+
+tasks.register("prepareFiles") {
+  group = "build"
+  doLast {
+    layout.buildDirectory.dir("docker/nginx").get().asFile.mkdirs()
+    println("DOCKER_IMAGE_TAG=$ihomeVersion")
     logger.lifecycle("Creating jar. Version:  $ihomeVersion")
     copy {
-      from("${project.buildDir}/npm-output/browser")
-      into("${project.buildDir}/docker/static")
+      from(layout.buildDirectory.dir("npm-output/browser"))
+      into(layout.buildDirectory.dir("docker/static"))
     }
     copy {
       println("Copying nginx.conf to ${project.projectDir}/nginx.conf")
       from("${project.projectDir}/nginx.conf")
-      into("${project.buildDir}/docker/nginx")
-      fileMode = 0b110100100
+      into(layout.buildDirectory.dir("docker/nginx"))
+      filePermissions { unix("644") }
+    }
     }
   }
+
+tasks.named("prepareFiles") { dependsOn("buildNpm") }
+
+tasks.register<Dockerfile>("dockerCreateDockerfile") {
+  group = "build"
+  //COPY ./static/ /usr/share/nginx/html
+  //COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+  //RUN chmod -R 755 /usr/share/nginx/html
+  //EXPOSE 80
+  dependsOn("prepareFiles")
+  from("nginx")
+  copyFile("./static/", "/usr/share/nginx/html")
+  copyFile("./nginx/nginx.conf", "/etc/nginx/conf.d/default.conf")
+  runCommand("chmod -R 644 /etc/nginx/conf.d/default.conf")
+  runCommand("chmod -R 755 /usr/share/nginx/html")
+  exposePort(80)
 }
 
-tasks.getByName("docker").dependsOn("prepareFiles")
-tasks.getByName("prepareFiles").dependsOn("buildNpm")
+tasks.register<DockerBuildImage>("buildUiImage") {
+  group = "build"
+  dependsOn("dockerCreateDockerfile")
+  inputDir.set(layout.buildDirectory.dir("docker"))
+  images.add("$dockerRepository/$repositoryPath:latest")
+  images.add("$dockerRepository/$repositoryPath:${ihomeVersion}")
+}
 
-tasks.named("dockerPush") {
-  dependsOn("dockerTag")
+tasks.register<DockerPushImage>("dockerPushImage") {
+  group = "build"
+  dependsOn("buildUiImage")
+  images.add("$dockerRepository/$repositoryPath:latest")
+  images.add("$dockerRepository/$repositoryPath:${ihomeVersion}")
+
+  registryCredentials {
+    url.set("https://$dockerRepository")
+    username.set(System.getenv("MAVEN_PUBLISH_USERNAME") ?: "")
+    password.set(System.getenv("MAVEN_PUBLISH_TOKEN") ?: "")
+  }
 }
 
 fun execCommandWithOutput(input: String): String {
@@ -259,31 +264,12 @@ fun execCommandWithOutput(input: String): String {
 //  }
 //}
 
-configure<DockerExtension> {
-  val inputFile = File("version.json")
-  val json = JsonOutput.toJson({ "version" to ihomeVersion })
-  inputFile.writeText(JsonOutput.prettyPrint(json))
-  name = "$dockerRepository/$repositoryPath/ui"
-  tag("-${ihomeVersion}", "${dockerRepository}/${repositoryPath}/ui:${ihomeVersion}")
-  tag("-latest", "${dockerRepository}/${repositoryPath}/ui:latest")
-  setDockerfile(file("Dockerfile"))
-}
-
-idea {
-  project {
-    module {
-      name = rootProject.name
-      setDownloadJavadoc(true)
-    }
-  }
-}
-
-fun String.runCommand(currentWorkingDir: File = file("./")): String {
-  val byteOut = ByteArrayOutputStream()
-  project.exec {
-    workingDir = currentWorkingDir
-    commandLine = this@runCommand.split("\\s".toRegex())
-    standardOutput = byteOut
-  }
-  return String(byteOut.toByteArray()).trim().split("\n").get(0)
+fun String.runCommand(): String {
+  val process = ProcessBuilder(*this.trim().split(" ").toTypedArray())
+    .directory(file("./"))
+    .redirectErrorStream(true)
+    .start()
+  val output = process.inputStream.bufferedReader().readText()
+  process.waitFor()
+  return output.lineSequence().firstOrNull()?.trim() ?: ""
 }
