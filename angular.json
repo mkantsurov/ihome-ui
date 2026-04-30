@@ -20,7 +20,10 @@
               "base": "dist"
             },
             "stylePreprocessorOptions": {
-              "includePaths": ["src", "node_modules/"]
+              "includePaths": [
+                "src",
+                "node_modules/"
+              ]
             },
             "allowedCommonJsDependencies": [
               "dayjs"
@@ -128,6 +131,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "node_modules/"
+              ]
+            },
             "styles": [
               "src/styles.scss",
               "src/theme.scss",
@@ -141,14 +150,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
