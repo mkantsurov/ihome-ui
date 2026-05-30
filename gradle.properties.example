@@ -1,2 +1,4 @@
 org.gradle.daemon=false
-dockerRepository=local
+dockerRepository=ghcr.io
+repositoryPath=your-github-username/ihome-ui
+buildType=snapshot
