@@ -237,8 +237,8 @@ tasks.register<DockerPushImage>("dockerPushImage") {
 
   registryCredentials {
     url.set("https://$dockerRepository")
-    username.set(System.getenv("MAVEN_PUBLISH_USERNAME") ?: "")
-    password.set(System.getenv("MAVEN_PUBLISH_TOKEN") ?: "")
+    username.set(System.getenv("GITHUB_ACTOR") ?: System.getenv("MAVEN_PUBLISH_USERNAME") ?: "")
+    password.set(System.getenv("GITHUB_TOKEN") ?: System.getenv("MAVEN_PUBLISH_TOKEN") ?: "")
   }
 }
 
