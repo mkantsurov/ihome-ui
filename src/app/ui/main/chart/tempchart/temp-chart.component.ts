@@ -1,11 +1,16 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Chart, LineController, LineElement, PointElement, LinearScale, Title, TimeScale, Legend} from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {TempStat} from '../../../../domain/tempstat';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-temp-chart',
   templateUrl: './temp-chart.component.html',
   styleUrls: ['./temp-chart.component.css'],
+  imports: [
+    MatProgressSpinner
+  ],
   standalone: true
 })
 export class TempChartComponent implements OnInit, OnChanges {
@@ -13,8 +18,8 @@ export class TempChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: TempStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: TempStat;
 
   isLoaded = false;
 
@@ -22,12 +27,14 @@ export class TempChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing temp-chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -48,7 +55,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           pointRadius: 1,
           data: data.outdoor.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.01).toFixed(2)
+            y: Number((el.value * 0.01).toFixed(2))
           })),
         }, {
           label: 'Indoor SF',
@@ -58,7 +65,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           pointRadius: 1,
           data: data.indoorSf.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.01).toFixed(2)
+            y: Number((el.value * 0.01).toFixed(2))
           })),
         }, {
             label: 'Indoor GF',
@@ -68,7 +75,7 @@ export class TempChartComponent implements OnInit, OnChanges {
             pointRadius: 1,
             data: data.indoorGf.map(el => ({
               x: new Date(el.dt),
-              y: (el.value * 0.01).toFixed(2)
+              y: Number((el.value * 0.01).toFixed(2))
             })),
           }, {
           label: 'Garage',
@@ -78,7 +85,7 @@ export class TempChartComponent implements OnInit, OnChanges {
           pointRadius: 1,
           data: data.garage.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.01).toFixed(2)
+            y: Number((el.value * 0.01).toFixed(2))
           })),
         }]
       },
@@ -117,6 +124,7 @@ export class TempChartComponent implements OnInit, OnChanges {
       }
     });
 
-    this.isLoaded = true;
-  }
+    }
 }
+
+

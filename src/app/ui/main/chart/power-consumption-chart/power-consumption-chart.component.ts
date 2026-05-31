@@ -1,19 +1,24 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {PowerConsumption} from '../../../../domain/power-consumption';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-power-consumption-chart',
   templateUrl: './power-consumption-chart.component.html',
   styleUrls: ['./power-consumption-chart.component.css'],
+  imports: [
+    MatProgressSpinner
+  ],
   standalone: true
 })
 export class PowerConsumptionChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PowerConsumption;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: PowerConsumption;
 
   isLoaded = false;
 
@@ -21,12 +26,15 @@ export class PowerConsumptionChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.info('Initializing power consumption chart...');
     if (changes.data && this.data) {
-      console.info('Initializing temp-chart...');
+      console.info('Initializing power consumption chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -101,14 +109,14 @@ export class PowerConsumptionChartComponent implements OnInit, OnChanges {
               display: true,
               text: 'Consumption'
             },
-            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-            // OR //
-            beginAtZero: true,   // minimum value will be 0.
+            suggestedMin: 0,
+            beginAtZero: true
           },
         },
       },
 
     });
-    this.isLoaded = true;
-  }
+    }
 }
+
+

@@ -1,5 +1,6 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Chart, LineController, LineElement, PointElement, LinearScale, Title, TimeScale} from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {LaStat} from '../../../../domain/lastat';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -7,6 +8,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     selector: 'app-system-chart-la',
     templateUrl: './system-chart-la.component.html',
     styleUrls: ['./system-chart-la.component.css'],
+    standalone: true,
     imports: [
         MatProgressSpinnerModule
     ]
@@ -16,8 +18,8 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: LaStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: LaStat;
 
   isLoaded = false;
 
@@ -25,12 +27,14 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing la-chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -50,7 +54,7 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
           label: 'LA',
           data: data.la.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.01).toFixed(2)
+            y: Number((el.value * 0.01).toFixed(2))
           })),
           backgroundColor: '#bb3b01',
           pointRadius: 1
@@ -92,6 +96,5 @@ export class SystemChartLaComponent implements OnInit, OnChanges {
       }
     });
 
-    this.isLoaded = true;
-  }
+    }
 }

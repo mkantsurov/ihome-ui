@@ -1,21 +1,23 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ChangeDetectorRef, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {OutdoorTempStat} from '../../../../domain/outdoor-temp-stat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
 import 'chartjs-adapter-dayjs-3';
-import {PressureStat} from '../../../../domain/pressurestat';
-
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 @Component({
   selector: 'app-general-temp-chart',
   templateUrl: './general-temp-chart.component.html',
   styleUrls: ['./general-temp-chart.component.css'],
+  imports: [
+    MatProgressSpinner
+  ],
   standalone: true
 })
 export class GeneralTempChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: OutdoorTempStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: OutdoorTempStat;
 
   isLoaded = false;
 
@@ -23,7 +25,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -37,6 +39,8 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
   }
 
   initChart(data: OutdoorTempStat) {
+    this.isLoaded = true;
+    this.changeDetectorRef.detectChanges();
     Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
     const timeArray = data.temperature.map(el => new Date(el.dt));
     this.chart = new Chart(this.canvas.nativeElement, {
@@ -47,10 +51,10 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
           label: 'Temperature',
           data: data.temperature.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.01).toFixed(2)
+            y: Number((el.value * 0.01).toFixed(2))
           })),
           backgroundColor: 'transparent',
-          borderColor: '#476bb9',// "#2E4895"
+          borderColor: '#476bb9',
           pointRadius: 1
         }]
       },
@@ -88,7 +92,6 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
       },
 
     });
-    this.isLoaded = true;
   }
 
 }

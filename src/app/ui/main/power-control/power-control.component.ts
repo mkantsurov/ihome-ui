@@ -18,6 +18,7 @@ import {DecimalPipe} from '@angular/common';
     selector: 'app-power-control',
     templateUrl: './power-control.component.html',
     styleUrls: ['./power-control.component.scss'],
+    standalone: true,
     imports: [
         MatIconModule,
         MatListModule,

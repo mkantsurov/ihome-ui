@@ -1,19 +1,24 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {PowerVoltage} from '../../../../domain/power-voltage';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-power-voltage-chart',
   templateUrl: './power-voltage-chart.component.html',
   styleUrls: ['./power-voltage-chart.component.css'],
+  imports: [
+    MatProgressSpinner
+  ],
   standalone: true
 })
 export class PowerVoltageChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PowerVoltage;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: PowerVoltage;
 
   isLoaded = false;
 
@@ -21,12 +26,14 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing temp-chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -45,7 +52,7 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
           label: 'Ext Voltage',
           data: data.extVoltage.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.1).toFixed(1)
+            y: Number((el.value * 0.1).toFixed(1))
           })),
           backgroundColor: 'transparent',
           borderColor: '#2E4895',
@@ -54,7 +61,7 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
           label: 'Int Voltage',
           data: data.intVoltage.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.1).toFixed(1)
+            y: Number((el.value * 0.1).toFixed(1))
           })),
           backgroundColor: 'transparent',
           borderColor: '#854492',
@@ -63,7 +70,7 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
           label: 'Int Bck Voltage',
           data: data.intBckVoltage.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.1).toFixed(1)
+            y: Number((el.value * 0.1).toFixed(1))
           })),
           backgroundColor: 'transparent',
           borderColor: '#790b8e',
@@ -101,14 +108,12 @@ export class PowerVoltageChartComponent implements OnInit, OnChanges {
               display: true,
               text: 'Voltage'
             },
-            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-            // OR //
-            beginAtZero: true,   // minimum value will be 0.
+            suggestedMin: 0,
+            beginAtZero: true
           },
         },
       },
 
     });
-    this.isLoaded = true;
-  }
+    }
 }

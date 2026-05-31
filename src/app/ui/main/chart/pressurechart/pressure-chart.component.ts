@@ -1,12 +1,14 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {PressureStat} from '../../../../domain/pressurestat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-pressure-chart',
     templateUrl: './pressurechart.component.html',
     styleUrls: ['./pressurechart.component.css'],
+    standalone: true,
     imports: [
         MatProgressSpinnerModule
     ]
@@ -16,8 +18,8 @@ export class PressureChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PressureStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: PressureStat;
 
   isLoaded = false;
 
@@ -25,12 +27,14 @@ export class PressureChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing pressure-chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -90,6 +94,5 @@ export class PressureChartComponent implements OnInit, OnChanges {
       }
     });
 
-    this.isLoaded = true;
-  }
+    }
 }

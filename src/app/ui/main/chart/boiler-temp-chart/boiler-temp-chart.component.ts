@@ -1,22 +1,27 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {BoilerTempStat} from '../../../../domain/boilertempstat';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-boiler-temp-stat-chart',
   templateUrl: './boiler-temp-chart.component.html',
   styleUrls: ['./boiler-temp-chart.component.css'],
+  imports: [
+    MatProgressSpinner
+  ],
   standalone: true
 })
 export class BoilerTempChartComponent implements OnInit, OnChanges {
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: BoilerTempStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: BoilerTempStat;
 
   isLoaded = false;
 
@@ -27,6 +32,8 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing boiler temp chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -45,9 +52,8 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
           label: 'Boiler Temperature',
           data: data.temperature.map(el => ({
             x: new Date(el.dt),
-            y: (el.value * 0.01).toFixed(2)
+            y: Number((el.value * 0.01).toFixed(2))
           })),
-          // backgroundColor: '#bb3b01',
           borderColor: '#bb3b01',
           backgroundColor: 'transparent',
           pointRadius: 1,
@@ -89,6 +95,5 @@ export class BoilerTempChartComponent implements OnInit, OnChanges {
       }
     });
 
-    this.isLoaded = true;
-  }
+    }
 }

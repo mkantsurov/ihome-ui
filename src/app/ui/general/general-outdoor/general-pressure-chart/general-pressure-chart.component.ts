@@ -1,19 +1,24 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {PressureStat} from '../../../../domain/pressurestat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-general-pressure-chart',
   templateUrl: './general-pressure-chart.component.html',
   styleUrls: ['./general-pressure-chart.component.css'],
+  imports: [
+    MatProgressSpinner
+  ],
   standalone: true
 })
 export class GeneralPressureChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: PressureStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: PressureStat;
 
   isLoaded = false;
 
@@ -21,12 +26,14 @@ export class GeneralPressureChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing pressure-chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -48,7 +55,7 @@ export class GeneralPressureChartComponent implements OnInit, OnChanges {
             y: el.value
           })),
           backgroundColor: 'transparent',
-          borderColor: '#476bb9',// "#2E4895"
+          borderColor: '#476bb9',
           pointRadius: 1
         }]
       },
@@ -89,7 +96,8 @@ export class GeneralPressureChartComponent implements OnInit, OnChanges {
       },
 
     });
-    this.isLoaded = true;
-  }
+    }
 
 }
+
+

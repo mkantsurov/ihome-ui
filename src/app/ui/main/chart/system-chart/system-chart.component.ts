@@ -1,12 +1,14 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {SystemStat} from '../../../../domain/systemstat';
 import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import 'chartjs-adapter-dayjs-3';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-system-chart',
     templateUrl: './system-chart.component.html',
     styleUrls: ['./system-chart.component.css'],
+    standalone: true,
     imports: [
         MatProgressSpinnerModule
     ]
@@ -15,8 +17,8 @@ export class SystemChartComponent implements OnInit, OnChanges {
   _seed = 31;
   timeFormat = 'MM/DD/YYYY HH:mm';
 
-  @ViewChild('canvas') canvas: ElementRef;
-  @Input() data: SystemStat;
+  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
+  @Input() data!: SystemStat;
 
   isLoaded = false;
 
@@ -24,12 +26,14 @@ export class SystemChartComponent implements OnInit, OnChanges {
 
   chart: any;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && this.data) {
       console.info('Initializing system-chart...');
+      this.isLoaded = true;
+      this.changeDetectorRef.detectChanges();
       this.initChart(this.data);
     }
   }
@@ -51,7 +55,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
           pointRadius: 1,
           data: data.heapMax.map(el => ({
             x: new Date(el.dt),
-            y: el.value.toFixed(2)
+            y: Number(el.value.toFixed(2))
           })),
         }, {
           label: 'Heap Usage',
@@ -61,7 +65,7 @@ export class SystemChartComponent implements OnInit, OnChanges {
           pointRadius: 1,
           data: data.heapUsage.map(el => ({
             x: new Date(el.dt),
-            y: el.value.toFixed(2)
+            y: Number(el.value.toFixed(2))
           })),
         }]
       },
@@ -99,7 +103,6 @@ export class SystemChartComponent implements OnInit, OnChanges {
       }
     });
 
-    this.isLoaded = true;
-  }
+    }
 
 }
