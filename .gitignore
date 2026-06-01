@@ -46,8 +46,6 @@ testem.log
 Thumbs.db
 /gradle.properties
 /ng
-/gradlew
-/gradlew.bat
 /build/
 /dist/
 /dist/
