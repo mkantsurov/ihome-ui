@@ -137,3 +137,5 @@ $primary-palette: map.merge(map.get($_palettes, primary), $_rest);
 $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
 $secondary-palette: map.merge(map.get($_palettes, secondary), $_rest);
 $error-palette: map.merge(map.get($_palettes, error), $_rest);
+$neutral-palette: map.merge(map.get($_palettes, neutral), $_rest);
+$neutral-variant-palette: map.merge(map.get($_palettes, neutral-variant), $_rest);

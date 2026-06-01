@@ -257,9 +257,26 @@ val appendPaletteVars = tasks.register("appendPaletteVars") {
   doLast {
     val scssFile = file("src/app/styles/_theme-colors.scss")
     if (scssFile.exists()) {
-      scssFile.appendText("\n\$secondary-palette: map.merge(map.get(\$_palettes, secondary), \$_rest);\n")
-      scssFile.appendText("\$error-palette: map.merge(map.get(\$_palettes, error), \$_rest);\n")
-      println("Appended palette variables to ${scssFile.path}")
+      val content = scssFile.readText()
+      // Only append neutral palettes if they don't already exist
+      if (!content.contains("\$neutral-palette")) {
+        scssFile.appendText("\n\$neutral-palette: map.merge(map.get(\$_palettes, neutral), \$_rest);\n")
+        println("Appended \$neutral-palette to ${scssFile.path}")
+      }
+      if (!content.contains("\$neutral-variant-palette")) {
+        scssFile.appendText("\$neutral-variant-palette: map.merge(map.get(\$_palettes, neutral-variant), \$_rest);\n")
+        println("Appended \$neutral-variant-palette to ${scssFile.path}")
+      }
+      // Check for duplicates and ensure secondary-palette and error-palette exist
+      if (!content.contains("\$secondary-palette")) {
+        scssFile.appendText("\$secondary-palette: map.merge(map.get(\$_palettes, secondary), \$_rest);\n")
+        println("Appended \$secondary-palette to ${scssFile.path}")
+      }
+      if (!content.contains("\$error-palette")) {
+        scssFile.appendText("\$error-palette: map.merge(map.get(\$_palettes, error), \$_rest);\n")
+        println("Appended \$error-palette to ${scssFile.path}")
+      }
+      println("Palette variables check complete for ${scssFile.path}")
     } else {
       println("Warning: ${scssFile.path} not found. Skipping palette variable append.")
     }
@@ -268,7 +285,7 @@ val appendPaletteVars = tasks.register("appendPaletteVars") {
 
 tasks.register("generatePalettes") {
   group = "theme"
-  description = "Generate new design theme palettes (CSS + SCSS) and append palette variables"
+  description = "Generate new design theme palettes (CSS + SCSS) and append missing palette variables"
   dependsOn(generateThemeColors, appendPaletteVars)
 }
 

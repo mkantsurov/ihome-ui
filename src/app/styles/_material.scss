@@ -41,48 +41,11 @@ html {
   ))
 }
 
-.accent {
-  @include mat.theme((
-    color: sectigo-theme.$secondary-palette
-  ));
-  @include mat.button-overrides((
-    filled-disabled-container-color: var(--mat-sys-outline-variant)
-  ));
-}
-
-.warn {
-  @include mat.theme((
-    color: sectigo-theme.$error-palette
-  ))
-}
-
-.warn-text {
-  color: var(--mat-sys-error);
-}
-
 html, body {
   height: 100%;
-}
-
-:root {
-  @include mat.table-overrides((
-    background-color: var(--mat-sys-surface-container-lowest),
-  ));
-  @include mat.datepicker-overrides((
-    calendar-container-shape: 4px
-  ));
-  @include mat.select-overrides((
-    panel-background-color: var(--mat-sys-surface-container-high),
-  ));
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-
-
-
-
-

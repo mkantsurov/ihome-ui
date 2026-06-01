@@ -1,3 +1,60 @@
+// ---------------------------------------------------------------
+// Material 3 Component Overrides
+// Use --mat-sys-* variables from theme.css — NOT color-primitives
+// ---------------------------------------------------------------
+@use '@angular/material' as mat;
+@use './_theme-colors.scss' as sectigo-theme;
+
+.accent {
+  @include mat.theme((
+    color: (
+      primary: sectigo-theme.$secondary-palette,
+      tertiary: sectigo-theme.$tertiary-palette,
+    )
+  ));
+  @include mat.button-overrides((
+    filled-disabled-container-color: var(--mat-sys-outline-variant)
+  ));
+}
+
+.warn {
+  @include mat.theme((
+    color: (
+      primary: sectigo-theme.$error-palette,
+      tertiary: sectigo-theme.$tertiary-palette,
+    )
+  ))
+}
+
+.warn-text {
+  color: var(--mat-sys-error);
+}
+
+// --- Toolbar ---
+// Make app toolbars use primary color as background
+mat-toolbar.app-toolbar {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary),
+  ));
+}
+
+:root {
+  @include mat.table-overrides((
+    background-color: var(--mat-sys-surface-container-lowest),
+  ));
+  @include mat.datepicker-overrides((
+    calendar-container-shape: 4px
+  ));
+  @include mat.select-overrides((
+    panel-background-color: var(--mat-sys-surface-container-high),
+  ));
+}
+
+// ---------------------------------------------------------------
+// Custom utility styles
+// ---------------------------------------------------------------
+
 .mat-elevation-z3 {
   box-shadow: var(--mat-sys-level2);
 }

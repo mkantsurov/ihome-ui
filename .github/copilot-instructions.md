@@ -158,6 +158,37 @@ When passing data to chart components, unwrap the signal with `()`:
 - Avoid introducing new libraries unless explicitly requested.
 - Do not change generated build artifacts under `build/` unless requested.
 
+## Theme and Material 3 Styling
+
+### Source of Truth for Material Overrides
+- **`src/app/styles/theme.css`** — This is the source of truth for Material 3 CSS custom properties (e.g., `--mat-sys-*` variables). Use these variables when overriding Material component styles via `mat.xxx-overrides()` mixins.
+- **`src/app/styles/color-primitives.scss`** — This file exists for **reference/documentation** of the corporative design color palette only. **Do NOT use these variables** for Material component overrides. Always use `--mat-sys-*` variables from `theme.css` instead.
+- **`src/app/styles/_material.scss`** — Global Material theme configuration. All `mat.theme()` calls go here. This file is imported by `src/styles.scss`.
+- **`src/app/styles/_custom.scss`** — **All Material component overrides** (`mat.toolbar-overrides`, `mat.button-overrides`, `mat.table-overrides`, etc.) and any custom theme-related CSS should be placed here. This keeps overrides separate from the base theme configuration in `_material.scss`.
+- **`src/app/styles/_theme-colors.scss`** — Generated SCSS palettes from `ng generate @angular/material:theme-color`. Used in `_material.scss` via `@include mat.theme()`.
+
+### Golden Rule
+When overriding Material component styles, always reference `--mat-sys-*` variables from `theme.css`. Never reference raw color primitives from `color-primitives.scss`. This ensures theme consistency across light/dark modes and survives palette regeneration.
+
+### Example: toolbar override in _material.scss
+```scss
+// ✅ correct — uses theme.css variables
+mat-toolbar.app-toolbar {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary),
+  ));
+}
+
+// ❌ wrong — uses color-primitives variables
+mat-toolbar.app-toolbar {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--forest-600),  // don't do this
+    container-text-color: var(--white-100),          // don't do this
+  ));
+}
+```
+
 ## Validation checklist after code changes
 Run these commands from project root:
 ```shell
