@@ -34,9 +34,49 @@
 // Make app toolbars use primary color as background
 mat-toolbar.app-toolbar {
   @include mat.toolbar-overrides((
-    container-background-color: var(--mat-sys-primary),
+    container-background-color: var(--mat-sys-on-primary-container),
     container-text-color: var(--mat-sys-on-primary),
   ));
+}
+
+// --- Sidenav ---
+// Make sidenav use primary color as background.
+// Also apply on-primary text color to nav-list items and icons inside the sidenav,
+// since mat.sidenav-overrides container-text-color only sets CSS color on the
+// mat-sidenav element, but mat-list-item has its own explicit color styling
+// that does not inherit from the parent.
+mat-sidenav {
+  @include mat.sidenav-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary),
+    container-width: 200px,
+    container-shape: 0,  // right-angle corners (default M3 is corner-large ~16px)
+  ));
+
+  // Override nav-list item text to use on-primary
+  mat-nav-list,
+  .mat-mdc-list-item,
+  .mdc-list-item__content,
+  .menu-item-lb {
+    color: var(--mat-sys-on-primary);
+  }
+
+  // Override icons that use color="accent" — use on-primary instead
+  .mat-mdc-list-item-icon[color="accent"],
+  mat-icon[color="accent"] {
+    color: var(--mat-sys-on-primary) !important;
+  }
+
+  // Override link/list-item hover/active states
+  .mat-mdc-list-item,
+  .mat-mdc-list-item.mdc-list-item--with-leading-icon {
+    --mat-list-list-item-hover-state-layer-color: var(--mat-sys-on-primary);
+    --mat-list-list-item-focus-state-layer-color: var(--mat-sys-on-primary);
+    --mdc-list-list-item-hover-state-layer-color: var(--mat-sys-on-primary);
+    --mdc-list-list-item-focus-state-layer-color: var(--mat-sys-on-primary);
+    --mdc-list-list-item-hover-state-layer-opacity: 0.08;
+    --mdc-list-list-item-focus-state-layer-opacity: 0.12;
+  }
 }
 
 :root {
