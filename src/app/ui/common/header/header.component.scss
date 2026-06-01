@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@import "../../../../theme_variables.scss";
 
 //.nav-bar {
 //  width: 100%;
@@ -24,7 +23,5 @@
   padding-top: 40px;
   padding-left: 15px;
   transform: skew(-5deg);
-  color: $accent;
   line-height: 1em;
-  text-shadow: 3px 3px mat.m2-get-color-from-palette($md-ihome-mcgpalette-dblue, 500);
 }

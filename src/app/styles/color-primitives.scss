@@ -1,0 +1,82 @@
+:root {
+  /* Basics */
+  --transparent: transparent;
+  --current: currentColor;
+  --white-channels: 255, 255, 255;
+  --white: rgb(var(--white-channels));
+  --black: #000000;
+
+  /* White - Base colors */
+  --white-100: #ffffff;
+  --white-100-alpha-50: #ffffff80; /* White 50% opacity */
+  --white-200: #fafafa;
+  --white-300: #f5f5f5;
+  --white-400: #e5e5e5;
+  --white-500: #737373;
+  --white-600: #525252;
+  --white-700: #404040;
+  --white-800: #262626;
+  --white-900: #090909;
+
+  /* Forest - Secondary brand color */
+  --forest-100: #e6f2f3;
+  --forest-200: #b3d9db;
+  --forest-300: #80c1c4;
+  --forest-400: #4da8ac;
+  --forest-500: #1a8f95;
+  --forest-600: #015258; /* Forest default */
+  --forest-600-alpha-50: #01525880; /* Forest 50% opacity */
+  --forest-700: #014149;
+  --forest-800: #01333a;
+  --forest-900: #00262b;
+
+  /* Spearmint - Primary brand color */
+  --spearmint-100: #e6faf7;
+  --spearmint-200: #b3f0e9;
+  --spearmint-300: #80e6db;
+  --spearmint-400: #4ddccd;
+  --spearmint-500: #06dfc7; /* Spearmint default */
+  --spearmint-500-alpha-50: #06dfc780; /* Spearmint 50% opacity */
+  --spearmint-500-alpha-5: #73d8aa0d; /* Spearmint 5% opacity */
+  --spearmint-600: #08c6b1;
+  --spearmint-700: #059e8e;
+  --spearmint-800: #016e77;
+  --spearmint-900: #014850;
+
+  /* Tan - Foundational UI colors */
+  --tan-100: #fdfcfb;
+  --tan-200: #f8f7f2;
+  --tan-300: #f3f2ea; /* Tan default */
+  --tan-300-alpha-50: #f3f2ea80; /* Tan 50% opacity */
+  --tan-400: #e3e2da;
+  --tan-500: #d6d6d6;
+  --tan-600: #858384;
+  --tan-700: #525252;
+  --tan-800: #333132; /* Off Black */
+  --tan-800-alpha-50: #33313280; /* Off Black 50% opacity */
+  --tan-900: #1a1919;
+
+  /* Sky - Supporting color (Scout) */
+  --sky-100: #f0f5f7;
+  --sky-200: #ccdde1;
+  --sky-300: #b2cbd2;
+  --sky-400: #99b9c3;
+  --sky-500: #7fa9b4; /* Scout default */
+  --sky-500-alpha-50: #7fa9b480; /* Scout 50% opacity */
+  --sky-600: #6690a0;
+  --sky-700: #4d7887;
+  --sky-800: #33606e;
+  --sky-900: #1a4855;
+
+  /* Coral - Accent color */
+  --coral-100: #fff5f2;
+  --coral-200: #ffddd4;
+  --coral-300: #ffc4b7;
+  --coral-400: #ffac99;
+  --coral-500: #ff9479; /* Coral default */
+  --coral-500-alpha-50: #ff947980; /* Coral 50% opacity */
+  --coral-600: #ff7f5e;
+  --coral-700: #e05c3a;
+  --coral-800: #b3461c;
+  --coral-900: #802f0d;
+}

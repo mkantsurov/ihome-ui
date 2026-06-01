@@ -7,7 +7,7 @@
     "lint": "ng lint ihome-ui",
     "ng": "ng",
     "prod": "ng build --configuration=production --verbose --output-path=dist/static",
-    "start": "ng serve --configuration=dev --proxy-config=proxy.conf.json --live-reload",
+    "start": "ng serve --configuration=development --proxy-config=proxy.conf.json --live-reload",
     "test": "ng test"
   },
   "private": true,

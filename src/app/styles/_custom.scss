@@ -1,0 +1,196 @@
+// ---------------------------------------------------------------
+// Material 3 Component Overrides
+// Use --mat-sys-* variables from theme.css — NOT color-primitives
+// ---------------------------------------------------------------
+@use '@angular/material' as mat;
+@use './_theme-colors.scss' as sectigo-theme;
+
+.accent {
+  @include mat.theme((
+    color: (
+      primary: sectigo-theme.$secondary-palette,
+      tertiary: sectigo-theme.$tertiary-palette,
+    )
+  ));
+  @include mat.button-overrides((
+    filled-disabled-container-color: var(--mat-sys-outline-variant)
+  ));
+}
+
+.warn {
+  @include mat.theme((
+    color: (
+      primary: sectigo-theme.$error-palette,
+      tertiary: sectigo-theme.$tertiary-palette,
+    )
+  ))
+}
+
+.warn-text {
+  color: var(--mat-sys-error);
+}
+
+// --- Toolbar ---
+// Make app toolbars use primary color as background
+mat-toolbar.app-toolbar {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-on-primary-container),
+    container-text-color: var(--mat-sys-on-primary),
+  ));
+}
+
+// --- Sidenav ---
+// Make sidenav use primary color as background.
+// Also apply on-primary text color to nav-list items and icons inside the sidenav,
+// since mat.sidenav-overrides container-text-color only sets CSS color on the
+// mat-sidenav element, but mat-list-item has its own explicit color styling
+// that does not inherit from the parent.
+mat-sidenav {
+  @include mat.sidenav-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary),
+    container-width: 200px,
+    container-shape: 0,  // right-angle corners (default M3 is corner-large ~16px)
+  ));
+
+  // Override nav-list item text to use on-primary
+  mat-nav-list,
+  .mat-mdc-list-item,
+  .mdc-list-item__content,
+  .menu-item-lb {
+    color: var(--mat-sys-on-primary);
+  }
+
+  // Override icons that use color="accent" — use on-primary instead
+  .mat-mdc-list-item-icon[color="accent"],
+  mat-icon[color="accent"] {
+    color: var(--mat-sys-on-primary) !important;
+  }
+
+  // Override link/list-item hover/active states
+  .mat-mdc-list-item,
+  .mat-mdc-list-item.mdc-list-item--with-leading-icon {
+    --mat-list-list-item-hover-state-layer-color: var(--mat-sys-on-primary);
+    --mat-list-list-item-focus-state-layer-color: var(--mat-sys-on-primary);
+    --mdc-list-list-item-hover-state-layer-color: var(--mat-sys-on-primary);
+    --mdc-list-list-item-focus-state-layer-color: var(--mat-sys-on-primary);
+    --mdc-list-list-item-hover-state-layer-opacity: 0.08;
+    --mdc-list-list-item-focus-state-layer-opacity: 0.12;
+  }
+}
+
+:root {
+  @include mat.table-overrides((
+    background-color: var(--mat-sys-surface-container-lowest),
+  ));
+  @include mat.datepicker-overrides((
+    calendar-container-shape: 4px
+  ));
+  @include mat.select-overrides((
+    panel-background-color: var(--mat-sys-surface-container-high),
+  ));
+}
+
+// ---------------------------------------------------------------
+// Custom utility styles
+// ---------------------------------------------------------------
+
+.mat-elevation-z3 {
+  box-shadow: var(--mat-sys-level2);
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  height: 64px;
+}
+
+.divider {
+  border-bottom: 2px solid;
+  //border-bottom-color: $accent;
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.mat-row:hover {
+  background-color: var(--mat-sys-surface-bright);
+  cursor: pointer;
+}
+
+.multiline-tooltip {
+  white-space: pre-line;
+}
+
+// global styles for headers in main components
+// with chips and buttons
+.header-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.header-container-report {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+}
+
+// FOR MAIN COMPONENTS WITH CHIPS IN HEADER
+// This class must be used on mat-card component
+.fullscreen-card {
+  display: flex;
+  flex-direction: column;
+  // 64px is the height of app the header
+  // height to stretch mat-card to full screen
+  height: calc(99vh - 64px);
+  overflow: hidden;
+  margin: 0 10px;
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+
+    mat-chip-set {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+    }
+    // action buttons container
+    div {
+      display: flex;
+    }
+  }
+
+  mat-card-content {
+    flex: 1 1 auto;
+    overflow: auto;
+  }
+
+  // for paginator
+  mat-card-footer{
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+}
