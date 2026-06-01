@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {Component, effect, ElementRef, input, viewChild} from '@angular/core';
+import {Chart, Legend, LineController, LineElement, LinearScale, PointElement, TimeScale, Title} from 'chart.js';
 import 'chartjs-adapter-dayjs-3';
 import {PowerConsumption} from '../../../../domain/power-consumption';
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-power-consumption-chart',
@@ -13,110 +13,101 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   ],
   standalone: true
 })
-export class PowerConsumptionChartComponent implements OnInit, OnChanges {
-  _seed = 31;
-  timeFormat = 'MM/DD/YYYY HH:mm';
+export class PowerConsumptionChartComponent {
+  data = input.required<PowerConsumption>();
 
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  @Input() data!: PowerConsumption;
+  canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
 
   isLoaded = false;
 
-  showSpinner = true;
+  // eslint-disable-next-line
+  chartInstance: any = null;
 
-  chart: any;
+  constructor() {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
+    effect(() => {
+      const data = this.data();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+        this.chartInstance = null;
+      }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.info('Initializing power consumption chart...');
-    if (changes.data && this.data) {
-      console.info('Initializing power consumption chart...');
       this.isLoaded = true;
-      this.changeDetectorRef.detectChanges();
-      this.initChart(this.data);
-    }
-  }
 
-  ngOnInit(): void {
-  }
+      const canvasRef = this.canvas();
+      if (!canvasRef) return;
 
-  initChart(data: PowerConsumption) {
-    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
-    const timeArray = data.extConsumption.map(el => new Date(el.dt));
-    this.chart = new Chart(this.canvas.nativeElement, {
-      type: 'line',
-      data: {
-        labels: timeArray,
-        datasets: [{
-          label: 'Ext Consumption',
-          data: data.extConsumption.map(el => ({
-            x: new Date(el.dt),
-            y: el.value
-          })),
-          backgroundColor: 'transparent',
-          borderColor: '#2E4895',
-          pointRadius: 1
-        }, {
-          label: 'Int Consumption',
-          data: data.intConsumption.map(el => ({
-            x: new Date(el.dt),
-            y: el.value
-          })),
-          backgroundColor: 'transparent',
-          borderColor: '#854492',
-          pointRadius: 1
-        }, {
-          label: 'Int Bck Consumption',
-          data: data.intBckConsumption.map(el => ({
-            x: new Date(el.dt),
-            y: el.value
-          })),
-          backgroundColor: 'transparent',
-          borderColor: '#790b8e',
-          pointRadius: 1
-        }]
-      },
-
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          tooltip: {
-            enabled: true,
-            mode: 'point',
-            intersect: true
-          }
+      this.chartInstance = new Chart(canvasRef.nativeElement, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Ext Consumption',
+            data: data.extConsumption.map(el => ({
+              x: new Date(el.dt),
+              y: el.value
+            })),
+            backgroundColor: 'transparent',
+            borderColor: '#2E4895',
+            pointRadius: 1
+          }, {
+            label: 'Int Consumption',
+            data: data.intConsumption.map(el => ({
+              x: new Date(el.dt),
+              y: el.value
+            })),
+            backgroundColor: 'transparent',
+            borderColor: '#854492',
+            pointRadius: 1
+          }, {
+            label: 'Int Bck Consumption',
+            data: data.intBckConsumption.map(el => ({
+              x: new Date(el.dt),
+              y: el.value
+            })),
+            backgroundColor: 'transparent',
+            borderColor: '#790b8e',
+            pointRadius: 1
+          }]
         },
-        scales: {
-          x: {
-            type: 'time',
-            time: {
-              unit: 'hour',
-              stepSize: 2,
-              displayFormats: {
-                hour: 'MMM DD hA',
-              }
-            },
-            title: {
-              display: true,
-              text: 'Time'
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              enabled: true,
+              mode: 'point',
+              intersect: true
             }
           },
-          y: {
-            title: {
-              display: true,
-              text: 'Consumption'
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                unit: 'hour',
+                stepSize: 2,
+                displayFormats: {
+                  hour: 'MMM DD hA',
+                }
+              },
+              title: {
+                display: true,
+                text: 'Time'
+              }
             },
-            suggestedMin: 0,
-            beginAtZero: true
+            y: {
+              title: {
+                display: true,
+                text: 'Consumption'
+              },
+              suggestedMin: 0,
+              beginAtZero: true
+            },
           },
         },
-      },
-
+      });
     });
-    }
+  }
 }
 
 
