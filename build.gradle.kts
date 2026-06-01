@@ -7,13 +7,27 @@ import java.util.concurrent.TimeUnit
 import com.bmuschko.gradle.docker.tasks.image.*
 
 
-val dockerRepository: String by project
-val repositoryPath: String by project
-val buildType: String by project
+val dockerRepository = project.properties.getOrDefault("dockerRepository", "ghcr.io")
+val repositoryPath = "mkantsurov/ihome-ui"
 
-val ihomeVersion = when(buildType) {
-  "snapshot" -> "git tag --sort=-committerdate".runCommand() + "." + "git rev-parse --short HEAD".runCommand()
-  else -> "git tag --sort=-committerdate".runCommand()
+val ihomeVersion = run {
+  val vVersion = System.getenv("V_VER")
+  val vHash = System.getenv("V_HASH")
+  val suffix = System.getenv("SUFFIX") ?: ""
+  if (!vVersion.isNullOrEmpty() && !vHash.isNullOrEmpty()) {
+    if (suffix.isEmpty()) {
+      vVersion
+    } else {
+      "$vVersion.$vHash$suffix"
+    }
+  } else {
+    val gitVersion = "git tag --sort=-committerdate".runCommand()
+    if (gitVersion.endsWith(".0")) {
+      "$gitVersion-SNAPSHOT"
+    } else {
+      gitVersion
+    }
+  }
 }
 
 description = "I-Home UI"
