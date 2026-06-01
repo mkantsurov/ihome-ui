@@ -1,4 +1,4 @@
-@import "../../../../theme_variables.scss";
+@use '@angular/material' as mat;
 .page-container {
   display: grid;
   grid-template-columns: 200px 100px;

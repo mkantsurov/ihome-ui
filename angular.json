@@ -39,8 +39,8 @@
               "src/assets"
             ],
             "styles": [
+              "src/app/styles/_theme-colors.scss",
               "src/styles.scss",
-              "src/theme.scss",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [],
@@ -138,8 +138,8 @@
               ]
             },
             "styles": [
+              "src/app/styles/_theme-colors.scss",
               "src/styles.scss",
-              "src/theme.scss",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [],

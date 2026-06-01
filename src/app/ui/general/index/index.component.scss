@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@import "../../../../theme_variables.scss";
 
 .app-container {
   display: flex;
@@ -90,10 +89,9 @@ h1.app-name {
   padding-top: 40px;
   padding-left: 15px;
   transform: skew(-5deg);
-  color: $accent;
   line-height: 1em;
-  text-shadow: 3px 3px mat.m2-get-color-from-palette($md-ihome-mcgpalette-dblue, 500);
 }
+
 .header {
   height: 64px;
 }
