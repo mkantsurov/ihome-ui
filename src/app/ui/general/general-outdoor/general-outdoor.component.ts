@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {GuestService} from "../../../services/guest.service";
 import {OutdoorTempStat} from "../../../domain/outdoor-temp-stat";
 import {PressureStat} from "../../../domain/pressurestat";
@@ -17,17 +17,21 @@ import {GeneralPressureChartComponent} from './general-pressure-chart/general-pr
 })
 export class GeneralOutdoorComponent implements OnInit {
 
-  tempStat: OutdoorTempStat;
-  pressureStat: PressureStat;
+  tempStat = signal<OutdoorTempStat>({
+    temperature: [{ dt: new Date(), value: 0 }]
+  })
+  pressureStat = signal<PressureStat>({
+    pressure: [{ dt: new Date(), value: 0 }]
+  })
 
   constructor(public guestService: GuestService) {
   }
 
   ngOnInit(): void {
     this.guestService.getTempStat().subscribe(response => {
-      this.tempStat = response;
+      this.tempStat.set(response);
       this.guestService.getPressureStat().subscribe(response => {
-        this.pressureStat = response;
+        this.pressureStat.set(response);
       });
     })
   }

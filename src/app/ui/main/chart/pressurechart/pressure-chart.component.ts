@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, input, viewChild} from '@angular/core';
 import {PressureStat} from '../../../../domain/pressurestat';
-import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {Chart, Legend, LineController, LineElement, PointElement, LinearScale, TimeScale, Title} from 'chart.js'
 import 'chartjs-adapter-dayjs-3';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -13,52 +13,45 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatProgressSpinnerModule
     ]
 })
-export class PressureChartComponent implements OnInit, OnChanges {
+export class PressureChartComponent {
 
-  _seed = 31;
-  timeFormat = 'MM/DD/YYYY HH:mm';
+  data = input.required<PressureStat>();
 
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  @Input() data!: PressureStat;
-
+  canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
   isLoaded = false;
 
-  showSpinner = true;
+  // eslint-disable-next-line
+  chart: any = null;
 
-  chart: any;
+  constructor() {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
+    effect(() => {
+      const data = this.data();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+      if (this.chart) {
+        this.chart.destroy();
+        this.chart = null;
+      }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.data && this.data) {
-      console.info('Initializing pressure-chart...');
       this.isLoaded = true;
-      this.changeDetectorRef.detectChanges();
-      this.initChart(this.data);
-    }
-  }
 
-  ngOnInit() {
-  }
+      const canvasRef = this.canvas();
+      if (!canvasRef) return;
 
-
-  initChart(data: PressureStat) {
-    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
-    const timeArray = data.pressure.map(el => new Date(el.dt));
-    const measValueArray = data.pressure.map(el => el.value)
-    this.chart = new Chart(this.canvas.nativeElement, {
+      this.chart = new Chart(canvasRef.nativeElement, {
       type: 'line',
       data: {
-        labels: timeArray,
         datasets: [{
           label: 'Pressure',
-          data: measValueArray,
+            data: data.pressure.map(el => ({
+              x: new Date(el.dt),
+              y: el.value
+            })),
           borderColor: 'rgba(255,153,0,0.4)',
-          backgroundColor: 'transparent'
+            backgroundColor: 'transparent',
+            pointRadius: 1
         }]
       },
-
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -93,6 +86,6 @@ export class PressureChartComponent implements OnInit, OnChanges {
         },
       }
     });
-
+    });
     }
 }

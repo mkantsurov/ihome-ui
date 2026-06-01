@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {GuestService} from '../../../services/guest.service';
 import {PowerVoltageExt} from '../../../domain/power-voltage-ext';
 import {ExtPowerSummary} from '../../../domain/ext-power-summary';
@@ -19,7 +19,10 @@ import {GeneralPressureChartComponent} from '../general-outdoor/general-pressure
 })
 export class GeneralPowerComponent implements OnInit {
 
-  powerStat: PowerVoltageExt;
+  powerStat = signal<PowerVoltageExt>({
+    extVoltage: [{ dt: new Date(), value: 0 }]
+  })
+
   powerSummary: ExtPowerSummary;
 
   constructor(public guestService: GuestService) {
@@ -31,7 +34,7 @@ export class GeneralPowerComponent implements OnInit {
 
   ngOnInit(): void {
     this.guestService.getPowerStat().subscribe(response => {
-      this.powerStat = response;
+      this.powerStat.set(response);
       this.guestService.getExtPowerVoltageStat().subscribe(powerSummary => {
         this.powerSummary = powerSummary;
       })

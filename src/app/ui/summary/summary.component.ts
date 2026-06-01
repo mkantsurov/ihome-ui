@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {SystemService} from '../../services/system.service';
 import {SystemSummary} from '../../domain/systemsummary';
 import {TempStat} from '../../domain/tempstat';
@@ -36,12 +36,28 @@ import {PressureChartComponent} from '../main/chart/pressurechart/pressure-chart
 export class SummaryComponent implements OnInit {
 
   systemSummary: SystemSummary;
-  tempStat: TempStat;
-  boilerTempStat: BoilerTempStat;
-  pressureStat: PressureStat;
-  luminosityStat: LuminosityStat;
-  systemStat: SystemStat;
-  laStat: LaStat;
+  tempStat = signal<TempStat>({
+    indoorSf: [{ dt: new Date(), value: 0 }],
+    indoorGf: [{ dt: new Date(), value: 0 }],
+    garage: [{ dt: new Date(), value: 0 }],
+    outdoor: [{ dt: new Date(), value: 0 }],
+  })
+  boilerTempStat = signal<BoilerTempStat>({
+    temperature: [{ dt: new Date(), value: 0 }]
+  })
+  pressureStat = signal<PressureStat>({
+    pressure: [{ dt: new Date(), value: 0 }]
+  })
+  luminosityStat = signal<LuminosityStat>({
+    luminosity: [{ dt: new Date(), value: 0 }]
+  })
+  systemStat = signal<SystemStat>({
+    heapMax: [{ dt: new Date(), value: 0 }],
+    heapUsage: [{ dt: new Date(), value: 0 }]
+  })
+  laStat = signal<LaStat>({
+    la: [{ dt: new Date(), value: 0 }]
+  })
 
   constructor(public systemService: SystemService) {
   }
@@ -50,17 +66,17 @@ export class SummaryComponent implements OnInit {
     this.systemService.getSystemSummary().subscribe(response => {
       this.systemSummary = response;
       this.systemService.getTempStat().subscribe(response => {
-        this.tempStat = response;
+        this.tempStat.set(response);
         this.systemService.getBoilerTempStat().subscribe(response => {
-          this.boilerTempStat = response;
+          this.boilerTempStat.set(response);
           this.systemService.getPressureStat().subscribe(response => {
-            this.pressureStat = response;
+            this.pressureStat.set(response);
             this.systemService.getLuminosityStat().subscribe(response => {
-              this.luminosityStat = response;
+              this.luminosityStat.set(response);
               this.systemService.getSystemStat().subscribe(response => {
-                this.systemStat = response;
+                this.systemStat.set(response);
                 this.systemService.getLaStat().subscribe(response => {
-                  this.laStat = response;
+                  this.laStat.set(response);
                 });
               });
             });

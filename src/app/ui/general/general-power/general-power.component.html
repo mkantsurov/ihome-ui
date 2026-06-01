@@ -14,6 +14,6 @@
   <div class="chart-summary-lb">External Power Frequency</div>
   <div class="chart-summary-val">{{ (powerSummary.extFrequency * 0.01).toFixed(1) }} HZ</div>
   <div class="chart-container">
-    <app-general-power-chart [data]="powerStat"></app-general-power-chart>
+    <app-general-power-chart [data]="powerStat()"></app-general-power-chart>
   </div>
 </div>

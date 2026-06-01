@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {Chart, LineController, LineElement, PointElement, LinearScale, Title, TimeScale, Legend} from 'chart.js'
+import {Component, effect, ElementRef, input, viewChild} from '@angular/core';
+import {Chart, Legend, LineController, LineElement, PointElement, LinearScale, Title, TimeScale} from 'chart.js'
 import 'chartjs-adapter-dayjs-3';
 import {TempStat} from '../../../../domain/tempstat';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -13,38 +13,30 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   ],
   standalone: true
 })
-export class TempChartComponent implements OnInit, OnChanges {
+export class TempChartComponent {
+  data = input.required<TempStat>();
 
-  _seed = 31;
-  timeFormat = 'MM/DD/YYYY HH:mm';
-
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  @Input() data!: TempStat;
-
+  canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
   isLoaded = false;
 
-  showSpinner = true;
+  // eslint-disable-next-line
+  chart: any = null;
 
-  chart: any;
-
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.data && this.data) {
-      console.info('Initializing temp-chart...');
-      this.isLoaded = true;
-      this.changeDetectorRef.detectChanges();
-      this.initChart(this.data);
-    }
-  }
-
-  ngOnInit() {
-  }
-
-  initChart(data: TempStat) {
+  constructor() {
     Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
-    this.chart = new Chart(this.canvas.nativeElement, {
+    effect(() => {
+      const data = this.data();
+
+      if (this.chart) {
+        this.chart.destroy();
+        this.chart = null;
+      }
+
+      this.isLoaded = true;
+
+      const canvasRef = this.canvas();
+      if (!canvasRef) return;
+      this.chart = new Chart(canvasRef.nativeElement, {
       type: 'line',
       data: {
         datasets: [{
@@ -123,8 +115,6 @@ export class TempChartComponent implements OnInit, OnChanges {
         },
       }
     });
-
+    });
     }
 }
-
-

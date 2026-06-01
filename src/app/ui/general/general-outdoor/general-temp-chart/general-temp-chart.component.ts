@@ -1,8 +1,9 @@
-import {Component, ChangeDetectorRef, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, input, viewChild} from '@angular/core';
 import {OutdoorTempStat} from '../../../../domain/outdoor-temp-stat';
-import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {Chart, Legend, LineController, LineElement, PointElement, LinearScale, TimeScale, Title} from 'chart.js'
 import 'chartjs-adapter-dayjs-3';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+
 @Component({
   selector: 'app-general-temp-chart',
   templateUrl: './general-temp-chart.component.html',
@@ -12,41 +13,32 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   ],
   standalone: true
 })
-export class GeneralTempChartComponent implements OnInit, OnChanges {
-  _seed = 31;
-  timeFormat = 'MM/DD/YYYY HH:mm';
+export class GeneralTempChartComponent {
+  data = input.required<OutdoorTempStat>();
 
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  @Input() data!: OutdoorTempStat;
-
+  canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
   isLoaded = false;
 
-  showSpinner = true;
+  // eslint-disable-next-line
+  chart: any = null;
 
-  chart: any;
+  constructor() {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
+    effect(() => {
+      const data = this.data();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+      if (this.chart) {
+        this.chart.destroy();
+        this.chart = null;
+      }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.data && this.data) {
-      console.info('Initializing temp-chart...');
-      this.initChart(this.data);
-    }
-  }
-
-  ngOnInit(): void {
-  }
-
-  initChart(data: OutdoorTempStat) {
     this.isLoaded = true;
-    this.changeDetectorRef.detectChanges();
-    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
-    const timeArray = data.temperature.map(el => new Date(el.dt));
-    this.chart = new Chart(this.canvas.nativeElement, {
+
+      const canvasRef = this.canvas();
+      if (!canvasRef) return;
+      this.chart = new Chart(canvasRef.nativeElement, {
       type: 'line',
       data: {
-        labels: timeArray,
         datasets: [{
           label: 'Temperature',
           data: data.temperature.map(el => ({
@@ -58,13 +50,14 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
           pointRadius: 1
         }]
       },
-
       options: {
-        plugins: {
-          tooltip: {
-            enabled: true,
-            mode: 'point',
-            intersect: true
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              enabled: true,
+              mode: 'point',
+              intersect: true
           }
         },
         scales: {
@@ -90,8 +83,7 @@ export class GeneralTempChartComponent implements OnInit, OnChanges {
           }
         },
       },
-
+    });
     });
   }
-
 }

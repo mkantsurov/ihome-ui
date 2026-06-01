@@ -1,8 +1,9 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {Component, effect, ElementRef, input, viewChild} from '@angular/core';
+import {Chart, Legend, LineController, LineElement, PointElement, LinearScale, TimeScale, Title} from 'chart.js'
 import 'chartjs-adapter-dayjs-3';
 import {PowerVoltageExt} from '../../../../domain/power-voltage-ext';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+
 @Component({
   selector: 'app-general-power-chart',
   templateUrl: './general-power-chart.component.html',
@@ -12,40 +13,33 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
   ],
   standalone: true
 })
-export class GeneralPowerChartComponent implements OnInit, OnChanges {
-  _seed = 31;
-  timeFormat = 'MM/DD/YYYY HH:mm';
+export class GeneralPowerChartComponent {
+  data = input.required<PowerVoltageExt>();
 
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  @Input() data!: PowerVoltageExt;
-
+  canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
   isLoaded = false;
 
-  showSpinner = true;
+  // eslint-disable-next-line
+  chart: any = null;
 
-  chart: any;
+  constructor() {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
+    effect(() => {
+      const data = this.data();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+      if (this.chart) {
+        this.chart.destroy();
+        this.chart = null;
+      }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.data && this.data) {
-      console.info('Initializing temp-chart...');
       this.isLoaded = true;
-      this.changeDetectorRef.detectChanges();
-      this.initChart(this.data);
-    }
-  }
 
-  ngOnInit(): void {
-  }
+      const canvasRef = this.canvas();
+      if (!canvasRef) return;
 
-  initChart(data: PowerVoltageExt) {
-    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
-    this.chart = new Chart(this.canvas.nativeElement, {
+      this.chart = new Chart(canvasRef.nativeElement, {
       type: 'line',
       data: {
-        labels: data.extVoltage.map(el => new Date(el.dt)),
         datasets: [{
           label: 'Power',
           data: data.extVoltage.map(el => ({
@@ -57,7 +51,6 @@ export class GeneralPowerChartComponent implements OnInit, OnChanges {
           pointRadius: 1
         }]
       },
-
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -93,9 +86,7 @@ export class GeneralPowerChartComponent implements OnInit, OnChanges {
           }
         },
       },
-
+    });
     });
     }
-
-
 }

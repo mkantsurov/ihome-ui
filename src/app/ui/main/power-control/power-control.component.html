@@ -61,13 +61,13 @@
   </div>
   <div class="chart-container-sub">
     <div class="chart-container">
-      <app-power-voltage-chart [data]="powerVoltageStat"></app-power-voltage-chart>
+      <app-power-voltage-chart [data]="powerVoltageStat()"></app-power-voltage-chart>
     </div>
     <div class="chart-container2">
-      <app-power-consumption-chart [data]="powerConsumptionStat"></app-power-consumption-chart>
+      <app-power-consumption-chart [data]="powerConsumptionStat()"></app-power-consumption-chart>
     </div>
     <div class="chart-container3">
-      <app-luminosity-chart [data]="luminosityStat"></app-luminosity-chart>
+      <app-luminosity-chart [data]="luminosityStat()"></app-luminosity-chart>
     </div>
   </div>
   <div class="table-container">

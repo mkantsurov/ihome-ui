@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {LuminosityStat} from '../../../domain/luminositystat';
 import {SystemService} from '../../../services/system.service';
 import {PowerSummary} from '../../../domain/powersummary';
@@ -32,9 +32,43 @@ import {DecimalPipe} from '@angular/common';
 export class PowerControlComponent implements OnInit {
 
   powerSummary: PowerSummary;
-  powerVoltageStat: PowerVoltage;
-  powerConsumptionStat: PowerConsumption;
-  luminosityStat: LuminosityStat;
+
+  powerVoltageStat = signal<PowerVoltage>({
+    extVoltage: [{
+      dt: new Date(),
+      value: 0
+    }],
+    intVoltage: [{
+      dt: new Date(),
+      value: 0
+    }],
+    intBckVoltage: [{
+      dt: new Date(),
+      value: 0
+    }],
+  })
+
+  powerConsumptionStat = signal<PowerConsumption>({
+    extConsumption: [{
+      dt: new Date(),
+      value: 0
+    }],
+    intConsumption: [{
+      dt: new Date(),
+      value: 0
+    }],
+    intBckConsumption: [{
+      dt: new Date(),
+      value: 0
+    }],
+  })
+
+  luminosityStat = signal<LuminosityStat>({
+    luminosity: [{
+      dt: new Date(),
+      value: 0
+    }]
+  })
 
   constructor(private systemService: SystemService, private guestService: GuestService) {
     this.powerSummary = {
@@ -62,11 +96,11 @@ export class PowerControlComponent implements OnInit {
       console.log(`received power summary: ` + JSON.stringify(response));
       this.powerSummary = response;
       this.systemService.getLuminosityStat().subscribe(luminosityStat => {
-        this.luminosityStat = luminosityStat;
+        this.luminosityStat.set(luminosityStat);
         this.systemService.getPowerVoltageStat().subscribe(powerVoltageStat => {
-          this.powerVoltageStat = powerVoltageStat;
+          this.powerVoltageStat.set(powerVoltageStat);
           this.systemService.getPowerConsumptionStat().subscribe(powerConsumptionStat => {
-            this.powerConsumptionStat = powerConsumptionStat;
+            this.powerConsumptionStat.set(powerConsumptionStat);
           })
         })
       })

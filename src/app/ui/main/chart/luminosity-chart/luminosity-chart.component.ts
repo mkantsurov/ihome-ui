@@ -1,6 +1,16 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component, effect,
+  ElementRef,
+  input,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges, viewChild,
+  ViewChild
+} from '@angular/core';
 import {LuminosityStat} from '../../../../domain/luminositystat';
-import { Chart, LineController, LineElement, PointElement, LinearScale, TimeScale, Title } from 'chart.js'
+import {Chart, Legend, LineController, LineElement, PointElement, LinearScale, TimeScale, Title} from 'chart.js'
 import 'chartjs-adapter-dayjs-3';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -13,39 +23,31 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatProgressSpinnerModule
     ]
 })
-export class LuminosityChartComponent implements OnInit, OnChanges {
+export class LuminosityChartComponent {
+  data = input.required<LuminosityStat>();
 
-  _seed = 31;
-  timeFormat = 'MM/DD/YYYY HH:mm';
-
-  @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
-  @Input() data!: LuminosityStat;
-
+  canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
   isLoaded = false;
 
-  showSpinner = true;
+  // eslint-disable-next-line
+  chart: any = null;
 
-  chart: any;
+  constructor() {
+    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title, Legend);
+    effect(() => {
+      const data = this.data();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+      if (this.chart) {
+        this.chart.destroy();
+        this.chart = null;
+      }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.info('Initializing luminosity-chart...');
-    if (changes.data && this.data) {
       this.isLoaded = true;
-      this.changeDetectorRef.detectChanges();
-      this.initChart(this.data);
-    }
-  }
 
-  ngOnInit() {
-  }
+      const canvasRef = this.canvas();
+      if (!canvasRef) return;
 
-
-  initChart(data: LuminosityStat) {
-    Chart.register(LineController, LineElement, PointElement, LinearScale, TimeScale, Title);
-    this.chart = new Chart(this.canvas.nativeElement, {
+      this.chart = new Chart(canvasRef.nativeElement, {
       type: 'line',
       data: {
         datasets: [{
@@ -58,7 +60,6 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
           pointRadius: 1,
         }]
       },
-
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -93,7 +94,6 @@ export class LuminosityChartComponent implements OnInit, OnChanges {
         },
       }
     });
-
+    });
     }
-
 }

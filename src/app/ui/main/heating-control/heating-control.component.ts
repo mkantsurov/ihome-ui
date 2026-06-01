@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, signal} from '@angular/core';
 import {SystemService} from '../../../services/system.service';
 import {HeatingSummary} from '../../../domain/heating-summary';
 import {BoilerTempStat} from '../../../domain/boilertempstat';
@@ -7,7 +7,6 @@ import {MatListModule} from '@angular/material/list';
 import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-chart.component';
 import {ModuleListComponent} from '../common/module-list/module-list.component';
 import {DecimalPipe} from '@angular/common';
-import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-voltage-chart.component';
 
 @Component({
     selector: 'app-heating-control',
@@ -23,7 +22,7 @@ import {PowerVoltageChartComponent} from '../chart/power-voltage-chart/power-vol
 })
 export class HeatingControlComponent implements OnInit {
 
-  @Input() heatingSummary: HeatingSummary = {
+  heatingSummary = signal<HeatingSummary>({
     boilerTemperature: 0,
     garageHumidity: 0,
     garageTemperature: 0,
@@ -32,18 +31,19 @@ export class HeatingControlComponent implements OnInit {
     outDoorTemperature: 0,
     sfHumidity: 0,
     sfTemperature: 0
-  };
+  });
 
-  @Input() boilerTempStat: BoilerTempStat;
-
+  boilerTempStat = signal<BoilerTempStat>({
+    temperature: []
+  });
   constructor(private systemService: SystemService) { }
 
   ngOnInit(): void {
     this.systemService.getHeatingSummary().subscribe(response => {
       console.log(`received heating summary: ` + JSON.stringify(response));
-      this.heatingSummary = response;
+      this.heatingSummary.set(response);
       this.systemService.getBoilerTempStat().subscribe(boilerData => {
-        this.boilerTempStat = boilerData;
+        this.boilerTempStat.set(boilerData);
       })
     })
   }

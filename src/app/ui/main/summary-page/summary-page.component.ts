@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, signal} from '@angular/core';
 import {TempStat} from '../../../domain/tempstat';
 import {SystemService} from '../../../services/system.service';
 import {PressureStat} from '../../../domain/pressurestat';
@@ -56,7 +56,10 @@ export class SummaryPageComponent implements OnInit {
     upTime: 0
   };
 
-  powerStat: PowerVoltageExt;
+  powerStat = signal<PowerVoltageExt>({
+    extVoltage: [{ dt: new Date(), value: 0 }]
+  })
+
   @Input() tempStat: TempStat;
   @Input() pressureStat: PressureStat;
   @Input() boilerTempStat: BoilerTempStat;
@@ -65,7 +68,7 @@ export class SummaryPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.systemService.getPowerVoltageStat().subscribe(response => {
-      this.powerStat = response;
+      this.powerStat.set(response);
       this.systemService.getSystemSummary().subscribe(systemData => {
         this.systemSummary = systemData;
         this.systemService.getTempStat().subscribe(tempStat => {

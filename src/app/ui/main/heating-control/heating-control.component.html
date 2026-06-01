@@ -1,4 +1,3 @@
-
 <div class="page-container">
   <div class="page-container-sub">
     <div class="data-header">
@@ -11,15 +10,15 @@
       <mat-divider></mat-divider>
     </div>
     <div class="chart-summary-lb">Out Door Temperature</div>
-    <div class="chart-summary-val">{{ heatingSummary.outDoorTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ heatingSummary().outDoorTemperature * .01 | number:'1.1' }}&#8451;</div>
     <div class="chart-summary-lb">Second Floor Temperature</div>
-    <div class="chart-summary-val">{{ heatingSummary.sfTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ heatingSummary().sfTemperature * .01 | number:'1.1' }}&#8451;</div>
     <div class="chart-summary-lb">Ground Floor Temperature</div>
-    <div class="chart-summary-val">{{ heatingSummary.gfTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ heatingSummary().gfTemperature * .01 | number:'1.1' }}&#8451;</div>
     <div class="chart-summary-lb">Garage Temperature</div>
-    <div class="chart-summary-val">{{ heatingSummary.garageTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ heatingSummary().garageTemperature * .01 | number:'1.1' }}&#8451;</div>
     <div class="chart-summary-lb">Boiler temperature</div>
-    <div class="chart-summary-val">{{ heatingSummary.boilerTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ heatingSummary().boilerTemperature * .01 | number:'1.1' }}&#8451;</div>
     <div class="chart-summary-lb">Ground Floor Heating Pump</div>
     <div class="chart-summary-val">
       @if(isPumpGfEnabled()) {
@@ -46,7 +45,7 @@
     </div>
   </div>
   <div class="chart-container">
-    <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
+    <app-boiler-temp-stat-chart [data]="boilerTempStat()"></app-boiler-temp-stat-chart>
   </div>
   <div class="table-sub-container">
     <h3>Ventilation Control</h3>
