@@ -11,12 +11,12 @@
     </div>
     <div class="chart-summary-lb">Security Mode</div>
     <div class="chart-summary-val">
-      @if (systemSummary.securityMode > 0) {
+      @if (systemSummary().securityMode > 0) {
         <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
           class="material-icons-outlined">lock
         </mat-icon>
       }
-      @if (systemSummary.securityMode == 0) {
+      @if (systemSummary().securityMode == 0) {
         <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
           class="material-icons-outlined">lock_open
         </mat-icon>
@@ -25,7 +25,7 @@
     <div class="chart-summary-lb">Up Time</div>
     <div class="chart-summary-val">{{ getUpTime() }}</div>
     <div class="chart-summary-lb">Load AVG</div>
-    <div class="chart-summary-val">{{ systemSummary.loadAvg }}</div>
+    <div class="chart-summary-val">{{ systemSummary().loadAvg }}</div>
     <div class="chart-summary-val2"></div>
   </div>
   <div class="page-container-sub">
@@ -40,12 +40,12 @@
     </div>
     <div class="chart-summary-lb">External Power Line</div>
     <div class="chart-summary-val">
-      @if (systemSummary.powerStatus > 0) {
+      @if (systemSummary().powerStatus > 0) {
         <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
           class="material-icons-outlined">power
         </mat-icon>
       }
-      @if (systemSummary.powerStatus == 0) {
+      @if (systemSummary().powerStatus == 0) {
         <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
           class="material-icons-outlined">power_off
         </mat-icon>
@@ -55,12 +55,12 @@
 
     <div class="chart-summary-lb">Converter Power Src</div>
     <div class="chart-summary-val">
-      @if (systemSummary.pwSrcConverterMode === 1) {
+      @if (systemSummary().pwSrcConverterMode === 1) {
         <mat-icon aria-hidden="false" aria-label="i-home"
           color="accent" class="material-icons-outlined">toggle_on
         </mat-icon>
       }
-      @if (systemSummary.pwSrcConverterMode === 0) {
+      @if (systemSummary().pwSrcConverterMode === 0) {
         <mat-icon aria-hidden="false" aria-label="i-home"
           color="primary" class="material-icons-outlined">toggle_off
         </mat-icon>
@@ -68,7 +68,7 @@
     </div>
     <div class="chart-summary-val2"></div>
     <div class="chart-summary-lb">Luminosity</div>
-    <div class="chart-summary-val">{{ systemSummary.luminosity * .01 | number:'1.1' }}</div>
+    <div class="chart-summary-val">{{ systemSummary().luminosity * .01 | number:'1.1' }}</div>
     <div class="chart-summary-val2"></div>
   </div>
 
@@ -88,27 +88,27 @@
       <mat-divider></mat-divider>
     </div>
     <div class="chart-summary-lb">Outdoor</div>
-    <div class="chart-summary-val">{{ systemSummary.outDoorTemperature * .01 | number:'1.1' }}&#8451;</div>
-    <div class="chart-summary-val2">{{ systemSummary.outDoorHumidity * .0001 | percent: '1.1' }}</div>
+    <div class="chart-summary-val">{{ systemSummary().outDoorTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val2">{{ systemSummary().outDoorHumidity * .0001 | percent: '1.1' }}</div>
     <div class="chart-summary-lb">Garage</div>
-    <div class="chart-summary-val">{{ systemSummary.garageTemperature * .01 | number:'1.1' }}&#8451;</div>
-    <div class="chart-summary-val2">{{ systemSummary.garageHumidity * .0001 | percent: '1.1' }}</div>
+    <div class="chart-summary-val">{{ systemSummary().garageTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val2">{{ systemSummary().garageHumidity * .0001 | percent: '1.1' }}</div>
     <div class="chart-summary-lb">First Floor</div>
-    <div class="chart-summary-val">{{ systemSummary.gfTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ systemSummary().gfTemperature * .01 | number:'1.1' }}&#8451;</div>
     <div class="chart-summary-val2"></div>
     <div class="chart-summary-lb">Second Floor</div>
-    <div class="chart-summary-val">{{ systemSummary.sfTemperature * .01 | number:'1.1' }}&#8451;</div>
-    <div class="chart-summary-val2">{{ systemSummary.sfHumidity * .0001 | percent: '1.1' }}</div>
+    <div class="chart-summary-val">{{ systemSummary().sfTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val2">{{ systemSummary().sfHumidity * .0001 | percent: '1.1' }}</div>
     <div class="data-header">
       <mat-divider></mat-divider>
     </div>
     <div class="chart-summary-lb">Boiler</div>
-    <div class="chart-summary-val">{{ systemSummary.boilerTemperature * .01 | number:'1.1' }}&#8451;</div>
+    <div class="chart-summary-val">{{ systemSummary().boilerTemperature * .01 | number:'1.1' }}&#8451;</div>
   </div>
   <div class="chart-container2">
-    <app-temp-chart [data]="tempStat"></app-temp-chart>
+    <app-temp-chart [data]="tempStat()"></app-temp-chart>
   </div>
   <div class="chart-container3">
-    <app-boiler-temp-stat-chart [data]="boilerTempStat"></app-boiler-temp-stat-chart>
+    <app-boiler-temp-stat-chart [data]="boilerTempStat()"></app-boiler-temp-stat-chart>
   </div>
 </div>

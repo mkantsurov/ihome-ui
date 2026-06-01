@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, signal} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {TempStat} from '../../../domain/tempstat';
 import {SystemService} from '../../../services/system.service';
 import {PressureStat} from '../../../domain/pressurestat';
@@ -33,7 +33,7 @@ dayjs.extend(duration);
 })
 export class SummaryPageComponent implements OnInit {
 
-  @Input() systemSummary: SystemSummary = {
+  systemSummary = signal<SystemSummary>({
     boilerTemperature: 0,
     garageHumidity: 0,
     garageTemperature: 0,
@@ -54,29 +54,38 @@ export class SummaryPageComponent implements OnInit {
     sfHumidity: 0,
     sfTemperature: 0,
     upTime: 0
-  };
-
+  });
   powerStat = signal<PowerVoltageExt>({
     extVoltage: [{ dt: new Date(), value: 0 }]
   })
 
-  @Input() tempStat: TempStat;
-  @Input() pressureStat: PressureStat;
-  @Input() boilerTempStat: BoilerTempStat;
+  tempStat = signal<TempStat>({
+    indoorSf: [{ dt: new Date(), value: 0 }],
+    indoorGf: [{ dt: new Date(), value: 0 }],
+    garage: [{ dt: new Date(), value: 0 }],
+    outdoor: [{ dt: new Date(), value: 0 }]
+  });
 
+  pressureStat = signal<PressureStat>({
+    pressure: [{ dt: new Date(), value: 0 }]
+  });
+
+  boilerTempStat = signal<BoilerTempStat>({
+    temperature: [{ dt: new Date(), value: 0 }]
+  });
   constructor(public systemService: SystemService) { }
 
   ngOnInit(): void {
     this.systemService.getPowerVoltageStat().subscribe(response => {
       this.powerStat.set(response);
       this.systemService.getSystemSummary().subscribe(systemData => {
-        this.systemSummary = systemData;
+        this.systemSummary.set(systemData);
         this.systemService.getTempStat().subscribe(tempStat => {
-          this.tempStat = tempStat;
+          this.tempStat.set(tempStat);
           this.systemService.getPressureStat().subscribe(pressureStat => {
-            this.pressureStat = pressureStat;
+            this.pressureStat.set(pressureStat);
             this.systemService.getBoilerTempStat().subscribe(boilerTempStat => {
-              this.boilerTempStat = boilerTempStat;
+              this.boilerTempStat.set(boilerTempStat);
             })
           })
         })
@@ -85,6 +94,6 @@ export class SummaryPageComponent implements OnInit {
   }
 
   getUpTime(): string {
-    return dayjs.duration(this.systemSummary.upTime).format('D[d] H[h] m[m]');
+    return dayjs.duration(this.systemSummary().upTime).format('D[d] H[h] m[m]');
   }
 }
