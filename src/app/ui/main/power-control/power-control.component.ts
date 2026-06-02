@@ -31,7 +31,24 @@ import {DecimalPipe} from '@angular/common';
 })
 export class PowerControlComponent implements OnInit {
 
-  powerSummary: PowerSummary;
+  powerSummary = signal<PowerSummary>({
+    luminosity: 0,
+    extVoltage: 0,
+    extCurrent: 0,
+    extFrequency: 0,
+    extConsumption: 0,
+    intVoltage: 0,
+    intCurrent: 0,
+    intFrequency: 0,
+    intConsumption: 0,
+    intBckVoltage: 0,
+    intBckCurrent: 0,
+    intBckFrequency: 0,
+    intBckConsumption: 0,
+    securityMode: 0,
+    pwSrcConverterMode: 0,
+    pwSrcDirectMode: 0
+  });
 
   powerVoltageStat = signal<PowerVoltage>({
     extVoltage: [{
@@ -70,31 +87,12 @@ export class PowerControlComponent implements OnInit {
     }]
   })
 
-  constructor(private systemService: SystemService, private guestService: GuestService) {
-    this.powerSummary = {
-      luminosity: 0,
-      extVoltage: 0,
-      extCurrent: 0,
-      extFrequency: 0,
-      extConsumption: 0,
-      intVoltage: 0,
-      intCurrent: 0,
-      intFrequency: 0,
-      intConsumption: 0,
-      intBckVoltage: 0,
-      intBckCurrent: 0,
-      intBckFrequency: 0,
-      intBckConsumption: 0,
-      securityMode: 0,
-      pwSrcConverterMode: 0,
-      pwSrcDirectMode: 0
-    }
-  }
+  constructor(private systemService: SystemService, private guestService: GuestService) {}
 
   ngOnInit(): void {
     this.systemService.getPowerSummary().subscribe(response => {
       console.log(`received power summary: ` + JSON.stringify(response));
-      this.powerSummary = response;
+      this.powerSummary.set(response);
       this.systemService.getLuminosityStat().subscribe(luminosityStat => {
         this.luminosityStat.set(luminosityStat);
         this.systemService.getPowerVoltageStat().subscribe(powerVoltageStat => {
@@ -108,6 +106,6 @@ export class PowerControlComponent implements OnInit {
   }
 
   isExternalPowerSourceOk(): boolean {
-    return +this.powerSummary.extVoltage > 1700 && +this.powerSummary.extVoltage  > 2450;
+    return +this.powerSummary().extVoltage > 1700 && +this.powerSummary().extVoltage > 2450;
   }
 }

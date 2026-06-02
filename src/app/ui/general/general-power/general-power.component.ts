@@ -23,20 +23,18 @@ export class GeneralPowerComponent implements OnInit {
     extVoltage: [{ dt: new Date(), value: 0 }]
   })
 
-  powerSummary: ExtPowerSummary;
+  powerSummary = signal<ExtPowerSummary>({
+    extVoltage: 0,
+    extFrequency: 0
+  });
 
-  constructor(public guestService: GuestService) {
-    this.powerSummary = {
-      extVoltage: 0,
-      extFrequency: 0
-    }
-  }
+  constructor(public guestService: GuestService) {}
 
   ngOnInit(): void {
     this.guestService.getPowerStat().subscribe(response => {
       this.powerStat.set(response);
       this.guestService.getExtPowerVoltageStat().subscribe(powerSummary => {
-        this.powerSummary = powerSummary;
+        this.powerSummary.set(powerSummary);
       })
     })
   }

@@ -10,15 +10,15 @@
       <mat-divider></mat-divider>
     </div>
     <div class="chart-summary-lb">External Power Line</div>
-    <div class="chart-summary-val">{{ (powerSummary.extVoltage * 0.1).toFixed(1) }} V</div>
+    <div class="chart-summary-val">{{ (powerSummary().extVoltage * 0.1).toFixed(1) }} V</div>
     <div class="chart-summary-lb">Frequency</div>
-    <div class="chart-summary-val">{{ (powerSummary.extFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-val">{{ (powerSummary().extFrequency * 0.01).toFixed(2) }} Hz</div>
     <div class="chart-summary-lb">Current</div>
-    <div class="chart-summary-val">{{ (powerSummary.extCurrent * 0.1).toFixed(1) }} A</div>
+    <div class="chart-summary-val">{{ (powerSummary().extCurrent * 0.1).toFixed(1) }} A</div>
     <div class="chart-summary-lb">Consumption</div>
-    <div class="chart-summary-val">{{ (powerSummary.extConsumption * 0.1).toFixed(1) }} Kw/H</div>
+    <div class="chart-summary-val">{{ (powerSummary().extConsumption * 0.1).toFixed(1) }} Kw/H</div>
     <div class="chart-summary-lb">Luminosity</div>
-    <div class="chart-summary-val">{{ powerSummary.luminosity * .01 | number:'1.1' }}</div>
+    <div class="chart-summary-val">{{ powerSummary().luminosity * .01 | number:'1.1' }}</div>
   </div>
   <div class="page-container-sub">
     <div class="data-header">
@@ -31,13 +31,13 @@
       <mat-divider></mat-divider>
     </div>
     <div class="chart-summary-lb">Internal Bck Power Line</div>
-    <div class="chart-summary-val">{{ (powerSummary.intBckVoltage * 0.1).toFixed(1) }} V</div>
+    <div class="chart-summary-val">{{ (powerSummary().intBckVoltage * 0.1).toFixed(1) }} V</div>
     <div class="chart-summary-lb">Frequency</div>
-    <div class="chart-summary-val">{{ (powerSummary.intBckFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-val">{{ (powerSummary().intBckFrequency * 0.01).toFixed(2) }} Hz</div>
     <div class="chart-summary-lb">Current</div>
-    <div class="chart-summary-val">{{ (powerSummary.intBckCurrent * 0.1).toFixed(1) }} A</div>
+    <div class="chart-summary-val">{{ (powerSummary().intBckCurrent * 0.1).toFixed(1) }} A</div>
     <div class="chart-summary-lb">Consumption</div>
-    <div class="chart-summary-val">{{ (powerSummary.intBckConsumption * 0.1).toFixed(1) }} Kw/H</div>
+    <div class="chart-summary-val">{{ (powerSummary().intBckConsumption * 0.1).toFixed(1) }} Kw/H</div>
   </div>
 
   <div class="page-container-sub">
@@ -51,13 +51,13 @@
       <mat-divider></mat-divider>
     </div>
     <div class="chart-summary-lb">Int Direct Line</div>
-    <div class="chart-summary-val">{{ (powerSummary.intVoltage * 0.1).toFixed(1) }} V</div>
+    <div class="chart-summary-val">{{ (powerSummary().intVoltage * 0.1).toFixed(1) }} V</div>
     <div class="chart-summary-lb">Frequency</div>
-    <div class="chart-summary-val">{{ (powerSummary.intFrequency * 0.01).toFixed(2) }} Hz</div>
+    <div class="chart-summary-val">{{ (powerSummary().intFrequency * 0.01).toFixed(2) }} Hz</div>
     <div class="chart-summary-lb">Current</div>
-    <div class="chart-summary-val">{{ (powerSummary.intCurrent * 0.1).toFixed(1) }} A</div>
+    <div class="chart-summary-val">{{ (powerSummary().intCurrent * 0.1).toFixed(1) }} A</div>
     <div class="chart-summary-lb">Consumption</div>
-    <div class="chart-summary-val">{{ (powerSummary.intConsumption * 0.1).toFixed(1) }} Kw/H</div>
+    <div class="chart-summary-val">{{ (powerSummary().intConsumption * 0.1).toFixed(1) }} Kw/H</div>
   </div>
   <div class="chart-container-sub">
     <div class="chart-container">
