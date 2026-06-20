@@ -1,24 +1,18 @@
-import {Injectable} from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import {inject} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
 import {UserService} from '../services/user.service';
 import {AuthenticationService} from '../services/authentication.service';
-import {Observable} from 'rxjs';
 
-@Injectable({providedIn: 'root'})
-export class GuestGuard  {
-
-  constructor(private router: Router,
-              private userService: UserService,
-              private authService: AuthenticationService) {
-  }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+export const guestGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
     return true;
-  }
+};
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.canActivate(childRoute, state);
-  }
-
-}
-
+export const guestGuardChild: CanActivateFn = (
+  childRoute: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return guestGuard(childRoute, state);
+};

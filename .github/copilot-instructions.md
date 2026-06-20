@@ -10,9 +10,9 @@
 - TypeScript `5.8.x`
 - Angular Material + CDK
 - RxJS `6.6.x`
-- Karma + Jasmine for unit tests
-- Chart.js for charting, with `chartjs-adapter-dayjs-3` for time axis support
 - TSLint is still present in this codebase (do not auto-migrate linters unless asked)
+- Vitest for unit tests (configured via `@angular/build:unit-test` in angular.json; legacy Karma config files still present but unused)
+- Chart.js for charting, with `chartjs-adapter-dayjs-3` for time axis support
 
 ## Angular-specific guidance
 - **Standalone components are the default**: All components SHOULD use `standalone: true`. Angular 21 changed the default from `false` to `true`. Do NOT add `standalone: false` components unless explicitly requested. When using `@NgModule`, standalone components go in the `imports` array (not `declarations`).
@@ -151,6 +151,16 @@ When passing data to chart components, unwrap the signal with `()`:
 <app-some-chart [data]="myStat()"></app-some-chart>
 ```
 
+## Async data patterns
+- **Parallel HTTP calls**: Use `forkJoin` (not nested `.subscribe()` chains) when multiple independent API calls are needed.
+- **Signal assignment**: Use `.set()` (not `=`) to update signal values from subscription callbacks.
+- **Subscription cleanup**: Angular services/components are destroyed along with their injector; explicit unsubscription is not required for short-lived HTTP requests (they complete naturally).
+
+## Bootstrap and module structure
+- The app bootstraps via `bootstrapApplication(AppComponent, { providers: [...] })` in `src/main.ts` using `provideRouter(APP_ROUTES)`.
+- **`src/app/app.module.ts` and `src/app/app-routing.module.ts` are effectively dead/orphaned code**. They are NOT used in the bootstrap. Do NOT add new components, pipes, or directives to `AppModule`. Instead, add them to the `imports` array of individual standalone components.
+- Standalone components import each other directly via their `imports` array.
+
 ## Editing guidelines
 - Prefer minimal, targeted changes over broad refactors.
 - Preserve existing naming and folder conventions.
@@ -196,4 +206,12 @@ Run these commands from project root:
 ```shell
 npx ng build
 ```
+
+## Known issues / cleanup backlog
+These are known observations that have NOT yet been addressed:
+
+- **ESM warnings**: `hammerjs`, `dayjs`, and several `dayjs/plugin/*` modules produce ESM/CJS warnings at build time. These are third-party dependencies — fix requires adding them to `allowedCommonJsDependencies` in `angular.json` if the warnings become problematic.
+- **`@angular/flex-layout`**: `FlexLayoutModule` is still imported in the orphaned `AppModule`. Prefer standard CSS Flexbox/Grid for new layouts.
+- **Test spec files**: `.spec.ts` files still use `TestBed.configureTestingModule({ declarations: [...] })` — should be updated to `{ imports: [...] }` to match standalone component patterns.
+- **`module-list.component.html`**: Still uses deprecated `*matHeaderCellDef` and `*matCellDef` structural directives (still supported by Angular Material CDK but deprecated).
 

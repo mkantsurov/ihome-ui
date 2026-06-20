@@ -1,4 +1,4 @@
-import {ApplicationRef, Component, Input, OnInit} from '@angular/core';
+import {ApplicationRef, Component, input, OnInit} from '@angular/core';
 import {MainService} from '../../../../services/main.service';
 import {ModuleSummary} from '../../../../domain/modulesummary';
 import {DataSource} from '@angular/cdk/collections';
@@ -8,7 +8,6 @@ import {ErrorHandlerService} from '../../../../services/error-handler.service';
 import {ModuleData} from '../../../../domain/moduledata';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleConfigComponent} from './module-config/module-config.component';
-import {group} from '@angular/animations';
 import {MatTableModule} from '@angular/material/table';
 import {NgClass} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
@@ -25,8 +24,8 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ModuleListComponent implements OnInit {
 
-  @Input() assignment: number;
-  @Input() group?: number;
+  readonly assignment = input.required<number>();
+  readonly group = input<number>();
   moduleColumns = ['name', 'active', 'outputPortState'];
   showSpinner = false;
   moduleDatabase: ModuleDataBase;
@@ -38,11 +37,8 @@ export class ModuleListComponent implements OnInit {
               private appRef :ApplicationRef, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.moduleDatabase = new ModuleDataBase(this.mainService, this, this.errorHandler, this.appRef);
+    this.moduleDatabase = new ModuleDataBase(this.mainService, this.assignment(), this.group(), this, this.errorHandler, this.appRef);
     this.moduleDataSource = new ModuleDataSource(this.moduleDatabase);
-    // this.mainService.getModuleList(this.assignment, null).subscribe(response => {
-    //   this.moduleSummary = response;
-    // });
   }
 
   rowSelect(row) {
@@ -79,6 +75,8 @@ export class ModuleDataBase {
   dataChange: BehaviorSubject<ModuleSummary[]> = new BehaviorSubject<ModuleSummary[]>([]);
 
   constructor(private mainService: MainService,
+              private assignment: number,
+              private group: number | undefined,
               private parent: ModuleListComponent,
               private errorHandler: ErrorHandlerService,
               private appRef :ApplicationRef) {
@@ -92,7 +90,7 @@ export class ModuleDataBase {
   update() {
     this.parent.showSpinner = true;
 
-    this.mainService.getModuleList(this.parent.assignment, this.parent.group).subscribe(
+    this.mainService.getModuleList(this.assignment, this.group).subscribe(
       response => {
         this.dataChange.next(response);
         this.parent.showSpinner = false;
@@ -115,7 +113,6 @@ export class ModuleDataSource extends DataSource<ModuleSummary> {
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<ModuleSummary[]> {
     const displayDataChanges = this.moduleDataBase.dataChange;
-    // return this.organizationService.getOrganizations();
     return merge(displayDataChanges).pipe(map(() => {
       return this.moduleDataBase.data.slice();
     }));

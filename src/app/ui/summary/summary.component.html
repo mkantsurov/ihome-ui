@@ -9,15 +9,15 @@
         </div>
         <div class="mat-row">
           <div class="mat-cell">Temperature</div>
-          <div class="mat-cell">{{ systemSummary.outDoorTemperature * .01 | number:'1.1' }}</div>
+          <div class="mat-cell">{{ systemSummary().outDoorTemperature * .01 | number:'1.1' }}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">Humidity</div>
-          <div class="mat-cell">{{ systemSummary.outDoorHumidity * .0001 | percent: '1.1'}}</div>
+          <div class="mat-cell">{{ systemSummary().outDoorHumidity * .0001 | percent: '1.1'}}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">Pressure</div>
-          <div class="mat-cell">{{ systemSummary.pressure }}</div>
+          <div class="mat-cell">{{ systemSummary().pressure }}</div>
         </div>
       </div>
     </mat-card-content>
@@ -32,11 +32,11 @@
         </div>
         <div class="mat-row">
           <div class="mat-cell">Temperature</div>
-          <div class="mat-cell">{{ systemSummary.sfTemperature * .01 | number:'1.1' }}</div>
+          <div class="mat-cell">{{ systemSummary().sfTemperature * .01 | number:'1.1' }}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">Humidity</div>
-          <div class="mat-cell">{{ systemSummary.sfHumidity * .0001 | percent: '1.1'}}</div>
+          <div class="mat-cell">{{ systemSummary().sfHumidity * .0001 | percent: '1.1'}}</div>
         </div>
       </div>
     </mat-card-content>
@@ -51,11 +51,11 @@
         </div>
         <div class="mat-row">
           <div class="mat-cell">Temperature</div>
-          <div class="mat-cell">{{ systemSummary.gfTemperature * .01 | number:'1.1' }}</div>
+          <div class="mat-cell">{{ systemSummary().gfTemperature * .01 | number:'1.1' }}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">Humidity</div>
-          <div class="mat-cell">{{ systemSummary.sfHumidity * .0001 | percent: '1.1'}}</div>
+          <div class="mat-cell">{{ systemSummary().sfHumidity * .0001 | percent: '1.1'}}</div>
         </div>
       </div>
     </mat-card-content>
@@ -71,15 +71,15 @@
         </div>
         <div class="mat-row">
           <div class="mat-cell">Temperature</div>
-          <div class="mat-cell">{{ systemSummary.garageTemperature * .01 | number:'1.1' }}</div>
+          <div class="mat-cell">{{ systemSummary().garageTemperature * .01 | number:'1.1' }}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">Humidity</div>
-          <div class="mat-cell">{{ systemSummary.garageHumidity * .0001 | percent: '1.1'}}</div>
+          <div class="mat-cell">{{ systemSummary().garageHumidity * .0001 | percent: '1.1'}}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">Boiler Temperature</div>
-          <div class="mat-cell">{{ systemSummary.boilerTemperature * .01 | number:'1.1' }}</div>
+          <div class="mat-cell">{{ systemSummary().boilerTemperature * .01 | number:'1.1' }}</div>
         </div>
       </div>
     </mat-card-content>

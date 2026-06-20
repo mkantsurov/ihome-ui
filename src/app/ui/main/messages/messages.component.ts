@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, viewChild, OnInit, AfterViewInit} from '@angular/core';
 import {MessagesDataSource} from './messages-data-source';
 import {ErrorMessageEntry} from '../../../domain/error-message-entry';
 import {MessagesSearchRequest} from '../../../domain/messages-search-request';
@@ -42,7 +42,7 @@ import {ErrorViewDirective} from '../../../directive/error-view.directive';
         MatPaginatorModule
     ]
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, AfterViewInit {
   displayedColumns = ['created', 'type', 'message']
   dataSource: MessagesDataSource
   messageItems: ErrorMessageEntry[]
@@ -50,8 +50,7 @@ export class MessagesComponent implements OnInit {
   searchForm: FormGroup
   showSpinner: boolean
   messagesSort = {}
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
-
+  readonly paginator = viewChild.required(MatPaginator)
   constructor(private errorHandler: ErrorHandlerService,
               private adminService: AdminService,
               public fb: FormBuilder,) { }
@@ -60,7 +59,10 @@ export class MessagesComponent implements OnInit {
     this.searchForm = this.fb.group({
       errorType: ['', [Validators.pattern('ALL')]]
     })
-    this.dataSource = new MessagesDataSource(this.paginator, this, this.adminService, this.errorHandler)
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource = new MessagesDataSource(this.paginator(), this, this.adminService, this.errorHandler)
     this.search();
   }
 

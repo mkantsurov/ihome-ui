@@ -1,27 +1,25 @@
-import {Injectable} from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import {Observable} from 'rxjs';
-
+import {inject} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 
-@Injectable({providedIn: 'root'})
-export class IsUserGuard  {
-  constructor(private authService: AuthenticationService, private router: Router) {
-  }
+export const isUserGuard: CanActivateFn = (
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const authService = inject(AuthenticationService);
+  const router = inject(Router);
 
-
-  canActivate(next: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
-    if (this.authService.isUser()) {
+  if (authService.isUser()) {
       return true;
     }
 
-    this.router.navigate(['/accessDenied']);
+  router.navigate(['/accessDenied']);
     return false;
-  }
+};
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.canActivate(childRoute, state);
-  }
-}
+export const isUserGuardChild: CanActivateFn = (
+  childRoute: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return isUserGuard(childRoute, state);
+};

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import {Route, Routes} from '@angular/router';
-import {IsAdminGuard} from './guards/is-admin.guard';
-import {AuthGuard} from './guards/auth-guard.service';
-import {GuestGuard} from './guards/guest-guard.service';
+import {isAdminGuard, isAdminGuardChild} from './guards/is-admin.guard';
+import {authGuard, authGuardChild} from './guards/auth-guard.service';
+import {guestGuard, guestGuardChild} from './guards/guest-guard.service';
 import {MainComponent} from './ui/main/main/main.component';
 import {AccessDeniedComponent} from './ui/common/access-denied/access-denied.component';
 import {GeneralOutdoorComponent} from './ui/general/general-outdoor/general-outdoor.component';
@@ -21,8 +21,8 @@ export const APP_ROUTES: Routes = [
   {
     path: '',
     component: IndexComponent,
-    canActivate: [GuestGuard],
-    canActivateChild: [GuestGuard],
+    canActivate: [guestGuard],
+    canActivateChild: [guestGuardChild],
     children: [
       {path: '', redirectTo: '/public-outdoor', pathMatch: 'full'},
       {path: 'public-outdoor', component: GeneralOutdoorComponent},
@@ -34,8 +34,8 @@ export const APP_ROUTES: Routes = [
   {
     path: 'main',
     component: MainComponent,
-    canActivate: [AuthGuard, IsAdminGuard],
-    canActivateChild: [AuthGuard, IsAdminGuard],
+    canActivate: [authGuard, isAdminGuard],
+    canActivateChild: [authGuardChild, isAdminGuardChild],
     children: [
       {path: '', redirectTo: '/summary', pathMatch: 'full'},
       {path: 'summary', component: SummaryPageComponent},
