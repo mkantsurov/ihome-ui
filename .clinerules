@@ -1,0 +1,12 @@
+# Agent Rules for ihome-ui
+
+Before answering any Angular-related questions, read the following files for project context and guidelines:
+- `.github/copilot-instructions.md` - Full project context, tech stack, coding patterns, and editing guidelines
+- `.agents/skills/README.md` - Available AI skills for Angular development
+
+These files contain essential project-specific guidance including:
+- Angular 21.x standalone component patterns
+- Signal-based state management
+- Chart.js component patterns
+- Material 3 theming conventions
+- Coding standards and validation steps
