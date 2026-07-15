@@ -33,7 +33,7 @@ export const routes: Routes = [
     canActivate: [genericAuthGuard],
     canActivateChild: [genericAuthGuard],
     children: [
-      {path: '', redirectTo: '/summary', pathMatch: 'full'},
+      {path: '', redirectTo: 'summary', pathMatch: 'full'},
       {path: 'summary', loadComponent: () => import('./ui/main/summary-page/summary-page.component')},
       {
         path: 'power-control',
