@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
-import {JwtInterceptor} from './jwt-interceptor';
+import {JwtInterceptor} from './services/jwt-interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UserService} from './services/user.service';
 import {AuthenticationService} from './services/authentication.service';
@@ -14,6 +14,8 @@ import {ErrorHandlerService} from './services/error-handler.service';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {TruncatePipe} from './pipes/truncate.pipe';
+import {JwtHelperService} from '@auth0/angular-jwt';
+
 
 @NgModule({
   declarations: [],
@@ -30,6 +32,7 @@ import {TruncatePipe} from './pipes/truncate.pipe';
     AppComponent
   ],
   providers: [
+    JwtHelperService,
     AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     UserService,

@@ -1,55 +1,33 @@
-import { NgModule } from '@angular/core';
-import {Route, Routes} from '@angular/router';
-import {isAdminGuard, isAdminGuardChild} from './guards/is-admin.guard';
-import {authGuard, authGuardChild} from './guards/auth-guard.service';
-import {guestGuard, guestGuardChild} from './guards/guest-guard.service';
-import {MainComponent} from './ui/main/main/main.component';
-import {AccessDeniedComponent} from './ui/common/access-denied/access-denied.component';
-import {GeneralOutdoorComponent} from './ui/general/general-outdoor/general-outdoor.component';
-import {GeneralPowerComponent} from './ui/general/general-power/general-power.component';
-import {GeneralSignInComponent} from './ui/general/general-sign-in/general-sign-in.component';
-import {IndexComponent} from './ui/general/index/index.component';
-import {SummaryPageComponent} from './ui/main/summary-page/summary-page.component';
-import {PowerControlComponent} from './ui/main/power-control/power-control.component';
-import {HeatingControlComponent} from './ui/main/heating-control/heating-control.component';
-import {LightningControlComponent} from './ui/main/lightning-control/lightning-control.component';
-import {AuditLogControlComponent} from './ui/main/audit-log-control/audit-log-control.component';
-import {MessagesComponent} from './ui/main/messages/messages.component';
+import {Routes} from '@angular/router';
+import {authNonCompletedGuard, genericAuthGuard} from './guards/genericAuthGuard'
 
-
-export const APP_ROUTES: Routes = [
+export const routes: Routes = [
   {
     path: '',
-    component: IndexComponent,
-    canActivate: [guestGuard],
-    canActivateChild: [guestGuardChild],
+    loadComponent: () => import('./ui/general/index/index.component').then(m => m.default),
+    canActivate: [authNonCompletedGuard],
+    canActivateChild: [authNonCompletedGuard],
     children: [
       {path: '', redirectTo: '/public-outdoor', pathMatch: 'full'},
-      {path: 'public-outdoor', component: GeneralOutdoorComponent},
-      {path: 'public-power', component: GeneralPowerComponent},
-      {path: 'public-sign-in', component: GeneralSignInComponent},
+      {path: 'public-outdoor', loadComponent: () => import('./ui/general/general-outdoor/general-outdoor.component').then(m => m.GeneralOutdoorComponent)},
+      {path: 'public-power', loadComponent: () => import('./ui/general/general-power/general-power.component').then(m => m.GeneralPowerComponent)},
+      {path: 'public-sign-in', loadComponent: () => import('./ui/general/general-sign-in/general-sign-in.component').then(m => m.GeneralSignInComponent)},
     ]
   },
-  {path: 'accessDenied', component: AccessDeniedComponent},
+  {path: 'accessDenied', loadComponent: () => import('./ui/common/access-denied/access-denied.component').then(m => m.AccessDeniedComponent)},
   {
     path: 'main',
-    component: MainComponent,
-    canActivate: [authGuard, isAdminGuard],
-    canActivateChild: [authGuardChild, isAdminGuardChild],
+    loadComponent: () => import('./ui/main/main/main.component').then(m => m.MainComponent),
+    canActivate: [genericAuthGuard],
+    canActivateChild: [genericAuthGuard],
     children: [
       {path: '', redirectTo: '/summary', pathMatch: 'full'},
-      {path: 'summary', component: SummaryPageComponent},
-      {path: 'power-control', component: PowerControlComponent},
-      {path: 'heating-control', component: HeatingControlComponent},
-      {path: 'lightning-control', component: LightningControlComponent},
-      {path: 'audit-log', component: AuditLogControlComponent},
-      {path: 'messages', component: MessagesComponent},
-      // {path: '', redirectTo: '/summary', pathMatch: 'full'},
-      // {path: 'summary', component: SummaryComponent},
-      // {path: 'gf', component: GroundfloorComponent},
-      // {path: 'sf', component: SecondfloorComponent},
-      // {path: 'garage', component: GarageComponent},
-      // {path: 'el', component: ExtlightComponent},
+      {path: 'summary', loadComponent: () => import('./ui/main/summary-page/summary-page.component').then(m => m.SummaryPageComponent)},
+      {path: 'power-control', loadComponent: () => import('./ui/main/power-control/power-control.component').then(m => m.PowerControlComponent)},
+      {path: 'heating-control', loadComponent: () => import('./ui/main/heating-control/heating-control.component').then(m => m.HeatingControlComponent)},
+      {path: 'lightning-control', loadComponent: () => import('./ui/main/lightning-control/lightning-control.component').then(m => m.LightningControlComponent)},
+      {path: 'audit-log', loadComponent: () => import('./ui/main/audit-log-control/audit-log-control.component').then(m => m.AuditLogControlComponent)},
+      {path: 'messages', loadComponent: () => import('./ui/main/messages/messages.component').then(m => m.MessagesComponent)},
     ]
   }
 ];

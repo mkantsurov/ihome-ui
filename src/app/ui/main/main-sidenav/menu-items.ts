@@ -11,10 +11,52 @@ export interface MenuItem {
 
 export const menuItems: MenuItem[] = [
   {
-    icon: 'summary',
+    icon: 'summarize',
     label: 'Summary',
-    route: 'main/summary-page',
+    route: 'summary',
+    implemented: true,
+    roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER, Role.CHILDREN_ROOM2_MANAGER],
+  },
+  {
+    icon: 'power_settings_new',
+    label: 'Power Settings',
+    route: 'power-control',
     implemented: true,
     roles: [Role.ADMIN],
-  }
+  },
+  {
+    icon: 'thermostat',
+    label: 'Heating Settings',
+    route: 'heating-control',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
+    icon: 'tungsten',
+    label: 'Lightning Settings',
+    route: 'lightning-control',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
+    icon: 'history',
+    label: 'Audit Log',
+    route: 'audit-log',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
+    icon: 'change_history',
+    label: 'Messages',
+    route: 'messages',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
+    icon: 'logout',
+    label: 'Sign-Out',
+    route: 'public-sign-in',
+    implemented: true,
+    roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER, Role.CHILDREN_ROOM2_MANAGER],
+  },
 ]

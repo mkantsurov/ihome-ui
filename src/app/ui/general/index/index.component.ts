@@ -24,7 +24,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule
 ]
 })
-export class IndexComponent implements OnInit {
+export default class IndexComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 

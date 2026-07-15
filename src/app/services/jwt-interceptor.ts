@@ -1,12 +1,11 @@
 import {Injectable, Injector} from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import {Router} from '@angular/router';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {NavigationExtras, Router} from '@angular/router';
 import {EMPTY, Observable} from 'rxjs';
-import {AuthenticationService} from './services/authentication.service';
+import {AuthenticationService} from './authentication.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {empty} from 'rxjs/internal/Observer';
 import {mergeMap} from 'rxjs/operators';
-import {ACCESS_TOKEN, API_PATTERN, GUEST_API_PATTERN} from './domain/constant';
+import {ACCESS_TOKEN, API_PATTERN, GUEST_API_PATTERN} from '../domain/constant';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -27,12 +26,13 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(this.simpleHeaders(request));
     }
 
-    if (!authService.accessToken) {
-      this.router.navigate(['/accessDenied']);
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+      const navigationExtras: NavigationExtras = {state: {data: 'Access denied.'}};
+      this.router.navigate(['/login'], navigationExtras);
       return EMPTY;
     }
 
-    if (!this.jwtHelper.isTokenExpired(authService.accessToken)) {
+    if (!this.jwtHelper.isTokenExpired(localStorage.getItem(ACCESS_TOKEN))) {
       return next.handle(this.addTokenToHeader(request));
     }
 
@@ -52,22 +52,14 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private addTokenToHeader(request: HttpRequest<any>): HttpRequest<any> {
-    const authService = this.injector.get(AuthenticationService);
     const accept = request.headers.get('Accept');
     const content = request.headers.get('Content-Type');
-    const uploadRequest = request.url.includes('upload');
-    if (uploadRequest)
-      return request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${authService.accessToken}`
-        }
-      });
 
     return request.clone({
       setHeaders: {
         Accept: accept ? accept : `application/json`,
         'Content-Type': content ? content : `application/json`,
-        Authorization: `Bearer ${authService.accessToken}`
+        'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
       }
     });
   }

@@ -1,4 +1,4 @@
-@if (isTokenExpired()) {
+@if (!authenticationService.isAuthenticated()) {
   <div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-form-field>
