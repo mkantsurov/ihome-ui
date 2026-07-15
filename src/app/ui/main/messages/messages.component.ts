@@ -24,26 +24,27 @@ import {MatTableModule, MatTableDataSource} from '@angular/material/table';
 import {ErrorViewDirective} from '../../../directive/error-view.directive';
 
 @Component({
-    selector: 'app-messages',
-    templateUrl: './messages.component.html',
-    styleUrls: ['./messages.component.css'],
-    imports: [
-        MatTableModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTooltipModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        DatePipe,
-        ErrorViewDirective,
-        MatOptionModule,
-        MatSelectModule,
-        MatSortModule,
-        MatProgressSpinnerModule,
-        MatPaginatorModule
-    ]
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.css'],
+  standalone: true,
+  imports: [
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    DatePipe,
+    ErrorViewDirective,
+    MatOptionModule,
+    MatSelectModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
+  ]
 })
 export class MessagesComponent implements OnInit, AfterViewInit {
   displayedColumns = ['created', 'type', 'message']
