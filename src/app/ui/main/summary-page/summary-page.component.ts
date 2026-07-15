@@ -32,7 +32,7 @@ dayjs.extend(duration);
         GeneralPowerChartComponent
     ]
 })
-export class SummaryPageComponent implements OnInit {
+export default class SummaryPageComponent implements OnInit {
 
   systemSummary = signal<SystemSummary>({
     boilerTemperature: 0,

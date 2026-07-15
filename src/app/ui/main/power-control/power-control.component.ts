@@ -29,7 +29,7 @@ import {DecimalPipe} from '@angular/common';
         DecimalPipe
     ]
 })
-export class PowerControlComponent implements OnInit {
+export default class PowerControlComponent implements OnInit {
 
   powerSummary = signal<PowerSummary>({
     luminosity: 0,

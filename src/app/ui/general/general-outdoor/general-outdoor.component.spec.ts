@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralOutdoorComponent } from './general-outdoor.component';
+import GeneralOutdoorComponent from './general-outdoor.component';
 
 describe('GeneralOutdoorComponent', () => {
   let component: GeneralOutdoorComponent;

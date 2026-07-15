@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LightningControlComponent } from './lightning-control.component';
+import LightningControlComponent from './lightning-control.component';
 
 describe('LightningControlComponent', () => {
   let component: LightningControlComponent;

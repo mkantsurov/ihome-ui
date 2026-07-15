@@ -46,7 +46,7 @@ import {ErrorViewDirective} from '../../../directive/error-view.directive';
     MatPaginatorModule
   ]
 })
-export class MessagesComponent implements OnInit, AfterViewInit {
+export default class MessagesComponent implements OnInit, AfterViewInit {
   displayedColumns = ['created', 'type', 'message']
   dataSource = new MatTableDataSource<ErrorMessageEntry>()
   totalCount = 0

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralPowerComponent } from './general-power.component';
+import GeneralPowerComponent from './general-power.component';
 
 describe('GeneralPowerComponent', () => {
   let component: GeneralPowerComponent;

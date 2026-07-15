@@ -21,7 +21,7 @@ import {Role} from '../../../domain/role';
     MatButtonModule
 ]
 })
-export class GeneralSignInComponent implements OnInit {
+export default class GeneralSignInComponent implements OnInit {
   loading = false;
   loginForm: UntypedFormGroup;
   emailForm: UntypedFormGroup;

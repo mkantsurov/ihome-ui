@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {AccessDeniedComponent} from './access-denied.component';
+import AccessDeniedComponent from './access-denied.component';
 
 describe('AccessDeniedComponent', () => {
   let component: AccessDeniedComponent;

@@ -20,7 +20,7 @@ import {DecimalPipe} from '@angular/common';
         DecimalPipe
     ]
 })
-export class HeatingControlComponent implements OnInit {
+export default class HeatingControlComponent implements OnInit {
 
   heatingSummary = signal<HeatingSummary>({
     boilerTemperature: 0,

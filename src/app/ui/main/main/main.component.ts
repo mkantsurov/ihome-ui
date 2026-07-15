@@ -20,7 +20,7 @@ import {MainSidenavComponent} from '../main-sidenav/main-sidenav.component';
     MainSidenavComponent,
 ]
 })
-export class MainComponent implements OnInit {
+export default class MainComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 

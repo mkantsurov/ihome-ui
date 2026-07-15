@@ -1,69 +1,57 @@
 import {Routes} from '@angular/router';
 import {authNonCompletedGuard, genericAuthGuard} from './guards/genericAuthGuard';
-import {AccessDeniedComponent} from './ui/common/access-denied/access-denied.component';
-import {GeneralOutdoorComponent} from './ui/general/general-outdoor/general-outdoor.component';
-import {GeneralPowerComponent} from './ui/general/general-power/general-power.component';
-import {GeneralSignInComponent} from './ui/general/general-sign-in/general-sign-in.component';
-import IndexComponent from './ui/general/index/index.component';
-import {AuditLogControlComponent} from './ui/main/audit-log-control/audit-log-control.component';
-import {HeatingControlComponent} from './ui/main/heating-control/heating-control.component';
-import {LightningControlComponent} from './ui/main/lightning-control/lightning-control.component';
-import {MainComponent} from './ui/main/main/main.component';
-import {MessagesComponent} from './ui/main/messages/messages.component';
-import {PowerControlComponent} from './ui/main/power-control/power-control.component';
-import {SummaryPageComponent} from './ui/main/summary-page/summary-page.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => Promise.resolve(IndexComponent),
+    loadComponent: () => import('./ui/general/index/index.component'),
     canActivate: [authNonCompletedGuard],
     canActivateChild: [authNonCompletedGuard],
     children: [
       {path: '', redirectTo: '/public-outdoor', pathMatch: 'full'},
       {
         path: 'public-outdoor',
-        loadComponent: () => Promise.resolve(GeneralOutdoorComponent)
+        loadComponent: () => import('./ui/general/general-outdoor/general-outdoor.component')
       },
       {
         path: 'public-power',
-        loadComponent: () => Promise.resolve(GeneralPowerComponent)
+        loadComponent: () => import('./ui/general/general-power/general-power.component')
       },
       {
         path: 'public-sign-in',
-        loadComponent: () => Promise.resolve(GeneralSignInComponent)
+        loadComponent: () => import('./ui/general/general-sign-in/general-sign-in.component')
       },
     ]
   },
   {
     path: 'accessDenied',
-    loadComponent: () => Promise.resolve(AccessDeniedComponent)
+    loadComponent: () => import('./ui/common/access-denied/access-denied.component')
   },
   {
     path: 'main',
-    loadComponent: () => Promise.resolve(MainComponent),
+    loadComponent: () => import('./ui/main/main/main.component'),
     canActivate: [genericAuthGuard],
     canActivateChild: [genericAuthGuard],
     children: [
       {path: '', redirectTo: '/summary', pathMatch: 'full'},
-      {path: 'summary', loadComponent: () => Promise.resolve(SummaryPageComponent)},
+      {path: 'summary', loadComponent: () => import('./ui/main/summary-page/summary-page.component')},
       {
         path: 'power-control',
-        loadComponent: () => Promise.resolve(PowerControlComponent)
+        loadComponent: () => import('./ui/main/power-control/power-control.component')
       },
       {
         path: 'heating-control',
-        loadComponent: () => Promise.resolve(HeatingControlComponent)
+        loadComponent: () => import('./ui/main/heating-control/heating-control.component')
       },
       {
         path: 'lightning-control',
-        loadComponent: () => Promise.resolve(LightningControlComponent)
+        loadComponent: () => import('./ui/main/lightning-control/lightning-control.component')
       },
       {
         path: 'audit-log',
-        loadComponent: () => Promise.resolve(AuditLogControlComponent)
+        loadComponent: () => import('./ui/main/audit-log-control/audit-log-control.component')
       },
-      {path: 'messages', loadComponent: () => Promise.resolve(MessagesComponent)},
+      {path: 'messages', loadComponent: () => import('./ui/main/messages/messages.component')},
     ]
   }
 ];

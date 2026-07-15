@@ -17,7 +17,7 @@ import {GeneralPressureChartComponent} from '../general-outdoor/general-pressure
         MatListModule
     ]
 })
-export class GeneralPowerComponent implements OnInit {
+export default class GeneralPowerComponent implements OnInit {
 
   powerStat = signal<PowerVoltageExt>({
     extVoltage: [{ dt: new Date(), value: 0 }]

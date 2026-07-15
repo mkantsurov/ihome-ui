@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PowerControlComponent } from './power-control.component';
+import PowerControlComponent from './power-control.component';
 
 describe('PowerControlComponent', () => {
   let component: PowerControlComponent;

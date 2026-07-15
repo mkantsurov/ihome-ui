@@ -1,17 +1,17 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MainComponent} from './ui/main/main/main.component';
-import {AccessDeniedComponent} from './ui/common/access-denied/access-denied.component';
-import {GeneralOutdoorComponent} from './ui/general/general-outdoor/general-outdoor.component';
-import {GeneralPowerComponent} from './ui/general/general-power/general-power.component';
-import {GeneralSignInComponent} from './ui/general/general-sign-in/general-sign-in.component';
-import {IndexComponent} from './ui/general/index/index.component';
-import {SummaryPageComponent} from './ui/main/summary-page/summary-page.component';
-import {PowerControlComponent} from './ui/main/power-control/power-control.component';
-import {HeatingControlComponent} from './ui/main/heating-control/heating-control.component';
-import {LightningControlComponent} from './ui/main/lightning-control/lightning-control.component';
-import {AuditLogControlComponent} from './ui/main/audit-log-control/audit-log-control.component';
-import {MessagesComponent} from './ui/main/messages/messages.component';
+import MainComponent from './ui/main/main/main.component';
+import AccessDeniedComponent from './ui/common/access-denied/access-denied.component';
+import GeneralOutdoorComponent from './ui/general/general-outdoor/general-outdoor.component';
+import GeneralPowerComponent from './ui/general/general-power/general-power.component';
+import GeneralSignInComponent from './ui/general/general-sign-in/general-sign-in.component';
+import IndexComponent from './ui/general/index/index.component';
+import SummaryPageComponent from './ui/main/summary-page/summary-page.component';
+import PowerControlComponent from './ui/main/power-control/power-control.component';
+import HeatingControlComponent from './ui/main/heating-control/heating-control.component';
+import LightningControlComponent from './ui/main/lightning-control/lightning-control.component';
+import AuditLogControlComponent from './ui/main/audit-log-control/audit-log-control.component';
+import MessagesComponent from './ui/main/messages/messages.component';
 import {authNonCompletedGuard, genericAuthGuard} from "./guards/genericAuthGuard";
 
 
