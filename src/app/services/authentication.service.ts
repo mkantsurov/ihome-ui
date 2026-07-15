@@ -5,6 +5,7 @@ import {ACCESS_TOKEN, REFRESH_TOKEN, ROLE_ADMIN, ROLE_USER} from '../domain/cons
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {GlobalService} from './global.service';
+import {Role} from "../domain/role";
 
 @Injectable({
   providedIn: 'root'
@@ -124,4 +125,32 @@ export class AuthenticationService {
     return this.decodedToken && this.decodedToken.scopes.length > 0 && this.decodedToken.scopes.indexOf(ROLE_USER) !== -1;
   }
 
+  getRoles(): Role[] {
+    const decodedToken = this.jwtHelper.decodeToken();
+    const roles: Role[] = [];
+    if (decodedToken) {
+      const scopes: string[] =  decodedToken.scopes
+      scopes.forEach(scope => {
+        // see AvsGrantedAuthority
+        switch (scope) {
+          case 'ROLE_ADMINISTRATOR':
+            roles.push(Role.ADMIN);
+            break
+          case 'ROLE_SUPERVISOR':
+            roles.push(Role.SUPERVISOR);
+            break;
+          case 'ROLE_CHILDREN_ROOM1_MANAGER':
+            roles.push(Role.CHILDREN_ROOM1_MANAGER);
+            break;
+          case 'ROLE_CHILDREN_ROOM2_MANAGER':
+            roles.push(Role.CHILDREN_ROOM2_MANAGER);
+            break;
+          case 'ROLE_AUTHORIZED_GUEST':
+            roles.push(Role.AUTHORIZED_GUEST);
+            break;
+        }
+      })
+    }
+    return roles;
+  }
 }
