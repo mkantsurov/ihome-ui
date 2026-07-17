@@ -64,7 +64,7 @@ export class AuthenticationService implements OnDestroy {
       scopes.forEach(scope => {
         // see AvsGrantedAuthority
         switch (scope) {
-          case 'ROLE_ADMINISTRATOR':
+          case 'ROLE_ADMIN':
             roles.push(Role.ADMIN);
             break
           case 'ROLE_SUPERVISOR':
