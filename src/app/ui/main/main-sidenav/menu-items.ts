@@ -41,7 +41,7 @@ export const menuItems: MenuItem[] = [
   {
     icon: 'tungsten',
     label: 'Lighting Settings',
-    route: 'lighting-control',
+    route: 'lightning-control',
     implemented: true,
     roles: [Role.ADMIN],
   },
