@@ -18,6 +18,13 @@ export const menuItems: MenuItem[] = [
     roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER, Role.CHILDREN_ROOM2_MANAGER],
   },
   {
+    icon: 'auto_awesome',
+    label: 'Chat',
+    route: 'chat',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
     icon: 'power_settings_new',
     label: 'Power Settings',
     route: 'power-control',
@@ -33,8 +40,8 @@ export const menuItems: MenuItem[] = [
   },
   {
     icon: 'tungsten',
-    label: 'Lightning Settings',
-    route: 'lightning-control',
+    label: 'Lighting Settings',
+    route: 'lighting-control',
     implemented: true,
     roles: [Role.ADMIN],
   },

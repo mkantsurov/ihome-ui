@@ -53,11 +53,35 @@ mat-sidenav {
     container-shape: 0,  // right-angle corners (default M3 is corner-large ~16px)
   ));
 
-  // Override nav-list item text to use on-primary
+  // Override list item text/icon color CSS variables for dark background
+  // These must be overridden as CSS variables — Angular Material sets them
+  // explicitly on inner elements (.mdc-list-item__primary-text etc.) so
+  // setting `color` on the parent has no effect.
+  @include mat.list-overrides((
+    list-item-label-text-color: var(--mat-sys-on-primary),
+    list-item-leading-icon-color: var(--mat-sys-on-primary),
+    list-item-trailing-icon-color: var(--mat-sys-on-primary),
+    list-item-supporting-text-color: var(--mat-sys-on-primary),
+    list-item-focus-label-text-color: var(--mat-sys-on-primary),
+    list-item-hover-label-text-color: var(--mat-sys-on-primary),
+    list-item-hover-leading-icon-color: var(--mat-sys-on-primary),
+    list-item-hover-trailing-icon-color: var(--mat-sys-on-primary),
+  ));
+
+  // Make list items transparent so sidenav background shows through
+  mat-nav-list,
+  .mat-mdc-list-item {
+    --mdc-list-list-item-container-color: transparent;
+    background-color: transparent;
+  }
+
+  // Override nav-list item text and icon color to use on-primary
   mat-nav-list,
   .mat-mdc-list-item,
   .mdc-list-item__content,
-  .menu-item-lb {
+  .menu-item-lb,
+  mat-icon,
+  .material-symbols-outlined {
     color: var(--mat-sys-on-primary);
   }
 

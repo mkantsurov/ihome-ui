@@ -53,11 +53,11 @@
       <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
         @if (row.mode === 2) {
           <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-            class="material-icons-outlined">sync
+            class="material-symbols-outlined">sync
           </mat-icon>
         } @else if (row.mode < 2) {
           <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
-            class="material-icons-outlined">sync_disabled
+            class="material-symbols-outlined">sync_disabled
           </mat-icon>
         }
       </mat-cell>
@@ -67,11 +67,11 @@
       <mat-cell *matCellDef="let row" [ngClass]="'w-50'">
         @if (row.outputPortState > 0) {
           <mat-icon aria-hidden="false" aria-label="i-home" color="accent"
-            class="material-icons-outlined">power
+            class="material-symbols-outlined">power
           </mat-icon>
         } @else if (row.outputPortState === 0) {
           <mat-icon aria-hidden="false" aria-label="i-home" color="primary"
-            class="material-icons-outlined">power_off
+            class="material-symbols-outlined">power_off
           </mat-icon>
         }
       </mat-cell>
