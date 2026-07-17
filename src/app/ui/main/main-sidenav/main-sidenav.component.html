@@ -1,7 +1,6 @@
 <div class="nav-content">
   <mat-nav-list>
     @for (item of menuItems; track item.label) {
-      <p>draw menu item</p>
       @if (item.implemented && hasPermission(item.roles)) {
         <div class="menu-item">
           <app-menu-item [item]="item" routeHistory="/main"/>
