@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit User' : 'Create User' }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" autocomplete="off" />
+    @if (form.controls.username.hasError('required')) {
+      <mat-error>Username is required</mat-error>
+    }
+    @if (form.controls.username.hasError('minlength')) {
+      <mat-error>At least 3 characters</mat-error>
+    }
+    @if (conflictError) {
+      <mat-error>Username already taken</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ isEdit ? 'New Password (leave blank to keep)' : 'Password' }}</mat-label>
+    <input matInput type="password" formControlName="password" autocomplete="new-password" />
+    @if (form.controls.password.hasError('required')) {
+      <mat-error>Password is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Roles</mat-label>
+    <mat-select formControlName="roles" multiple>
+      @for (role of allRoles; track role) {
+        <mat-option [value]="role">{{ role }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="submit()">
+    {{ isEdit ? 'Save' : 'Create' }}
+  </button>
+</mat-dialog-actions>

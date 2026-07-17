@@ -1,0 +1,10 @@
+<div class="chat-wrapper">
+  <deep-chat
+    [request]="requestConfig"
+    [requestInterceptor]="requestInterceptor"
+    [responseInterceptor]="responseInterceptor"
+    style="width: 100%; height: 100%; border: none;"
+    introMessage='{"text": "Hello! Ask me anything about your home."}'
+    [textInput]='{"placeholder": {"text": "Ask about your home…"}}'
+  ></deep-chat>
+</div>

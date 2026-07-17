@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {ExceptionResponse} from '../../../domain/exception-response';
 import {DatePipe} from '@angular/common';
-import {MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
@@ -9,11 +9,6 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './exception-modal.component.html',
   styleUrls: ['./exception-modal.component.scss'],
   imports: [
-    DatePipe,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
     MatButtonModule
   ],
   standalone: true

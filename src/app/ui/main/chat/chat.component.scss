@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+}
+
+.chat-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+  justify-content: center;
+}
