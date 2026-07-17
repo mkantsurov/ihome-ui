@@ -15,6 +15,7 @@ import {BoilerTempChartComponent} from '../chart/boiler-temp-chart/boiler-temp-c
 import {TempChartComponent} from '../chart/tempchart/temp-chart.component';
 import {GeneralPowerChartComponent} from '../../general/general-power/general-power-chart/general-power-chart.component';
 import {PowerVoltageExt} from '../../../domain/power-voltage-ext';
+import {forkJoin} from 'rxjs';
 dayjs.extend(duration);
 
 @Component({
@@ -31,7 +32,7 @@ dayjs.extend(duration);
         GeneralPowerChartComponent
     ]
 })
-export class SummaryPageComponent implements OnInit {
+export default class SummaryPageComponent implements OnInit {
 
   systemSummary = signal<SystemSummary>({
     boilerTemperature: 0,
@@ -76,23 +77,22 @@ export class SummaryPageComponent implements OnInit {
   constructor(public systemService: SystemService) { }
 
   ngOnInit(): void {
-    this.systemService.getPowerVoltageStat().subscribe(response => {
-      this.powerStat.set(response);
-      this.systemService.getSystemSummary().subscribe(systemData => {
-        this.systemSummary.set(systemData);
-        this.systemService.getTempStat().subscribe(tempStat => {
-          this.tempStat.set(tempStat);
-          this.systemService.getPressureStat().subscribe(pressureStat => {
-            this.pressureStat.set(pressureStat);
-            this.systemService.getBoilerTempStat().subscribe(boilerTempStat => {
-              this.boilerTempStat.set(boilerTempStat);
-            })
-          })
-        })
-      })
-    })
+    forkJoin({
+      powerStat: this.systemService.getPowerVoltageStat(),
+      systemSummary: this.systemService.getSystemSummary(),
+      tempStat: this.systemService.getTempStat(),
+      pressureStat: this.systemService.getPressureStat(),
+      boilerTempStat: this.systemService.getBoilerTempStat()
+    }).subscribe({
+      next: (results) => {
+        this.powerStat.set(results.powerStat as PowerVoltageExt);
+        this.systemSummary.set(results.systemSummary);
+        this.tempStat.set(results.tempStat);
+        this.pressureStat.set(results.pressureStat);
+        this.boilerTempStat.set(results.boilerTempStat);
+      }
+    });
   }
-
   getUpTime(): string {
     return dayjs.duration(this.systemSummary().upTime).format('D[d] H[h] m[m]');
   }

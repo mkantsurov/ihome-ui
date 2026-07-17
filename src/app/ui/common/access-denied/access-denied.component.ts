@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./access-denied.component.css'],
   standalone: true
 })
-export class AccessDeniedComponent implements OnInit {
+export default class AccessDeniedComponent implements OnInit {
 
   constructor() {
   }

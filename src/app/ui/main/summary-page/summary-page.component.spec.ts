@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SummaryPageComponent } from './summary-page.component';
+import SummaryPageComponent from './summary-page.component';
 
 describe('SummaryPageComponent', () => {
   let component: SummaryPageComponent;

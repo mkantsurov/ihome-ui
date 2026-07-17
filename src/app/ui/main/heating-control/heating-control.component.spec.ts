@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeatingControlComponent } from './heating-control.component';
+import HeatingControlComponent from './heating-control.component';
 
 describe('HeatingControlComponent', () => {
   let component: HeatingControlComponent;

@@ -15,6 +15,7 @@ import {LuminosityChartComponent} from '../main/chart/luminosity-chart/luminosit
 import {TempChartComponent} from '../main/chart/tempchart/temp-chart.component';
 import {BoilerTempChartComponent} from '../main/chart/boiler-temp-chart/boiler-temp-chart.component';
 import {PressureChartComponent} from '../main/chart/pressurechart/pressure-chart.component';
+import {forkJoin} from 'rxjs';
 
 
 @Component({
@@ -35,7 +36,28 @@ import {PressureChartComponent} from '../main/chart/pressurechart/pressure-chart
 })
 export class SummaryComponent implements OnInit {
 
-  systemSummary: SystemSummary;
+  systemSummary = signal<SystemSummary>({
+    boilerTemperature: 0,
+    garageHumidity: 0,
+    garageTemperature: 0,
+    gfTemperature: 0,
+    heapMax: 0,
+    heapUsage: 0,
+    heatingPumpFFMode: 0,
+    heatingPumpSFMode: 0,
+    loadAvg: 0,
+    luminosity: 0,
+    outDoorHumidity: 0,
+    outDoorTemperature: 0,
+    powerStatus: 0,
+    pressure: 0,
+    pwSrcConverterMode: 0,
+    pwSrcDirectMode: 0,
+    securityMode: 0,
+    sfHumidity: 0,
+    sfTemperature: 0,
+    upTime: 0
+  });
   tempStat = signal<TempStat>({
     indoorSf: [{ dt: new Date(), value: 0 }],
     indoorGf: [{ dt: new Date(), value: 0 }],
@@ -63,26 +85,24 @@ export class SummaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.systemService.getSystemSummary().subscribe(response => {
-      this.systemSummary = response;
-      this.systemService.getTempStat().subscribe(response => {
-        this.tempStat.set(response);
-        this.systemService.getBoilerTempStat().subscribe(response => {
-          this.boilerTempStat.set(response);
-          this.systemService.getPressureStat().subscribe(response => {
-            this.pressureStat.set(response);
-            this.systemService.getLuminosityStat().subscribe(response => {
-              this.luminosityStat.set(response);
-              this.systemService.getSystemStat().subscribe(response => {
-                this.systemStat.set(response);
-                this.systemService.getLaStat().subscribe(response => {
-                  this.laStat.set(response);
-                });
-              });
-            });
-          })
-        });
-      });
+    forkJoin({
+      systemSummary: this.systemService.getSystemSummary(),
+      tempStat: this.systemService.getTempStat(),
+      boilerTempStat: this.systemService.getBoilerTempStat(),
+      pressureStat: this.systemService.getPressureStat(),
+      luminosityStat: this.systemService.getLuminosityStat(),
+      systemStat: this.systemService.getSystemStat(),
+      laStat: this.systemService.getLaStat()
+    }).subscribe({
+      next: (results) => {
+        this.systemSummary.set(results.systemSummary);
+        this.tempStat.set(results.tempStat);
+        this.boilerTempStat.set(results.boilerTempStat);
+        this.pressureStat.set(results.pressureStat);
+        this.luminosityStat.set(results.luminosityStat);
+        this.systemStat.set(results.systemStat);
+        this.laStat.set(results.laStat);
+      }
     });
   }
 

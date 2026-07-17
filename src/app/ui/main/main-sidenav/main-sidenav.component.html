@@ -1,0 +1,11 @@
+<div class="nav-content">
+  <mat-nav-list>
+    @for (item of menuItems; track item.label) {
+      @if (item.implemented && hasPermission(item.roles)) {
+        <div class="menu-item">
+          <app-menu-item [item]="item" routeHistory="/main"/>
+        </div>
+      }
+    }
+  </mat-nav-list>
+</div>

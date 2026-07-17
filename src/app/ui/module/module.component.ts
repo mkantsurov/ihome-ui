@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, input, OnInit} from '@angular/core';
 import {ModuleSummary} from "../../domain/modulesummary";
 import {ModuleData} from "../../domain/moduledata";
 import {SystemService} from "../../services/system.service";
@@ -23,7 +23,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
  */
 export class ModuleComponent implements OnInit {
 
-  @Input() category: number;
+  readonly category = input.required<number>();
   moduleSummary: ModuleSummary[];
   selectedModule: ModuleSummary;
   moduleData: ModuleData;
@@ -32,7 +32,7 @@ export class ModuleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.systemService.getModuleList(this.category).subscribe(response => {
+    this.systemService.getModuleList(this.category()).subscribe(response => {
       this.moduleSummary = response;
     });
   }
@@ -48,27 +48,14 @@ export class ModuleComponent implements OnInit {
   }
 
   onLogicStatusChange(selectedModule: ModuleSummary) {
-    var newMode = 0;
-    if (selectedModule.mode == 0 || selectedModule.mode == 1) {
-      newMode = 2;
-    } else if (selectedModule.mode == 2) {
-      newMode = 1;
-    }
-
+    const newMode = selectedModule.mode === 0 || selectedModule.mode === 1 ? 2 : 1;
     this.systemService.updateModuleMode(selectedModule.moduleId, newMode).subscribe(() => {
       this.selectedModule.mode = newMode;
     })
   }
 
   onEnabledStatusChange(selectedModule: ModuleSummary) {
-    var newState;
-
-    if (selectedModule.outputPortState) {
-      newState = 0;
-    } else {
-      newState = 255;
-    }
-
+    const newState = selectedModule.outputPortState ? 0 : 255;
     this.systemService.updateModuleState(selectedModule.moduleId, newState).subscribe(() => {
       this.selectedModule.outputPortState = newState;
     })

@@ -7,6 +7,7 @@ import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {Role} from '../../../domain/role';
 
 
 @Component({
@@ -20,7 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule
 ]
 })
-export class GeneralSignInComponent implements OnInit {
+export default class GeneralSignInComponent implements OnInit {
   loading = false;
   loginForm: UntypedFormGroup;
   emailForm: UntypedFormGroup;
@@ -29,7 +30,7 @@ export class GeneralSignInComponent implements OnInit {
   constructor(private router: Router,
               private userService: UserService,
               private globalService: GlobalService,
-              private authenticationService: AuthenticationService,
+              protected authenticationService: AuthenticationService,
               public formBuilder: UntypedFormBuilder,
               public dialog: MatDialog) {
     this.loginForm = this.formBuilder.group({
@@ -42,18 +43,20 @@ export class GeneralSignInComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    if (this.isTokenExpired()) return;
+  private readonly SUMMARY_ROLES: Role[] = [
+    Role.ADMIN,
+    Role.SUPERVISOR,
+    Role.CHILDREN_ROOM1_MANAGER,
+    Role.CHILDREN_ROOM2_MANAGER,
+  ];
 
-    if (this.authenticationService.isUser()) {
-      this.router.navigate(['/main/summary']);
-    } else if (this.authenticationService.isAdmin()) {
+  ngOnInit(): void {
+    if (!this.authenticationService.isAuthenticated()) return;
+
+    const roles = this.authenticationService.getRoles();
+    if (roles.some(role => this.SUMMARY_ROLES.includes(role))) {
       this.router.navigate(['/main/summary']);
     }
-  }
-
-  isTokenExpired(): boolean {
-    return this.authenticationService.tokenExpired();
   }
 
   login() {
@@ -78,7 +81,8 @@ export class GeneralSignInComponent implements OnInit {
   }
 
   private navigateAfterSuccess() {
-    if (this.authenticationService.isAdmin() || this.authenticationService.isUser()) {
+    const roles = this.authenticationService.getRoles();
+    if (roles.some(role => this.SUMMARY_ROLES.includes(role))) {
       this.router.navigate(['/main/summary']);
     }
   }

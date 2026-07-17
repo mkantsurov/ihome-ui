@@ -5,7 +5,7 @@
       <mat-form-field>
         <mat-select placeholder="Error Event Type"
                     formControlName="errorType" class="mat-select">
-          <mat-option value="All">All</mat-option>
+          <mat-option value="">All</mat-option>
         </mat-select>
         <mat-error *appErrorView="searchForm.controls.errorType.errors; errorMessage as error">
           {{ error }}
@@ -41,8 +41,9 @@
   </mat-table>
 
   <mat-paginator (page)="pageChanged()"
-                 [length]="dataSource.totalCount"
-                 [pageSizeOptions]="[10, 20, 50, 100]">
+                 [length]="totalCount"
+                 [pageSizeOptions]="[10, 20, 50, 100]"
+                 [pageSize]="10">
   </mat-paginator>
 
 </div>
@@ -52,4 +53,3 @@
 <mat-progress-spinner></mat-progress-spinner>
 </div>
 }
-

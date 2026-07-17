@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralSignInComponent } from './general-sign-in.component';
+import GeneralSignInComponent from './general-sign-in.component';
 
 describe('GeneralSignInComponent', () => {
   let component: GeneralSignInComponent;

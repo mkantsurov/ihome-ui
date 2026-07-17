@@ -15,7 +15,7 @@ import {GeneralPressureChartComponent} from './general-pressure-chart/general-pr
         GeneralPressureChartComponent
     ]
 })
-export class GeneralOutdoorComponent implements OnInit {
+export default class GeneralOutdoorComponent implements OnInit {
 
   tempStat = signal<OutdoorTempStat>({
     temperature: [{ dt: new Date(), value: 0 }]

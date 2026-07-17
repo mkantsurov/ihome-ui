@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "es2022",
     "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "importHelpers": true,

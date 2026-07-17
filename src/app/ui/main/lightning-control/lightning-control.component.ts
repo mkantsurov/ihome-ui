@@ -14,7 +14,7 @@ import {MatIcon} from '@angular/material/icon';
         MatIcon
     ]
 })
-export class LightningControlComponent implements OnInit {
+export default class LightningControlComponent implements OnInit {
 
   constructor(private systemService: SystemService) { }
 

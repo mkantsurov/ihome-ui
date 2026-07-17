@@ -1,0 +1,20 @@
+@use "@angular/material" as mat;
+mat-nav-list {
+  --mat-list-active-indicator-shape:16px;
+}
+
+.menu-item {
+  padding-top: 3px;
+}
+
+.nav-content {
+  padding-top: 16px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+:root {
+  @include mat.list-overrides((
+  list-item-leading-icon-start-space:5px
+  ));
+}

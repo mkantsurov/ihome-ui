@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./audit-log-control.component.css'],
   standalone: true
 })
-export class AuditLogControlComponent implements OnInit {
+export default class AuditLogControlComponent implements OnInit {
 
   constructor() { }
 

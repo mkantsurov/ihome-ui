@@ -1,19 +1,27 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {ExceptionResponse} from '../../../domain/exception-response';
 import {DatePipe} from '@angular/common';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-exception-modal-component',
   templateUrl: './exception-modal.component.html',
   styleUrls: ['./exception-modal.component.scss'],
+  imports: [
+    DatePipe,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatButtonModule
+  ],
   standalone: true
 })
-export class ExceptionModalComponent implements OnInit {
+export class ExceptionModalComponent {
 
   exceptionResponse: ExceptionResponse;
-  time=null;
-
+  time: string | null = null;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public exceptionResponseDialogRef: MatDialogRef<ExceptionResponse>) {
     this.exceptionResponseDialogRef.disableClose = true;
@@ -24,12 +32,7 @@ export class ExceptionModalComponent implements OnInit {
     } else if (this.exceptionResponse.timeStamp) {
       this.time = new DatePipe('en-US').transform(this.exceptionResponse.timeStamp, 'yyyy-MM-dd' +
         ' HH:mm:ss');
-    } else if(this.time==null) {
-
     }
-  }
-
-  ngOnInit(): void {
   }
 
   close() {

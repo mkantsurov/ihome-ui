@@ -27,18 +27,22 @@ export class HeaderComponent implements OnInit {
         label: 'Summary',
         path: '/main/summary'
       }, {
-        label: 'Ground Floor',
-        path: '/main/gf'
+        label: 'Power Control',
+        path: '/main/power-control'
       }, {
-        label: 'Second Floor',
-        path: '/main/sf'
+        label: 'Heating Control',
+        path: '/main/heating-control'
       }, {
-        label: 'Garage',
-        path: '/main/garage'
+        label: 'Lightning Control',
+        path: '/main/lightning-control'
       },
       {
-        label: 'Exterior lighting',
-        path: '/main/el'
+        label: 'Audit Log',
+        path: '/main/audit-log'
+      },
+      {
+        label: 'Messages',
+        path: '/main/messages'
       }
     ];
   }

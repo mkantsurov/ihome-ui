@@ -1,14 +1,11 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
-import {map} from 'rxjs/operators';
-import { AsyncPipe } from '@angular/common';
+import {MediaMatcher} from '@angular/cdk/layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
+import {MainSidenavComponent} from '../main-sidenav/main-sidenav.component';
 
 @Component({
     selector: 'app-main',
@@ -16,15 +13,14 @@ import {MatButtonModule} from '@angular/material/button';
     styleUrls: ['./main.component.scss'],
     imports: [
     RouterOutlet,
-    RouterLink,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MainSidenavComponent,
 ]
 })
-export class MainComponent implements OnInit {
+export default class MainComponent implements OnInit {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
