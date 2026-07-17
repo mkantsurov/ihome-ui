@@ -52,6 +52,8 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/main/audit-log-control/audit-log-control.component')
       },
       {path: 'messages', loadComponent: () => import('./ui/main/messages/messages.component')},
+      {path: 'chat', loadComponent: () => import('./ui/main/chat/chat.component')},
+      {path: 'user-management', loadComponent: () => import('./ui/main/user-management/user-management.component')},
     ]
   }
 ];

@@ -60,6 +60,20 @@ export const menuItems: MenuItem[] = [
     roles: [Role.ADMIN],
   },
   {
+    icon: 'group',
+    label: 'User Management',
+    route: 'user-management',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
+    icon: 'group',
+    label: 'User Management',
+    route: 'user-management',
+    implemented: true,
+    roles: [Role.ADMIN],
+  },
+  {
     icon: 'logout',
     label: 'Sign-Out',
     route: 'public-sign-in',
