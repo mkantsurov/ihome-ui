@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from '../../../../services/user.service';
-import { UserRole } from '../../../../domain/user-role';
+import { Role, RoleView } from '../../../../domain/role';
 import { UserInfo } from '../../../../domain/user-info';
 
 export interface UserEditDialogData {
@@ -32,14 +32,15 @@ export class UserEditDialogComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
 
-  allRoles = Object.values(UserRole);
+  allRoles = Object.values(Role).filter(r => r !== Role.NONE);
+  RoleView = RoleView;
   conflictError = false;
   isEdit = this.data.mode === 'edit';
 
   form = this.fb.group({
     username: [this.data.user?.username ?? '', [Validators.required, Validators.minLength(3)]],
     password: ['', this.isEdit ? [] : [Validators.required]],
-    roles: [this.data.user?.roles ?? [UserRole.UNDEFINED], [Validators.required]],
+    roles: [this.data.user?.roles ?? [], [Validators.required]],
   });
 
   ngOnInit(): void {}
@@ -53,9 +54,9 @@ export class UserEditDialogComponent implements OnInit {
       ? this.userService.update(this.data.user!.id, {
           username: username || undefined,
           password: password || undefined,
-          roles: roles as UserRole[],
+          roles: roles as Role[],
         })
-      : this.userService.create({ username: username!, password: password!, roles: roles as UserRole[] });
+      : this.userService.create({ username: username!, password: password!, roles: roles as Role[] });
 
     obs.subscribe({
       next: () => this.dialogRef.close(true),
