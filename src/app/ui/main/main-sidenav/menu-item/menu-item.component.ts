@@ -1,5 +1,5 @@
 import {Component, computed, inject, input, signal} from '@angular/core';
-import {RouterLinkActive, RouterModule} from "@angular/router";
+import {Router, RouterLinkActive, RouterModule} from "@angular/router";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import {MenuItem} from "../menu-items";
@@ -15,6 +15,7 @@ import {leftMenuCollapsed} from '../../layout/signals';
 })
 export class MenuItemComponent {
   private authService = inject(AuthenticationService);
+  private router = inject(Router);
 
 
   item = input.required<MenuItem>();
@@ -36,5 +37,11 @@ export class MenuItemComponent {
       }
     }
     return false;
+  }
+
+  handleItemClick(): void {
+    if (this.item().label === 'Sign-Out') {
+      this.authService.logout();
+    }
   }
 }

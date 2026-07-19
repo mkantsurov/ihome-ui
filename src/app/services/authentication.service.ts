@@ -23,10 +23,35 @@ export class AuthenticationService implements OnDestroy {
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
     if (accessToken) {
       if (this.jwtHelper.isTokenExpired(accessToken)) {
-        this.refreshToken();
+        this.refreshToken().subscribe({
+          next: (refreshed) => {
+            if (refreshed) {
+              console.log('Token refreshed successfully on init');
+            } else {
+              console.log('Token refresh returned false on init');
+              localStorage.removeItem(ACCESS_TOKEN);
+            }
+          },
+          error: (err) => {
+            console.error('Token refresh failed on init', err);
+            localStorage.removeItem(ACCESS_TOKEN);
+          }
+        });
       }
     } else {
-      this.refreshToken();
+      this.refreshToken().subscribe({
+        next: (refreshed) => {
+          if (refreshed) {
+            console.log('Token refreshed successfully on init (no previous token)');
+          } else {
+            console.log('Token refresh returned false on init (no previous token)');
+          }
+        },
+        error: (err) => {
+          console.error('Token refresh failed on init', err);
+          // No token to remove — user needs to log in
+        }
+      });
     }
   }
 
@@ -146,28 +171,23 @@ export class AuthenticationService implements OnDestroy {
   logout(): void {
     const url = this.baseUrl + '/logout';
     console.log(`Attempt to perform logout. Invoking server (POST): ${url}`);
-    const logoutObserver = {
-      rt: this.router,
-      // eslint-disable-next-line
-      next(value: HttpResponse<void>) {
+    this.http.post<void>(url, this.getJti(), {observe: 'response'}).subscribe({
+      next: () => {
         console.log("Initiating logout.");
         localStorage.clear();
         console.log('storage cleared');
-        this.rx.deactivate().then(() => {
-          console.log("rxStompService deactivated");
-        })
-        this.uds.deactivate();
-        this.rt.navigate(['/login']);
+        this.router.navigate(['/login']);
       },
-      // eslint-disable-next-line
-      error(err: any) {
+      error: (err) => {
         console.log('Logout error ' + JSON.stringify(err));
+        // Even if the server call fails, clear local storage and redirect
+        localStorage.clear();
+        this.router.navigate(['/login']);
       },
-      complete() {
-        console.log('Logout completed: ');
+      complete: () => {
+        console.log('Logout completed');
       }
-    };
-    this.http.post<void>(url, this.getJti(), {observe: 'response'}).subscribe(logoutObserver);
+    });
   }
 
   ngOnDestroy(): void {

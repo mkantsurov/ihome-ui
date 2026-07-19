@@ -1,8 +1,8 @@
 <a
   mat-list-item
   [style.--mat-list-list-item-leading-icon-start-space]="indentation()"
-  [routerLink]="routeHistory() + '/' + item().route"
-  (click)="nestedItemOpen.set(!nestedItemOpen())"
+  [routerLink]="item().label === 'Sign-Out' ? null : routeHistory() + '/' + item().route"
+  (click)="handleItemClick(); nestedItemOpen.set(!nestedItemOpen())"
   routerLinkActive
   #rla="routerLinkActive"
   [activated]="rla.isActive"
