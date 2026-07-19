@@ -22,7 +22,7 @@ export const menuItems: MenuItem[] = [
     label: 'Chat',
     route: 'chat',
     implemented: true,
-    roles: [Role.ADMIN],
+    roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER, Role.CHILDREN_ROOM2_MANAGER, Role.AUTHORIZED_GUEST],
   },
   {
     icon: 'power_settings_new',
@@ -71,6 +71,6 @@ export const menuItems: MenuItem[] = [
     label: 'Sign-Out',
     route: 'public-sign-in',
     implemented: true,
-    roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER, Role.CHILDREN_ROOM2_MANAGER],
+    roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER, Role.CHILDREN_ROOM2_MANAGER, Role.AUTHORIZED_GUEST],
   },
 ]

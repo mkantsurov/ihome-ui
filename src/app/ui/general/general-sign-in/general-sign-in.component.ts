@@ -3,7 +3,6 @@ import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators} f
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {GlobalService} from '../../../services/global.service';
-import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,7 +27,6 @@ export default class GeneralSignInComponent implements OnInit {
   loginAttemptErrorMsg: string = null;
 
   constructor(private router: Router,
-              private userService: UserService,
               private globalService: GlobalService,
               protected authenticationService: AuthenticationService,
               public formBuilder: UntypedFormBuilder,
@@ -50,13 +48,14 @@ export default class GeneralSignInComponent implements OnInit {
     Role.CHILDREN_ROOM2_MANAGER,
   ];
 
+  private readonly CHAT_ROLES: Role[] = [
+    Role.AUTHORIZED_GUEST,
+  ];
+
   ngOnInit(): void {
     if (!this.authenticationService.isAuthenticated()) return;
 
-    const roles = this.authenticationService.getRoles();
-    if (roles.some(role => this.SUMMARY_ROLES.includes(role))) {
-      this.router.navigate(['/main/summary']);
-    }
+    this.navigateAfterSuccess();
   }
 
   login() {
@@ -84,6 +83,11 @@ export default class GeneralSignInComponent implements OnInit {
     const roles = this.authenticationService.getRoles();
     if (roles.some(role => this.SUMMARY_ROLES.includes(role))) {
       this.router.navigate(['/main/summary']);
+    } else if (roles.some(role => this.CHAT_ROLES.includes(role))) {
+      this.router.navigate(['/main/chat']);
+    } else {
+      // Fallback for any other roles
+      this.router.navigate(['/main']);
     }
   }
 

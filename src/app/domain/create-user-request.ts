@@ -1,7 +1,7 @@
-import { UserRole } from './user-role';
+import { Role } from './role';
 
 export interface CreateUserRequest {
   username: string;
   password: string;
-  roles: UserRole[];
+  roles: Role[];
 }
