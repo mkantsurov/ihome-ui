@@ -53,19 +53,19 @@ export const routes: Routes = [
         path: 'power-control',
         loadComponent: () => import('./ui/main/power-control/power-control.component'),
         canActivate: [roleGuard],
-        data: {roles: [Role.ADMIN]}
+        data: {roles: [Role.ADMIN, Role.SUPERVISOR]}
       },
       {
         path: 'heating-control',
         loadComponent: () => import('./ui/main/heating-control/heating-control.component'),
         canActivate: [roleGuard],
-        data: {roles: [Role.ADMIN]}
+        data: {roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER]}
       },
       {
         path: 'lightning-control',
         loadComponent: () => import('./ui/main/lightning-control/lightning-control.component'),
         canActivate: [roleGuard],
-        data: {roles: [Role.ADMIN]}
+        data: {roles: [Role.ADMIN, Role.SUPERVISOR, Role.CHILDREN_ROOM1_MANAGER]}
       },
       {
         path: 'audit-log',
