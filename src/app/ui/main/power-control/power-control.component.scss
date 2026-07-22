@@ -18,12 +18,23 @@
   grid-row: 1/5;
   display: grid;
   grid-template-columns: 600px;
-  grid-template-rows: 350px 350px 350px;
+  grid-template-rows: 300px 300px 300px;
   grid-gap: 5px;
 }
 
 .chart-container {
   grid-column: auto;
+  height: 100%;
+}
+
+.chart-container2 {
+  grid-column: auto;
+  height: 100%;
+}
+
+.chart-container3 {
+  grid-column: auto;
+  height: 100%;
 }
 
 .data-header {

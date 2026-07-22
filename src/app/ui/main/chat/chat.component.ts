@@ -16,8 +16,7 @@ export default class ChatComponent {
     method: 'POST',
   };
 
-  // Transform Deep Chat's { messages: [...] } → { message: string }
-  // and inject the JWT Authorization header.
+  // Send the last 5 messages as conversation context for the backend.
   readonly requestInterceptor = (details: any) => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     details.headers = {
@@ -25,9 +24,10 @@ export default class ChatComponent {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
+    // details.body.messages already contains only the last 5 messages
+    // thanks to the requestBodyLimits setting. Forward them as conversation history.
     const messages: { role: string; text: string }[] = details.body?.messages ?? [];
-    const lastUser = [...messages].reverse().find(m => m.role === 'user');
-    details.body = {message: lastUser?.text ?? ''};
+    details.body = {messages};
     return details;
   };
 
