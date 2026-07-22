@@ -1,3 +1,8 @@
+export interface MessageEntry {
+  role: 'user' | 'ai';
+  text: string;
+}
+
 export interface ChatRequest {
-  message: string;
+  messages: MessageEntry[];
 }
